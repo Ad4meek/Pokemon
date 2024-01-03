@@ -13,7 +13,7 @@ image.onload = () => {
     ctx.drawImage(image, -1900, -600)
 }
 
-const character = new Pharacter()
+const character = new Image()
 character.src = '../res/img/characters/characterDown.png'
 
 character.onload = () => {
