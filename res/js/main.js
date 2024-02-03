@@ -1,3 +1,5 @@
+import { collisions } from "./collisions.js";
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -14,11 +16,6 @@ class Boundary {
     this.position = position;
     this.width = 80;
     this.height = 80;
-  }
-
-  draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -49,6 +46,9 @@ image.src = "./res/img/maps/testmap.png";
 
 const characterImage = new Image();
 characterImage.src = "./res/img/characters/characterDown.png";
+
+const foregroundImage = new Image();
+foregroundImage.src = "./res/img/maps/foreground.png";
 
 class Sprite {
   constructor({ position, image, frames = { max: 1 } }) {
@@ -88,6 +88,11 @@ const background = new Sprite({
   image: image,
 });
 
+const foreground = new Sprite({
+  position: { x: -1920, y: -600 },
+  image: foregroundImage,
+});
+
 const keys = {
   w: {
     pressed: false,
@@ -102,18 +107,16 @@ const keys = {
     pressed: false,
   },
 };
-coliding = false;
+
 // Drawing images
 
-const movables = [background, ...boundaries];
+const movables = [background, ...boundaries, foreground];
 
 function animation() {
   window.requestAnimationFrame(animation);
   background.draw();
-  boundaries.forEach((boundary) => {
-    boundary.draw();
-  });
   character.draw();
+  foreground.draw();
   let coliding = false;
 
   // Moving UP
