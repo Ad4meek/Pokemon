@@ -28,7 +28,7 @@ const offset = {
 
 collisionMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 92) {
+    if (symbol === 2663) {
       boundaries.push(
         new Boundary({
           position: {
@@ -45,30 +45,56 @@ const image = new Image();
 image.src = "./res/img/maps/testmap.png";
 
 const characterImage = new Image();
-characterImage.src = "./res/img/characters/characterDown.png";
+window.onload = () => {
+  characterImage.src = "./res/img/characters/characterDown.png";
+}
+
 
 const foregroundImage = new Image();
 foregroundImage.src = "./res/img/maps/foreground.png";
 
 class Sprite {
-  constructor({ position, image, frames = { max: 1 } }) {
+  constructor({
+    position,
+    image,
+    frames = { numberOfFrames: 1, imagePosition: 0, waitingFrames: 0 },
+  }) {
     this.position = position;
     this.image = image;
     this.frames = frames;
+    this.moving = false;
   }
 
   draw() {
     ctx.drawImage(
       this.image,
+      this.frames.imagePosition * 31,
       0,
-      0,
-      this.image.width / this.frames.max,
+      this.image.width / this.frames.numberOfFrames,
       this.image.height,
       this.position.x,
       this.position.y,
-      this.image.width / this.frames.max,
+      this.image.width / this.frames.numberOfFrames,
       this.image.height
     );
+
+      console.log(this.frames.imagePosition)
+
+    if (this.moving) {
+      if (this.frames.numberOfFrames > 1) {
+        this.frames.waitingFrames++;
+      }
+      if (this.frames.waitingFrames % 18 === 0) {
+        if (this.frames.imagePosition < this.frames.numberOfFrames - 1) {
+          this.frames.imagePosition++;
+        } else {
+          this.frames.imagePosition = 0;
+        }
+      }
+    }
+    else {
+      this.frames.imagePosition = 0;
+    }
   }
 }
 
@@ -79,7 +105,9 @@ const character = new Sprite({
     y: canvas.height / 2 - 38 / 2,
   },
   frames: {
-    max: 4,
+    numberOfFrames: 4,
+    imagePosition: 0,
+    waitingFrames: 0,
   },
 });
 
@@ -121,7 +149,10 @@ function animation() {
 
   // Moving UP
 
+  character.moving = false
   if (keys.w.pressed) {
+    characterImage.src = "./res/img/characters/characterUp.png";
+    character.moving = true
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -137,13 +168,17 @@ function animation() {
         break;
       }
     }
-    if (!coliding)
+    if (!coliding){
       movables.forEach((movable) => {
         movable.position.y += 3;
       });
+    }
+      
 
     // Moving LEFT
   } else if (keys.a.pressed) {
+    character.moving = true
+    characterImage.src = "./res/img/characters/characterLeft.png";
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -165,6 +200,8 @@ function animation() {
 
     // Moving DOWN
   } else if (keys.s.pressed) {
+    characterImage.src = "./res/img/characters/characterDown.png";
+    character.moving = true
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -187,6 +224,8 @@ function animation() {
 
     // Moving RIGHT
   } else if (keys.d.pressed) {
+    characterImage.src = "./res/img/characters/characterRight.png";
+    character.moving = true
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
