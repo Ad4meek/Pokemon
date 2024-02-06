@@ -1,4 +1,4 @@
-import { collisions } from "./collisions.js";
+import { map } from "./map.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -6,9 +6,11 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1280;
 canvas.height = 640;
 
+// Collisions
+
 const collisionMap = [];
-for (let i = 0; i < collisions.length; i += 40) {
-  collisionMap.push(collisions.slice(i, 40 + i));
+for (let i = 0; i < map.length; i += 40) {
+  collisionMap.push(map.slice(i, 40 + i));
 }
 
 class Boundary {
@@ -41,17 +43,55 @@ collisionMap.forEach((row, i) => {
   });
 });
 
+// Tall Grass
+
+const tallGrassMap = [];
+for (let i = 0; i < map.length; i += 40) {
+  tallGrassMap.push(map.slice(i, 40 + i));
+}
+
+class TallGrass {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+}
+
+const tallGrasses = [];
+
+tallGrassMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 1) {
+      tallGrasses.push(
+        new TallGrass({
+          position: {
+            x: j * 80 + offset.x,
+            y: i * 80 + offset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
+
+
+// Images
+
+window.onload = () => {
+  characterImage.src = "./res/img/characters/characterDown.png";
+};
+
 const image = new Image();
 image.src = "./res/img/maps/testmap.png";
 
 const characterImage = new Image();
-window.onload = () => {
-  characterImage.src = "./res/img/characters/characterDown.png";
-}
-
 
 const foregroundImage = new Image();
 foregroundImage.src = "./res/img/maps/foreground.png";
+
+// Map Draw
 
 class Sprite {
   constructor({
@@ -78,8 +118,6 @@ class Sprite {
       this.image.height
     );
 
-      console.log(this.frames.imagePosition)
-
     if (this.moving) {
       if (this.frames.numberOfFrames > 1) {
         this.frames.waitingFrames++;
@@ -91,8 +129,7 @@ class Sprite {
           this.frames.imagePosition = 0;
         }
       }
-    }
-    else {
+    } else {
       this.frames.imagePosition = 0;
     }
   }
@@ -149,10 +186,10 @@ function animation() {
 
   // Moving UP
 
-  character.moving = false
+  character.moving = false;
   if (keys.w.pressed) {
     characterImage.src = "./res/img/characters/characterUp.png";
-    character.moving = true
+    character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -168,16 +205,27 @@ function animation() {
         break;
       }
     }
-    if (!coliding){
+    for (let i = 0; i < tallGrasses.length; i++) {
+      const grasstall = tallGrasses[i];
+      
+      if (
+        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
+        character.position.x <= grasstall.position.x + grasstall.width &&
+        character.position.y + characterImage.height >= grasstall.position.y &&
+        character.position.y <= grasstall.position.y + grasstall.height
+      ) {
+        console.log("funguje to")
+      }
+    }
+    if (!coliding) {
       movables.forEach((movable) => {
         movable.position.y += 3;
       });
     }
-      
 
     // Moving LEFT
   } else if (keys.a.pressed) {
-    character.moving = true
+    character.moving = true;
     characterImage.src = "./res/img/characters/characterLeft.png";
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -193,6 +241,18 @@ function animation() {
         break;
       }
     }
+    for (let i = 0; i < tallGrasses.length; i++) {
+      const grasstall = tallGrasses[i];
+      
+      if (
+        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
+        character.position.x <= grasstall.position.x + grasstall.width &&
+        character.position.y + characterImage.height >= grasstall.position.y &&
+        character.position.y <= grasstall.position.y + grasstall.height
+      ) {
+        console.log("funguje to")
+      }
+    }
     if (!coliding)
       movables.forEach((movable) => {
         movable.position.x += 3;
@@ -201,10 +261,10 @@ function animation() {
     // Moving DOWN
   } else if (keys.s.pressed) {
     characterImage.src = "./res/img/characters/characterDown.png";
-    character.moving = true
+    character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
-
+      
       if (
         character.position.x + characterImage.width / 4 >=
           boundary.position.x &&
@@ -225,7 +285,7 @@ function animation() {
     // Moving RIGHT
   } else if (keys.d.pressed) {
     characterImage.src = "./res/img/characters/characterRight.png";
-    character.moving = true
+    character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -240,13 +300,21 @@ function animation() {
         break;
       }
     }
+    
     if (!coliding)
       movables.forEach((movable) => {
         movable.position.x -= 3;
       });
   }
+  
+  
+
 }
 animation();
+
+// testing
+
+
 
 // Movement
 
