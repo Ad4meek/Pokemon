@@ -94,7 +94,7 @@ tallGrassMap.forEach((row, i) => {
 // Images
 
 window.onload = () => {
-  characterImage.src = "./res/img/characters/characterDown.png";
+  characterImage.src = "./res/img/characters/characterDownTest.png";
 };
 
 const image = new Image();
@@ -122,7 +122,7 @@ class Sprite {
   draw() {
     ctx.drawImage(
       this.image,
-      this.frames.imagePosition * 31,
+      this.frames.imagePosition * 50,
       0,
       this.image.width / this.frames.numberOfFrames,
       this.image.height,
@@ -247,7 +247,7 @@ function animation() {
     // Moving LEFT
   } else if (keys.a.pressed) {
     character.moving = true;
-    characterImage.src = "./res/img/characters/characterLeft.png";
+    characterImage.src = "./res/img/characters/characterLeftTest.png";
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
 
@@ -281,7 +281,7 @@ function animation() {
 
     // Moving DOWN
   } else if (keys.s.pressed) {
-    characterImage.src = "./res/img/characters/characterDown.png";
+    characterImage.src = "./res/img/characters/characterDownTest.png";
     character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
