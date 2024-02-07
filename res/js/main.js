@@ -19,6 +19,12 @@ class Boundary {
     this.width = 80;
     this.height = 80;
   }
+
+  draw() {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+
 }
 
 const boundaries = [];
@@ -30,7 +36,7 @@ const offset = {
 
 collisionMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 2663) {
+    if (symbol === 2) {
       boundaries.push(
         new Boundary({
           position: {
@@ -42,6 +48,8 @@ collisionMap.forEach((row, i) => {
     }
   });
 });
+
+
 
 // Tall Grass
 
@@ -56,6 +64,12 @@ class TallGrass {
     this.width = 80;
     this.height = 80;
   }
+
+  draw() {
+    ctx.fillStyle = "green";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+
 }
 
 const tallGrasses = [];
@@ -175,13 +189,20 @@ const keys = {
 
 // Drawing images
 
-const movables = [background, ...boundaries, foreground];
+const movables = [background, ...boundaries, foreground, ...tallGrasses];
 
 function animation() {
   window.requestAnimationFrame(animation);
   background.draw();
+  boundaries.forEach(boundary => {
+    boundary.draw()
+  })
+  tallGrasses.forEach(tallGrass => {
+    tallGrass.draw()
+  })
   character.draw();
   foreground.draw();
+
   let coliding = false;
 
   // Moving UP
@@ -277,6 +298,18 @@ function animation() {
         break;
       }
     }
+    for (let i = 0; i < tallGrasses.length; i++) {
+      const grasstall = tallGrasses[i];
+      
+      if (
+        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
+        character.position.x <= grasstall.position.x + grasstall.width &&
+        character.position.y + characterImage.height >= grasstall.position.y &&
+        character.position.y <= grasstall.position.y + grasstall.height
+      ) {
+        console.log("funguje to")
+      }
+    }
     if (!coliding)
       movables.forEach((movable) => {
         movable.position.y -= 3;
@@ -300,7 +333,18 @@ function animation() {
         break;
       }
     }
-    
+    for (let i = 0; i < tallGrasses.length; i++) {
+      const grasstall = tallGrasses[i];
+      
+      if (
+        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
+        character.position.x <= grasstall.position.x + grasstall.width &&
+        character.position.y + characterImage.height >= grasstall.position.y &&
+        character.position.y <= grasstall.position.y + grasstall.height
+      ) {
+        console.log("funguje to")
+      }
+    }
     if (!coliding)
       movables.forEach((movable) => {
         movable.position.x -= 3;
