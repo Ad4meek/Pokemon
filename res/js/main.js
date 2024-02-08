@@ -209,7 +209,7 @@ function animation() {
 
   character.moving = false;
   if (keys.w.pressed) {
-    characterImage.src = "./res/img/characters/characterUp.png";
+    characterImage.src = "./res/img/characters/characterUpTest.png";
     character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -317,7 +317,7 @@ function animation() {
 
     // Moving RIGHT
   } else if (keys.d.pressed) {
-    characterImage.src = "./res/img/characters/characterRight.png";
+    characterImage.src = "./res/img/characters/characterRightTest.png";
     character.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
