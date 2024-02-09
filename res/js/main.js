@@ -22,9 +22,8 @@ class Boundary {
 
   draw() {
     ctx.fillStyle = "blue";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
-
 }
 
 const boundaries = [];
@@ -49,8 +48,6 @@ collisionMap.forEach((row, i) => {
   });
 });
 
-
-
 // Tall Grass
 
 const tallGrassMap = [];
@@ -67,9 +64,8 @@ class TallGrass {
 
   draw() {
     ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
-
 }
 
 const tallGrasses = [];
@@ -88,8 +84,6 @@ tallGrassMap.forEach((row, i) => {
     }
   });
 });
-
-
 
 // Images
 
@@ -136,7 +130,7 @@ class Sprite {
       if (this.frames.numberOfFrames > 1) {
         this.frames.waitingFrames++;
       }
-      if (this.frames.waitingFrames % 18 === 0) {
+      if (this.frames.waitingFrames % 10 === 0) {
         if (this.frames.imagePosition < this.frames.numberOfFrames - 1) {
           this.frames.imagePosition++;
         } else {
@@ -191,174 +185,188 @@ const keys = {
 
 const movables = [background, ...boundaries, foreground, ...tallGrasses];
 
+let then = Date.now();
+let now;
+let delta;
+let interval = 1000 / 59;
+
 function animation() {
   window.requestAnimationFrame(animation);
-  background.draw();
-  boundaries.forEach(boundary => {
-    boundary.draw()
-  })
-  tallGrasses.forEach(tallGrass => {
-    tallGrass.draw()
-  })
-  character.draw();
-  foreground.draw();
+  now = Date.now();
+  delta = now - then;
+  if (delta > interval) {
+    then = now - (delta % interval);
+    background.draw();
+    boundaries.forEach((boundary) => {
+      boundary.draw();
+    });
+    tallGrasses.forEach((tallGrass) => {
+      tallGrass.draw();
+    });
+    character.draw();
+    foreground.draw();
 
-  let coliding = false;
+    let coliding = false;
 
-  // Moving UP
+    // Moving UP
 
-  character.moving = false;
-  if (keys.w.pressed) {
-    characterImage.src = "./res/img/characters/characterUpTest.png";
-    character.moving = true;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
+    character.moving = false;
+    if (keys.w.pressed) {
+      characterImage.src = "./res/img/characters/characterUpTest.png";
+      character.moving = true;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
 
-      if (
-        character.position.x + characterImage.width / 4 >=
-          boundary.position.x &&
-        character.position.x <= boundary.position.x + boundary.width &&
-        character.position.y + characterImage.height >=
-          boundary.position.y + 3 &&
-        character.position.y <= boundary.position.y + boundary.height + 3
-      ) {
-        coliding = true;
-        break;
+        if (
+          character.position.x + characterImage.width / 4 >=
+            boundary.position.x &&
+          character.position.x <= boundary.position.x + boundary.width &&
+          character.position.y + characterImage.height >=
+            boundary.position.y + 5 &&
+          character.position.y <= boundary.position.y + boundary.height + 5
+        ) {
+          coliding = true;
+          break;
+        }
       }
-    }
-    for (let i = 0; i < tallGrasses.length; i++) {
-      const grasstall = tallGrasses[i];
-      
-      if (
-        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
-        character.position.x <= grasstall.position.x + grasstall.width &&
-        character.position.y + characterImage.height >= grasstall.position.y &&
-        character.position.y <= grasstall.position.y + grasstall.height
-      ) {
-        console.log("funguje to")
-      }
-    }
-    if (!coliding) {
-      movables.forEach((movable) => {
-        movable.position.y += 3;
-      });
-    }
+      for (let i = 0; i < tallGrasses.length; i++) {
+        const grasstall = tallGrasses[i];
 
-    // Moving LEFT
-  } else if (keys.a.pressed) {
-    character.moving = true;
-    characterImage.src = "./res/img/characters/characterLeftTest.png";
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
+        if (
+          character.position.x + characterImage.width / 4 >=
+            grasstall.position.x &&
+          character.position.x <= grasstall.position.x + grasstall.width &&
+          character.position.y + characterImage.height >=
+            grasstall.position.y &&
+          character.position.y <= grasstall.position.y + grasstall.height
+        ) {
+          console.log("funguje to");
+        }
+      }
+      if (!coliding) {
+        movables.forEach((movable) => {
+          movable.position.y += 5;
+        });
+      }
 
-      if (
-        character.position.x + characterImage.width / 4 >=
-          boundary.position.x + 3 &&
-        character.position.x <= boundary.position.x + boundary.width + 3 &&
-        character.position.y + characterImage.height >= boundary.position.y &&
-        character.position.y <= boundary.position.y + boundary.height
-      ) {
-        coliding = true;
-        break;
-      }
-    }
-    for (let i = 0; i < tallGrasses.length; i++) {
-      const grasstall = tallGrasses[i];
-      
-      if (
-        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
-        character.position.x <= grasstall.position.x + grasstall.width &&
-        character.position.y + characterImage.height >= grasstall.position.y &&
-        character.position.y <= grasstall.position.y + grasstall.height
-      ) {
-        console.log("funguje to")
-      }
-    }
-    if (!coliding)
-      movables.forEach((movable) => {
-        movable.position.x += 3;
-      });
+      // Moving LEFT
+    } else if (keys.a.pressed) {
+      character.moving = true;
+      characterImage.src = "./res/img/characters/characterLeftTest.png";
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
 
-    // Moving DOWN
-  } else if (keys.s.pressed) {
-    characterImage.src = "./res/img/characters/characterDownTest.png";
-    character.moving = true;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
-      
-      if (
-        character.position.x + characterImage.width / 4 >=
-          boundary.position.x &&
-        character.position.x <= boundary.position.x + boundary.width &&
-        character.position.y + characterImage.height >=
-          boundary.position.y - 3 &&
-        character.position.y <= boundary.position.y + boundary.height - 3
-      ) {
-        coliding = true;
-        break;
+        if (
+          character.position.x + characterImage.width / 4 >=
+            boundary.position.x + 5 &&
+          character.position.x <= boundary.position.x + boundary.width + 5 &&
+          character.position.y + characterImage.height >= boundary.position.y &&
+          character.position.y <= boundary.position.y + boundary.height
+        ) {
+          coliding = true;
+          break;
+        }
       }
-    }
-    for (let i = 0; i < tallGrasses.length; i++) {
-      const grasstall = tallGrasses[i];
-      
-      if (
-        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
-        character.position.x <= grasstall.position.x + grasstall.width &&
-        character.position.y + characterImage.height >= grasstall.position.y &&
-        character.position.y <= grasstall.position.y + grasstall.height
-      ) {
-        console.log("funguje to")
-      }
-    }
-    if (!coliding)
-      movables.forEach((movable) => {
-        movable.position.y -= 3;
-      });
+      for (let i = 0; i < tallGrasses.length; i++) {
+        const grasstall = tallGrasses[i];
 
-    // Moving RIGHT
-  } else if (keys.d.pressed) {
-    characterImage.src = "./res/img/characters/characterRightTest.png";
-    character.moving = true;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
+        if (
+          character.position.x + characterImage.width / 4 >=
+            grasstall.position.x &&
+          character.position.x <= grasstall.position.x + grasstall.width &&
+          character.position.y + characterImage.height >=
+            grasstall.position.y &&
+          character.position.y <= grasstall.position.y + grasstall.height
+        ) {
+          console.log("funguje to");
+        }
+      }
+      if (!coliding)
+        movables.forEach((movable) => {
+          movable.position.x += 5;
+        });
 
-      if (
-        character.position.x + characterImage.width / 4 >=
-          boundary.position.x - 3 &&
-        character.position.x <= boundary.position.x + boundary.width - 3 &&
-        character.position.y + characterImage.height >= boundary.position.y &&
-        character.position.y <= boundary.position.y + boundary.height
-      ) {
-        coliding = true;
-        break;
+      // Moving DOWN
+    } else if (keys.s.pressed) {
+      characterImage.src = "./res/img/characters/characterDownTest.png";
+      character.moving = true;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+
+        if (
+          character.position.x + characterImage.width / 4 >=
+            boundary.position.x &&
+          character.position.x <= boundary.position.x + boundary.width &&
+          character.position.y + characterImage.height >=
+            boundary.position.y - 5 &&
+          character.position.y <= boundary.position.y + boundary.height - 5
+        ) {
+          coliding = true;
+          break;
+        }
       }
-    }
-    for (let i = 0; i < tallGrasses.length; i++) {
-      const grasstall = tallGrasses[i];
-      
-      if (
-        character.position.x + characterImage.width / 4 >= grasstall.position.x &&
-        character.position.x <= grasstall.position.x + grasstall.width &&
-        character.position.y + characterImage.height >= grasstall.position.y &&
-        character.position.y <= grasstall.position.y + grasstall.height
-      ) {
-        console.log("funguje to")
+      for (let i = 0; i < tallGrasses.length; i++) {
+        const grasstall = tallGrasses[i];
+
+        if (
+          character.position.x + characterImage.width / 4 >=
+            grasstall.position.x &&
+          character.position.x <= grasstall.position.x + grasstall.width &&
+          character.position.y + characterImage.height >=
+            grasstall.position.y &&
+          character.position.y <= grasstall.position.y + grasstall.height
+        ) {
+          console.log("funguje to");
+        }
       }
+      if (!coliding)
+        movables.forEach((movable) => {
+          movable.position.y -= 5;
+        });
+
+      // Moving RIGHT
+    } else if (keys.d.pressed) {
+      characterImage.src = "./res/img/characters/characterRightTest.png";
+      character.moving = true;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+
+        if (
+          character.position.x + characterImage.width / 4 >=
+            boundary.position.x - 5 &&
+          character.position.x <= boundary.position.x + boundary.width - 5 &&
+          character.position.y + characterImage.height >= boundary.position.y &&
+          character.position.y <= boundary.position.y + boundary.height
+        ) {
+          coliding = true;
+          break;
+        }
+      }
+      for (let i = 0; i < tallGrasses.length; i++) {
+        const grasstall = tallGrasses[i];
+
+        if (
+          character.position.x + characterImage.width / 4 >=
+            grasstall.position.x &&
+          character.position.x <= grasstall.position.x + grasstall.width &&
+          character.position.y + characterImage.height >=
+            grasstall.position.y &&
+          character.position.y <= grasstall.position.y + grasstall.height
+        ) {
+          console.log("funguje to");
+        }
+      }
+      if (!coliding)
+        movables.forEach((movable) => {
+          movable.position.x -= 5;
+        });
     }
-    if (!coliding)
-      movables.forEach((movable) => {
-        movable.position.x -= 3;
-      });
   }
-  
-  
-
 }
+
 animation();
 
 // testing
-
-
 
 // Movement
 
