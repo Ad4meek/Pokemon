@@ -88,7 +88,7 @@ tallGrassMap.forEach((row, i) => {
 // Images
 
 window.onload = () => {
-  characterImage.src = "./res/img/characters/characterDownTest.png";
+  characterImage.src = "./res/img/characters/characterDown.png";
 };
 
 const image = new Image();
@@ -212,7 +212,7 @@ function animation() {
 
     character.moving = false;
     if (keys.w.pressed) {
-      characterImage.src = "./res/img/characters/characterUpTest.png";
+      characterImage.src = "./res/img/characters/characterUp.png";
       character.moving = true;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
@@ -240,7 +240,9 @@ function animation() {
             grasstall.position.y &&
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
-          console.log("funguje to");
+          if (!coliding) {
+            battle()
+          }
         }
       }
       if (!coliding) {
@@ -252,7 +254,7 @@ function animation() {
       // Moving LEFT
     } else if (keys.a.pressed) {
       character.moving = true;
-      characterImage.src = "./res/img/characters/characterLeftTest.png";
+      characterImage.src = "./res/img/characters/characterLeft.png";
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
 
@@ -278,7 +280,9 @@ function animation() {
             grasstall.position.y &&
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
-          console.log("funguje to");
+          if (!coliding) {
+            battle()
+          }
         }
       }
       if (!coliding)
@@ -288,7 +292,7 @@ function animation() {
 
       // Moving DOWN
     } else if (keys.s.pressed) {
-      characterImage.src = "./res/img/characters/characterDownTest.png";
+      characterImage.src = "./res/img/characters/characterDown.png";
       character.moving = true;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
@@ -316,7 +320,9 @@ function animation() {
             grasstall.position.y &&
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
-          console.log("funguje to");
+          if (!coliding) {
+            battle()
+          }
         }
       }
       if (!coliding)
@@ -326,7 +332,7 @@ function animation() {
 
       // Moving RIGHT
     } else if (keys.d.pressed) {
-      characterImage.src = "./res/img/characters/characterRightTest.png";
+      characterImage.src = "./res/img/characters/characterRight.png";
       character.moving = true;
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
@@ -353,7 +359,9 @@ function animation() {
             grasstall.position.y &&
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
-          console.log("funguje to");
+          if (!coliding) {
+            battle()
+          }
         }
       }
       if (!coliding)
@@ -365,8 +373,6 @@ function animation() {
 }
 
 animation();
-
-// testing
 
 // Movement
 

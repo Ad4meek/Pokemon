@@ -14,3 +14,10 @@ canvas {
     left: 0;
     right: 0;
 }
+
+#battleground {
+    background-color: brown;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+}
