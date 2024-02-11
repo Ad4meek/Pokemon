@@ -16,8 +16,75 @@ canvas {
 }
 
 #battleground {
-    background-color: brown;
-    height: 100vh;
-    width: 100vw;
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("../img/backgrounds/battleBackground.png");
+    height: 800px;
+    width: 1600px;
     display: none;
+}
+
+#back {
+    position: absolute;
+    top: 650px;
+    left: 950px;
+}
+
+#tackle {
+    position: absolute;
+    top: 650px;
+    left: 550px;
+}
+
+#specialAttack {
+    position: absolute;
+    top:700px;
+    left: 550px;
+}
+
+#myPokemonName {
+    position: absolute;
+    top:50px;
+    left: 250px;
+}
+
+#myPokemonHp {
+    position: absolute;
+    top:50px;
+    left: 450px;
+}
+
+#enemyPokemonName {
+    position: absolute;
+    top:50px;
+    left: 1150px;
+}
+
+#enemyPokemonHp {
+    position: absolute;
+    top:50px;
+    left: 1300px;
+}
+
+#enemyPokemonImage {
+    background-image: url("../img/pokemons/charizard.png");
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 170px;
+    left: 1180px;
+}
+
+#myPokemonImage {
+    background-image: url("../img/pokemons/pikachu.png");
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 170px;
+    left: 250px;
 }

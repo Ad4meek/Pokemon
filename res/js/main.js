@@ -19,11 +19,6 @@ class Boundary {
     this.width = 80;
     this.height = 80;
   }
-
-  draw() {
-    ctx.fillStyle = "blue";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
 }
 
 const boundaries = [];
@@ -60,11 +55,6 @@ class TallGrass {
     this.position = position;
     this.width = 80;
     this.height = 80;
-  }
-
-  draw() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -197,12 +187,6 @@ function animation() {
   if (delta > interval) {
     then = now - (delta % interval);
     background.draw();
-    boundaries.forEach((boundary) => {
-      boundary.draw();
-    });
-    tallGrasses.forEach((tallGrass) => {
-      tallGrass.draw();
-    });
     character.draw();
     foreground.draw();
 

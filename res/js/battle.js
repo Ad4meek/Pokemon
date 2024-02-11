@@ -1,5 +1,6 @@
 const canvas = document.getElementById("vancas");
 const battleground = document.getElementById("battleground");
+const back = document.getElementById("back");
 
 let random;
 
@@ -9,5 +10,9 @@ function battle() {
         canvas.style.display = "none";
         battleground.style.display = "block"
     }
-    console.log(random)
+}
+
+back.onclick = () => {
+    canvas.style.display = "block";
+        battleground.style.display = "none"
 }
