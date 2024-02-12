@@ -1,90 +1,109 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 canvas {
-    padding: 0;
-    margin: auto;
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  padding: 0;
+  height: auto; 
+  width: 80%; 
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #battleground {
-    position: absolute;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url("../img/backgrounds/battleBackground.png");
-    height: 800px;
-    width: 1600px;
-    display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../img/backgrounds/battleBackground.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80%; 
+  width: 80%; 
+  display: none;
+}
+
+button {
+  background-color: antiquewhite;
+  padding: 2rem;
+  border: 10px solid black;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: .7s;
+}
+
+button:hover {
+  background-color: white;
 }
 
 #back {
-    position: absolute;
-    top: 650px;
-    left: 950px;
+  position: absolute;
+  top: 80%;
+  left: 68%;
 }
 
 #tackle {
-    position: absolute;
-    top: 650px;
-    left: 550px;
+  position: absolute;
+  top: 80%;
+  left: 25%;
 }
 
 #specialAttack {
-    position: absolute;
-    top:700px;
-    left: 550px;
+  position: absolute;
+  top: 80%;
+  left: 44%;
 }
 
 #myPokemonName {
-    position: absolute;
-    top:50px;
-    left: 250px;
+  position: absolute;
+  top: 6%;
+  left: 15%;
 }
 
 #myPokemonHp {
-    position: absolute;
-    top:50px;
-    left: 450px;
+  position: absolute;
+  top: 6%;
+  left: 30%;
 }
 
 #enemyPokemonName {
-    position: absolute;
-    top:50px;
-    left: 1150px;
+  position: absolute;
+  top: 6%;
+  left: 70%;
 }
 
 #enemyPokemonHp {
-    position: absolute;
-    top:50px;
-    left: 1300px;
+  position: absolute;
+  top: 6%;
+  left: 85%;
 }
 
 #enemyPokemonImage {
-    background-image: url("../img/pokemons/charizard.png");
-    background-size: contain;
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    top: 170px;
-    left: 1180px;
+  background-image: url("../img/pokemons/charizard.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 20%;
+  left: 74%;
 }
 
 #myPokemonImage {
-    background-image: url("../img/pokemons/pikachu.png");
-    background-size: contain;
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    top: 170px;
-    left: 250px;
+  background-image: url("../img/pokemons/pikachu.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 22%;
+  left: 17%;
 }

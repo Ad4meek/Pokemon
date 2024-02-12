@@ -3,8 +3,10 @@ import { map } from "./map.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1600;
-canvas.height = 800;
+const WidthHeight = {
+  width: 1600,
+  height: 800
+}
 
 // Collisions
 
@@ -136,8 +138,8 @@ class Sprite {
 const character = new Sprite({
   image: characterImage,
   position: {
-    x: canvas.width / 2 - 124 / 4 / 2,
-    y: canvas.height / 2 - 38 / 2,
+    x: WidthHeight.width / 2 - 124 / 4 / 2,
+    y: WidthHeight.height / 2 - 38 / 2,
   },
   frames: {
     numberOfFrames: 4,
