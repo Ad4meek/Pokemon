@@ -225,7 +225,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle()
+            battle();
           }
         }
       }
@@ -265,7 +265,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle()
+            battle();
           }
         }
       }
@@ -305,7 +305,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle()
+            battle();
           }
         }
       }
@@ -344,7 +344,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle()
+            battle();
           }
         }
       }
@@ -374,6 +374,18 @@ window.addEventListener("keydown", (e) => {
     case "d":
       keys.d.pressed = true;
       break;
+    case "W":
+      keys.w.pressed = true;
+      break;
+    case "A":
+      keys.a.pressed = true;
+      break;
+    case "S":
+      keys.s.pressed = true;
+      break;
+    case "D":
+      keys.d.pressed = true;
+      break;
   }
 });
 
@@ -389,6 +401,18 @@ window.addEventListener("keyup", (e) => {
       keys.s.pressed = false;
       break;
     case "d":
+      keys.d.pressed = false;
+      break;
+    case "W":
+      keys.w.pressed = false;
+      break;
+    case "A":
+      keys.a.pressed = false;
+      break;
+    case "S":
+      keys.s.pressed = false;
+      break;
+    case "D":
       keys.d.pressed = false;
       break;
   }
