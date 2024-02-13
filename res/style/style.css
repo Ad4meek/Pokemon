@@ -17,7 +17,7 @@ canvas {
 }
 
 button {
-  background-color: antiquewhite;
+  background-color: whitesmoke;
   padding: 2rem;
   border: 10px solid black;
   border-radius: 2rem;
@@ -34,33 +34,10 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: antiquewhite;
+  background-color: whitesmoke;
   height: 80%;
   width: 80%;
   display: block;
-}
-
-.myPokemonGround, .enemyPokemonGround {
-  background-image: url("../img/backgrounds/battleField.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -1;
-}
-
-.myPokemonGround {
-  position: absolute;
-  height: 150px;
-  width: 400px;
-  top: 40%;
-  left: 13%;
-}
-
-.enemyPokemonGround {
-  position: absolute;
-  height: 150px;
-  width: 400px;
-  top: 40%;
-  right: 13%;
 }
 
 .options {
@@ -104,25 +81,25 @@ button:hover {
 }
 
 #enemyPokemonImage {
-  background-image: url("../img/pokemons/charizard.png");
+  background-image: url("../img/pokemons/Shadowfang.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 500px;
   position: absolute;
   top: 20%;
-  right: 20%;
+  right: 10%;
 }
 
 #myPokemonImage {
-  background-image: url("../img/pokemons/pikachu.png");
+  background-image: url("../img/pokemons/Galewing.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 500px;
   position: absolute;
   top: 20%;
-  left: 20%;
+  left: 10%;
 }

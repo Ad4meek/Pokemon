@@ -5,8 +5,8 @@ const ctx = canvas.getContext("2d");
 
 const WidthHeight = {
   width: 1600,
-  height: 800
-}
+  height: 800,
+};
 
 // Collisions
 
