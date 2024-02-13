@@ -6,27 +6,14 @@
 
 canvas {
   padding: 0;
-  height: auto; 
-  width: 80%; 
+  height: auto;
+  width: 80%;
   margin: auto;
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#battleground {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-image: url("../img/backgrounds/battleBackground.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 80%; 
-  width: 80%; 
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 button {
@@ -35,53 +22,85 @@ button {
   border: 10px solid black;
   border-radius: 2rem;
   cursor: pointer;
-  transition: .7s;
+  transition: 0.7s;
 }
 
 button:hover {
   background-color: white;
 }
 
-#back {
+#battleground {
   position: absolute;
-  top: 80%;
-  left: 68%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: antiquewhite;
+  height: 80%;
+  width: 80%;
+  display: block;
 }
 
-#tackle {
-  position: absolute;
-  top: 80%;
-  left: 25%;
+.myPokemonGround, .enemyPokemonGround {
+  background-image: url("../img/backgrounds/battleField.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
-#specialAttack {
+.myPokemonGround {
   position: absolute;
-  top: 80%;
-  left: 44%;
+  height: 150px;
+  width: 400px;
+  top: 40%;
+  left: 13%;
 }
 
-#myPokemonName {
+.enemyPokemonGround {
   position: absolute;
-  top: 6%;
-  left: 15%;
+  height: 150px;
+  width: 400px;
+  top: 40%;
+  right: 13%;
 }
 
-#myPokemonHp {
+.options {
   position: absolute;
-  top: 6%;
-  left: 30%;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid black;
+  border-radius: 2rem;
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1.25rem;
+  background-color: white;
 }
 
-#enemyPokemonName {
+.myPokemon {
   position: absolute;
-  top: 6%;
-  left: 70%;
+  top: 15px;
+  left: 20px;
+  border: 5px solid black;
+  border-radius: 2rem;
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1.25rem;
+  background-color: white;
 }
 
-#enemyPokemonHp {
+.enemyPokemon {
   position: absolute;
-  top: 6%;
-  left: 85%;
+  top: 15px;
+  right: 20px;
+  border: 5px solid black;
+  border-radius: 2rem;
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1.25rem;
+  background-color: white;
 }
 
 #enemyPokemonImage {
@@ -93,7 +112,7 @@ button:hover {
   width: 200px;
   position: absolute;
   top: 20%;
-  left: 74%;
+  right: 20%;
 }
 
 #myPokemonImage {
@@ -104,6 +123,6 @@ button:hover {
   height: 200px;
   width: 200px;
   position: absolute;
-  top: 22%;
-  left: 17%;
+  top: 20%;
+  left: 20%;
 }
