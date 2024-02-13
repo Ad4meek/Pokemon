@@ -15,7 +15,7 @@ canvas {
   height: auto;
   width: 80%;
   margin: auto;
-  display: none;
+  display: block;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -45,7 +45,7 @@ button:hover {
   background-color: whitesmoke;
   height: 80%;
   width: 80%;
-  display: block;
+  display: none;
 }
 
 .options {
