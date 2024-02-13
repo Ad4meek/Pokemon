@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: "Protest Strike", sans-serif;
 }
 
 canvas {
@@ -23,6 +29,8 @@ button {
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.7s;
+  font-family: "Protest Strike", sans-serif;
+  font-size: 2rem;
 }
 
 button:hover {
@@ -42,7 +50,7 @@ button:hover {
 
 .options {
   position: absolute;
-  bottom: 15px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid black;
@@ -56,8 +64,8 @@ button:hover {
 
 .myPokemon {
   position: absolute;
-  top: 15px;
-  left: 20px;
+  top: 5%;
+  left: 5%;
   border: 5px solid black;
   border-radius: 2rem;
   width: 20%;
@@ -65,12 +73,13 @@ button:hover {
   justify-content: space-evenly;
   padding: 1.25rem;
   background-color: white;
+  font-size: 1.5rem;
 }
 
 .enemyPokemon {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 5%;
+  right: 5%;
   border: 5px solid black;
   border-radius: 2rem;
   width: 20%;
@@ -78,6 +87,7 @@ button:hover {
   justify-content: space-evenly;
   padding: 1.25rem;
   background-color: white;
+  font-size: 1.5rem;
 }
 
 #enemyPokemonImage {
