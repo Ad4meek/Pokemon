@@ -400,6 +400,38 @@ function animation() {
 }
 animation();
 
+// Battle
+
+function battle() {
+  vancas.style.display = "none";
+  battleground.style.display = "block";
+  myHp = 20;
+  enemyHp = 20;
+  myPokemonHp.innerHTML = `${myHp} HP`;
+  enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  interval = setInterval(() => {
+    myHp -= 1;
+    myPokemonHp.innerHTML = `${myHp} HP`;
+    if (myHp <= 0) {
+      clearInterval(interval);
+    }
+  }, 200);
+  back.onclick = () => {
+    vancas.style.display = "block";
+    battleground.style.display = "none";
+    battleStart = false;
+  };
+
+  tackle.onclick = () => {
+    if (enemyHp >= 1) {
+      enemyHp -= 1;
+      enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+    } else {
+      console.log("mrtvej");
+    }
+  };
+}
+
 // Movement
 
 window.addEventListener("keydown", (e) => {
@@ -461,33 +493,3 @@ window.addEventListener("keyup", (e) => {
 });
 
 
-
-function battle() {
-  vancas.style.display = "none";
-  battleground.style.display = "block";
-  myHp = 20;
-  enemyHp = 20;
-  myPokemonHp.innerHTML = `${myHp} HP`;
-  enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-  interval = setInterval(() => {
-    myHp -= 1;
-    myPokemonHp.innerHTML = `${myHp} HP`;
-    if (myHp <= 0) {
-      clearInterval(interval);
-    }
-  }, 200);
-  back.onclick = () => {
-    vancas.style.display = "block";
-    battleground.style.display = "none";
-    battleStart = false;
-  };
-
-  tackle.onclick = () => {
-    if (enemyHp >= 1) {
-      enemyHp -= 1;
-      enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-    } else {
-      console.log("mrtvej");
-    }
-  };
-}
