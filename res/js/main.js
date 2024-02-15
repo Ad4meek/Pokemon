@@ -2,6 +2,16 @@ import { map } from "./map.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const vancas = document.getElementById("vancas");
+const battleground = document.getElementById("battleground");
+const back = document.getElementById("back");
+const tackle = document.getElementById("tackle");
+const specialAttack = document.getElementById("specialAttack");
+const enemyPokemonHp = document.getElementById("enemyPokemonHp");
+const myPokemonHp = document.getElementById("myPokemonHp");
+
+let myHp;
+let enemyHp;
 
 const WidthHeight = {
   width: 1600,
@@ -206,7 +216,6 @@ function animation() {
         character.moving = true;
         for (let i = 0; i < boundaries.length; i++) {
           const boundary = boundaries[i];
-
           if (
             character.position.x + characterImage.width / 4 >=
               boundary.position.x &&
@@ -231,7 +240,8 @@ function animation() {
             character.position.y <= grasstall.position.y + grasstall.height
           ) {
             if (!coliding) {
-              random = Math.floor(Math.random() * 10);
+              random = Math.floor(Math.random() * 100);
+              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -278,7 +288,8 @@ function animation() {
             character.position.y <= grasstall.position.y + grasstall.height
           ) {
             if (!coliding) {
-              random = Math.floor(Math.random() * 10);
+              random = Math.floor(Math.random() * 100);
+              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -324,7 +335,8 @@ function animation() {
             character.position.y <= grasstall.position.y + grasstall.height
           ) {
             if (!coliding) {
-              random = Math.floor(Math.random() * 10);
+              random = Math.floor(Math.random() * 100);
+              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -369,7 +381,8 @@ function animation() {
             character.position.y <= grasstall.position.y + grasstall.height
           ) {
             if (!coliding) {
-              random = Math.floor(Math.random() * 10);
+              random = Math.floor(Math.random() * 100);
+              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -447,22 +460,13 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
-const vancas = document.getElementById("vancas");
-const battleground = document.getElementById("battleground");
-const back = document.getElementById("back");
-const tackle = document.getElementById("tackle");
-const specialAttack = document.getElementById("specialAttack");
-const enemyPokemonHp = document.getElementById("enemyPokemonHp");
-const myPokemonHp = document.getElementById("myPokemonHp");
 
-let myHp = 20;
-let enemyHp = 20;
 
 function battle() {
   vancas.style.display = "none";
   battleground.style.display = "block";
-  let myHp = 20;
-  let enemyHp = 20;
+  myHp = 20;
+  enemyHp = 20;
   myPokemonHp.innerHTML = `${myHp} HP`;
   enemyPokemonHp.innerHTML = `${enemyHp} HP`;
   interval = setInterval(() => {
@@ -470,23 +474,20 @@ function battle() {
     myPokemonHp.innerHTML = `${myHp} HP`;
     if (myHp <= 0) {
       clearInterval(interval);
-      battleStart = false;
     }
   }, 200);
-}
-
-back.onclick = () => {
-  vancas.style.display = "block";
-  battleground.style.display = "none";
-  battleStart = false;
-};
-
-tackle.onclick = () => {
-  if (enemyHp >= 1) {
-    enemyHp -= 1;
-    enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-  } else {
-    console.log("mrtvej");
+  back.onclick = () => {
+    vancas.style.display = "block";
+    battleground.style.display = "none";
     battleStart = false;
-  }
-};
+  };
+
+  tackle.onclick = () => {
+    if (enemyHp >= 1) {
+      enemyHp -= 1;
+      enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+    } else {
+      console.log("mrtvej");
+    }
+  };
+}
