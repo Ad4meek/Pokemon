@@ -181,6 +181,7 @@ let then = Date.now();
 let now;
 let delta;
 let interval = 1000 / 59;
+let battleStart = false;
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -228,6 +229,7 @@ function animation() {
         ) {
           if (!coliding) {
             battle();
+            battleStart = true;
           }
         }
       }
@@ -268,6 +270,7 @@ function animation() {
         ) {
           if (!coliding) {
             battle();
+            battleStart = true;
           }
         }
       }
@@ -308,6 +311,7 @@ function animation() {
         ) {
           if (!coliding) {
             battle();
+            battleStart = true;
           }
         }
       }
@@ -347,6 +351,7 @@ function animation() {
         ) {
           if (!coliding) {
             battle();
+            battleStart = true;
           }
         }
       }
@@ -363,6 +368,8 @@ animation();
 // Movement
 
 window.addEventListener("keydown", (e) => {
+  console.log(battleStart);
+  if (battleStart) return
   switch (e.key) {
     case "w":
       keys.w.pressed = true;
