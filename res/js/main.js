@@ -228,7 +228,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle();
+            battle(battleStart);
             battleStart = true;
           }
         }
@@ -269,7 +269,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle();
+            battle(battleStart);
             battleStart = true;
           }
         }
@@ -310,7 +310,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle();
+            battle(battleStart);
             battleStart = true;
           }
         }
@@ -350,7 +350,7 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle();
+            battle(battleStart);
             battleStart = true;
           }
         }
@@ -369,32 +369,34 @@ animation();
 
 window.addEventListener("keydown", (e) => {
   console.log(battleStart);
-  if (battleStart) return
-  switch (e.key) {
-    case "w":
-      keys.w.pressed = true;
-      break;
-    case "a":
-      keys.a.pressed = true;
-      break;
-    case "s":
-      keys.s.pressed = true;
-      break;
-    case "d":
-      keys.d.pressed = true;
-      break;
-    case "W":
-      keys.w.pressed = true;
-      break;
-    case "A":
-      keys.a.pressed = true;
-      break;
-    case "S":
-      keys.s.pressed = true;
-      break;
-    case "D":
-      keys.d.pressed = true;
-      break;
+  
+  if (!battleStart) {
+    switch (e.key) {
+      case "w":
+        keys.w.pressed = true;
+        break;
+      case "a":
+        keys.a.pressed = true;
+        break;
+      case "s":
+        keys.s.pressed = true;
+        break;
+      case "d":
+        keys.d.pressed = true;
+        break;
+      case "W":
+        keys.w.pressed = true;
+        break;
+      case "A":
+        keys.a.pressed = true;
+        break;
+      case "S":
+        keys.s.pressed = true;
+        break;
+      case "D":
+        keys.d.pressed = true;
+        break;
+    }
   }
 });
 

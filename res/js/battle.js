@@ -10,10 +10,16 @@ let myHp = 20;
 let enemyHp = 20;
 
 let random;
+let pepa = false;
 
-function battle() {
-  random = Math.floor(Math.random() * 100);
-  if (random == 1) {
+function battle(battleStart) {
+  
+  // random = Math.floor(Math.random() * 100);
+  // if (random == 1) {
+    if(battleStart) return;
+    // if(pepa) return;
+    
+    pepa = true;
     canvas.style.display = "none";
     battleground.style.display = "block";
     myPokemonHp.innerHTML = `${myHp} HP`;
@@ -24,14 +30,16 @@ function battle() {
       if (myHp <= 0) {
         clearInterval(interval);
         battleStart = false;
+        pepa = false;
       }
     }, 200);
   }
-}
+// }
 
 back.onclick = () => {
   canvas.style.display = "block";
   battleground.style.display = "none";
+
 };
 
 tackle.onclick = () => {
@@ -42,7 +50,3 @@ tackle.onclick = () => {
     console.log("mrtvej")
   }
 };
-
-
-
-
