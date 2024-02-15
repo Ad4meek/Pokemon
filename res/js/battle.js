@@ -1,5 +1,3 @@
-
-
 const canvas = document.getElementById("vancas");
 const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
@@ -12,8 +10,9 @@ let myHp = 20;
 let enemyHp = 20;
 let random;
 
-console.log(battleStart);
 console.log(pepa);
+console.log(battleStart);
+
 
 
 function battle() {

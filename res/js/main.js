@@ -3,11 +3,6 @@ import { map } from "./map.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-let battleStart = false;
-
-let pepa = 20;
-
-
 const WidthHeight = {
   width: 1600,
   height: 800,
@@ -186,8 +181,8 @@ let then = Date.now();
 let now;
 let delta;
 let interval = 1000 / 59;
-
-
+let random;
+let battleStart = false;
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -236,10 +231,11 @@ function animation() {
             character.position.y <= grasstall.position.y + grasstall.height
           ) {
             if (!coliding) {
-              battleStart = true
-              console.log(battleStart);
-              battle();
-              break;
+              random = Math.floor(Math.random() * 10);
+              if (random == 1) {
+                battleStart = true;
+                battle();
+              }
             }
           }
         }
@@ -252,124 +248,140 @@ function animation() {
 
       // Moving LEFT
     } else if (keys.a.pressed) {
-      character.moving = true;
-      characterImage.src = "./res/img/characters/characterLeft.png";
-      for (let i = 0; i < boundaries.length; i++) {
-        const boundary = boundaries[i];
+      if (!battleStart) {
+        character.moving = true;
+        characterImage.src = "./res/img/characters/characterLeft.png";
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
 
-        if (
-          character.position.x + characterImage.width / 4 >=
-            boundary.position.x + 5 &&
-          character.position.x <= boundary.position.x + boundary.width + 5 &&
-          character.position.y + characterImage.height >= boundary.position.y &&
-          character.position.y <= boundary.position.y + boundary.height
-        ) {
-          coliding = true;
-          break;
-        }
-      }
-      for (let i = 0; i < tallGrasses.length; i++) {
-        const grasstall = tallGrasses[i];
-
-        if (
-          character.position.x + characterImage.width / 4 >=
-            grasstall.position.x &&
-          character.position.x <= grasstall.position.x + grasstall.width &&
-          character.position.y + characterImage.height >=
-            grasstall.position.y &&
-          character.position.y <= grasstall.position.y + grasstall.height
-        ) {
-          if (!coliding) {
-            battle();
+          if (
+            character.position.x + characterImage.width / 4 >=
+              boundary.position.x + 5 &&
+            character.position.x <= boundary.position.x + boundary.width + 5 &&
+            character.position.y + characterImage.height >=
+              boundary.position.y &&
+            character.position.y <= boundary.position.y + boundary.height
+          ) {
+            coliding = true;
             break;
           }
         }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+
+          if (
+            character.position.x + characterImage.width / 4 >=
+              grasstall.position.x &&
+            character.position.x <= grasstall.position.x + grasstall.width &&
+            character.position.y + characterImage.height >=
+              grasstall.position.y &&
+            character.position.y <= grasstall.position.y + grasstall.height
+          ) {
+            if (!coliding) {
+              random = Math.floor(Math.random() * 10);
+              if (random == 1) {
+                battleStart = true;
+                battle();
+              }
+            }
+          }
+        }
+        if (!coliding)
+          movables.forEach((movable) => {
+            movable.position.x += 5;
+          });
       }
-      if (!coliding)
-        movables.forEach((movable) => {
-          movable.position.x += 5;
-        });
 
       // Moving DOWN
     } else if (keys.s.pressed) {
-      characterImage.src = "./res/img/characters/characterDown.png";
-      character.moving = true;
-      for (let i = 0; i < boundaries.length; i++) {
-        const boundary = boundaries[i];
+      if (!battleStart) {
+        characterImage.src = "./res/img/characters/characterDown.png";
+        character.moving = true;
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
 
-        if (
-          character.position.x + characterImage.width / 4 >=
-            boundary.position.x &&
-          character.position.x <= boundary.position.x + boundary.width &&
-          character.position.y + characterImage.height >=
-            boundary.position.y - 5 &&
-          character.position.y <= boundary.position.y + boundary.height - 5
-        ) {
-          coliding = true;
-          break;
-        }
-      }
-      for (let i = 0; i < tallGrasses.length; i++) {
-        const grasstall = tallGrasses[i];
-
-        if (
-          character.position.x + characterImage.width / 4 >=
-            grasstall.position.x &&
-          character.position.x <= grasstall.position.x + grasstall.width &&
-          character.position.y + characterImage.height >=
-            grasstall.position.y &&
-          character.position.y <= grasstall.position.y + grasstall.height
-        ) {
-          if (!coliding) {
-            battle();
+          if (
+            character.position.x + characterImage.width / 4 >=
+              boundary.position.x &&
+            character.position.x <= boundary.position.x + boundary.width &&
+            character.position.y + characterImage.height >=
+              boundary.position.y - 5 &&
+            character.position.y <= boundary.position.y + boundary.height - 5
+          ) {
+            coliding = true;
             break;
           }
         }
-      }
-      if (!coliding)
-        movables.forEach((movable) => {
-          movable.position.y -= 5;
-        });
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
 
+          if (
+            character.position.x + characterImage.width / 4 >=
+              grasstall.position.x &&
+            character.position.x <= grasstall.position.x + grasstall.width &&
+            character.position.y + characterImage.height >=
+              grasstall.position.y &&
+            character.position.y <= grasstall.position.y + grasstall.height
+          ) {
+            if (!coliding) {
+              random = Math.floor(Math.random() * 10);
+              if (random == 1) {
+                battleStart = true;
+                battle();
+              }
+            }
+          }
+        }
+        if (!coliding)
+          movables.forEach((movable) => {
+            movable.position.y -= 5;
+          });
+      }
       // Moving RIGHT
     } else if (keys.d.pressed) {
-      characterImage.src = "./res/img/characters/characterRight.png";
-      character.moving = true;
-      for (let i = 0; i < boundaries.length; i++) {
-        const boundary = boundaries[i];
+      if (!battleStart) {
+        characterImage.src = "./res/img/characters/characterRight.png";
+        character.moving = true;
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
 
-        if (
-          character.position.x + characterImage.width / 4 >=
-            boundary.position.x - 5 &&
-          character.position.x <= boundary.position.x + boundary.width - 5 &&
-          character.position.y + characterImage.height >= boundary.position.y &&
-          character.position.y <= boundary.position.y + boundary.height
-        ) {
-          coliding = true;
-          break;
-        }
-      }
-      for (let i = 0; i < tallGrasses.length; i++) {
-        const grasstall = tallGrasses[i];
-
-        if (
-          character.position.x + characterImage.width / 4 >=
-            grasstall.position.x &&
-          character.position.x <= grasstall.position.x + grasstall.width &&
-          character.position.y + characterImage.height >=
-            grasstall.position.y &&
-          character.position.y <= grasstall.position.y + grasstall.height
-        ) {
-          if (!coliding) {
-            battle();
+          if (
+            character.position.x + characterImage.width / 4 >=
+              boundary.position.x - 5 &&
+            character.position.x <= boundary.position.x + boundary.width - 5 &&
+            character.position.y + characterImage.height >=
+              boundary.position.y &&
+            character.position.y <= boundary.position.y + boundary.height
+          ) {
+            coliding = true;
             break;
           }
         }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+
+          if (
+            character.position.x + characterImage.width / 4 >=
+              grasstall.position.x &&
+            character.position.x <= grasstall.position.x + grasstall.width &&
+            character.position.y + characterImage.height >=
+              grasstall.position.y &&
+            character.position.y <= grasstall.position.y + grasstall.height
+          ) {
+            if (!coliding) {
+              random = Math.floor(Math.random() * 10);
+              if (random == 1) {
+                battleStart = true;
+                battle();
+              }
+            }
+          }
+        }
+        if (!coliding)
+          movables.forEach((movable) => {
+            movable.position.x -= 5;
+          });
       }
-      if (!coliding)
-        movables.forEach((movable) => {
-          movable.position.x -= 5;
-        });
     }
   }
 }
@@ -434,3 +446,47 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+const vancas = document.getElementById("vancas");
+const battleground = document.getElementById("battleground");
+const back = document.getElementById("back");
+const tackle = document.getElementById("tackle");
+const specialAttack = document.getElementById("specialAttack");
+const enemyPokemonHp = document.getElementById("enemyPokemonHp");
+const myPokemonHp = document.getElementById("myPokemonHp");
+
+let myHp = 20;
+let enemyHp = 20;
+
+function battle() {
+  vancas.style.display = "none";
+  battleground.style.display = "block";
+  let myHp = 20;
+  let enemyHp = 20;
+  myPokemonHp.innerHTML = `${myHp} HP`;
+  enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  interval = setInterval(() => {
+    myHp -= 1;
+    myPokemonHp.innerHTML = `${myHp} HP`;
+    if (myHp <= 0) {
+      clearInterval(interval);
+      battleStart = false;
+    }
+  }, 200);
+}
+
+back.onclick = () => {
+  vancas.style.display = "block";
+  battleground.style.display = "none";
+  battleStart = false;
+};
+
+tackle.onclick = () => {
+  if (enemyHp >= 1) {
+    enemyHp -= 1;
+    enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  } else {
+    console.log("mrtvej");
+    battleStart = false;
+  }
+};
