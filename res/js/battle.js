@@ -1,3 +1,5 @@
+
+
 const canvas = document.getElementById("vancas");
 const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
@@ -8,20 +10,20 @@ const myPokemonHp = document.getElementById("myPokemonHp");
 
 let myHp = 20;
 let enemyHp = 20;
-
 let random;
-let pepa = false;
 
-function battle(battleStart) {
-  
-  // random = Math.floor(Math.random() * 100);
-  // if (random == 1) {
-    if(battleStart) return;
-    // if(pepa) return;
-    
-    pepa = true;
+console.log(battleStart);
+console.log(pepa);
+
+
+function battle() {
+  random = Math.floor(Math.random() * 10);
+  console.log(random)
+  if (random == 1) {
     canvas.style.display = "none";
     battleground.style.display = "block";
+    let myHp = 20;
+    let enemyHp = 20;
     myPokemonHp.innerHTML = `${myHp} HP`;
     enemyPokemonHp.innerHTML = `${enemyHp} HP`;
     interval = setInterval(() => {
@@ -29,17 +31,15 @@ function battle(battleStart) {
       myPokemonHp.innerHTML = `${myHp} HP`;
       if (myHp <= 0) {
         clearInterval(interval);
-        battleStart = false;
-        pepa = false;
+        
       }
     }, 200);
   }
-// }
+}
 
 back.onclick = () => {
   canvas.style.display = "block";
   battleground.style.display = "none";
-
 };
 
 tackle.onclick = () => {
@@ -49,4 +49,4 @@ tackle.onclick = () => {
   } else {
     console.log("mrtvej")
   }
-};
+}

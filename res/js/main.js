@@ -3,6 +3,11 @@ import { map } from "./map.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+let battleStart = false;
+
+let pepa = 20;
+
+
 const WidthHeight = {
   width: 1600,
   height: 800,
@@ -181,7 +186,8 @@ let then = Date.now();
 let now;
 let delta;
 let interval = 1000 / 59;
-let battleStart = false;
+
+
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -198,45 +204,50 @@ function animation() {
     // Moving UP
 
     character.moving = false;
+
     if (keys.w.pressed) {
-      characterImage.src = "./res/img/characters/characterUp.png";
-      character.moving = true;
-      for (let i = 0; i < boundaries.length; i++) {
-        const boundary = boundaries[i];
+      if (!battleStart) {
+        characterImage.src = "./res/img/characters/characterUp.png";
+        character.moving = true;
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
 
-        if (
-          character.position.x + characterImage.width / 4 >=
-            boundary.position.x &&
-          character.position.x <= boundary.position.x + boundary.width &&
-          character.position.y + characterImage.height >=
-            boundary.position.y + 5 &&
-          character.position.y <= boundary.position.y + boundary.height + 5
-        ) {
-          coliding = true;
-          break;
-        }
-      }
-      for (let i = 0; i < tallGrasses.length; i++) {
-        const grasstall = tallGrasses[i];
-
-        if (
-          character.position.x + characterImage.width / 4 >=
-            grasstall.position.x &&
-          character.position.x <= grasstall.position.x + grasstall.width &&
-          character.position.y + characterImage.height >=
-            grasstall.position.y &&
-          character.position.y <= grasstall.position.y + grasstall.height
-        ) {
-          if (!coliding) {
-            battle(battleStart);
-            battleStart = true;
+          if (
+            character.position.x + characterImage.width / 4 >=
+              boundary.position.x &&
+            character.position.x <= boundary.position.x + boundary.width &&
+            character.position.y + characterImage.height >=
+              boundary.position.y + 5 &&
+            character.position.y <= boundary.position.y + boundary.height + 5
+          ) {
+            coliding = true;
+            break;
           }
         }
-      }
-      if (!coliding) {
-        movables.forEach((movable) => {
-          movable.position.y += 5;
-        });
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+
+          if (
+            character.position.x + characterImage.width / 4 >=
+              grasstall.position.x &&
+            character.position.x <= grasstall.position.x + grasstall.width &&
+            character.position.y + characterImage.height >=
+              grasstall.position.y &&
+            character.position.y <= grasstall.position.y + grasstall.height
+          ) {
+            if (!coliding) {
+              battleStart = true
+              console.log(battleStart);
+              battle();
+              break;
+            }
+          }
+        }
+        if (!coliding) {
+          movables.forEach((movable) => {
+            movable.position.y += 5;
+          });
+        }
       }
 
       // Moving LEFT
@@ -269,8 +280,8 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle(battleStart);
-            battleStart = true;
+            battle();
+            break;
           }
         }
       }
@@ -310,8 +321,8 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle(battleStart);
-            battleStart = true;
+            battle();
+            break;
           }
         }
       }
@@ -350,8 +361,8 @@ function animation() {
           character.position.y <= grasstall.position.y + grasstall.height
         ) {
           if (!coliding) {
-            battle(battleStart);
-            battleStart = true;
+            battle();
+            break;
           }
         }
       }
@@ -362,41 +373,36 @@ function animation() {
     }
   }
 }
-
 animation();
 
 // Movement
 
 window.addEventListener("keydown", (e) => {
-  console.log(battleStart);
-  
-  if (!battleStart) {
-    switch (e.key) {
-      case "w":
-        keys.w.pressed = true;
-        break;
-      case "a":
-        keys.a.pressed = true;
-        break;
-      case "s":
-        keys.s.pressed = true;
-        break;
-      case "d":
-        keys.d.pressed = true;
-        break;
-      case "W":
-        keys.w.pressed = true;
-        break;
-      case "A":
-        keys.a.pressed = true;
-        break;
-      case "S":
-        keys.s.pressed = true;
-        break;
-      case "D":
-        keys.d.pressed = true;
-        break;
-    }
+  switch (e.key) {
+    case "w":
+      keys.w.pressed = true;
+      break;
+    case "a":
+      keys.a.pressed = true;
+      break;
+    case "s":
+      keys.s.pressed = true;
+      break;
+    case "d":
+      keys.d.pressed = true;
+      break;
+    case "W":
+      keys.w.pressed = true;
+      break;
+    case "A":
+      keys.a.pressed = true;
+      break;
+    case "S":
+      keys.s.pressed = true;
+      break;
+    case "D":
+      keys.d.pressed = true;
+      break;
   }
 });
 
