@@ -435,6 +435,7 @@ function battle() {
 // Movement
 
 window.addEventListener("keydown", (e) => {
+  console.log(e.key);
   switch (e.key) {
     case "w":
       keys.w.pressed = true;
@@ -458,6 +459,18 @@ window.addEventListener("keydown", (e) => {
       keys.s.pressed = true;
       break;
     case "D":
+      keys.d.pressed = true;
+      break;
+    case "ArrowUp":
+      keys.w.pressed = true;
+      break;
+    case "ArrowLeft":
+      keys.a.pressed = true;
+      break;
+    case "ArrowDown":
+      keys.s.pressed = true;
+      break;
+    case "ArrowRight":
       keys.d.pressed = true;
       break;
   }
@@ -489,7 +502,17 @@ window.addEventListener("keyup", (e) => {
     case "D":
       keys.d.pressed = false;
       break;
+    case "ArrowUp":
+      keys.w.pressed = false;
+      break;
+    case "ArrowLeft":
+      keys.a.pressed = false;
+      break;
+    case "ArrowDown":
+      keys.s.pressed = false;
+      break;
+    case "ArrowRight":
+      keys.d.pressed = false;
+      break;
   }
 });
-
-
