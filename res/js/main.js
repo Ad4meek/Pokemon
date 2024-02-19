@@ -404,7 +404,7 @@ animation();
 
 function battle() {
   vancas.style.display = "none";
-  battleground.style.display = "block";
+  battleground.style.display = "flex";
   myHp = 20;
   enemyHp = 20;
   myPokemonHp.innerHTML = `${myHp} HP`;
@@ -419,6 +419,7 @@ function battle() {
   back.onclick = () => {
     vancas.style.display = "block";
     battleground.style.display = "none";
+    clearInterval(interval);
     battleStart = false;
   };
 

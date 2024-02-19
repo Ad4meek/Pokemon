@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
 
 * {
   box-sizing: border-box;
@@ -11,10 +11,8 @@ body {
 }
 
 canvas {
-  padding: 0;
   height: auto;
   width: 80%;
-  margin: auto;
   display: block;
   position: absolute;
   top: 50%;
@@ -22,8 +20,10 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
-button {
-  background-color: whitesmoke;
+#tackle,
+#specialAttack,
+#back {
+  background-color: white;
   padding: 2rem;
   border: 10px solid black;
   border-radius: 2rem;
@@ -33,8 +33,10 @@ button {
   font-size: 2rem;
 }
 
-button:hover {
-  background-color: white;
+#tackle:hover,
+#specialAttack:hover,
+#back:hover {
+  background-color: cyan;
 }
 
 #battleground {
@@ -42,52 +44,61 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: whitesmoke;
+  background-color: cyan;
   height: 80%;
   width: 80%;
   display: none;
+  flex-direction: column;
 }
 
 .options {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
   border: 5px solid black;
   border-radius: 2rem;
   width: 50%;
+  margin: auto;
   display: flex;
   justify-content: space-evenly;
   padding: 1.25rem;
   background-color: white;
 }
 
-.myPokemon {
-  position: absolute;
-  top: 5%;
-  left: 5%;
+.pokemonStats {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.myPokemonStats {
   border: 5px solid black;
   border-radius: 2rem;
-  width: 20%;
   display: flex;
   justify-content: space-evenly;
-  padding: 1.25rem;
+  padding: 1.25rem 0;
   background-color: white;
   font-size: 1.5rem;
 }
 
-.enemyPokemon {
-  position: absolute;
-  top: 5%;
-  right: 5%;
+.enemyPokemonStats {
   border: 5px solid black;
   border-radius: 2rem;
-  width: 20%;
   display: flex;
   justify-content: space-evenly;
-  padding: 1.25rem;
+  padding: 1.25rem 0;
   background-color: white;
   font-size: 1.5rem;
+}
+
+#myPokemonName,
+#myPokemonHp,
+#enemyPokemonName,
+#enemyPokemonHp {
+  padding: 0 1.25rem;
+}
+
+.pokemonImages {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5rem;
 }
 
 #enemyPokemonImage {
@@ -97,9 +108,6 @@ button:hover {
   background-position: bottom;
   height: 300px;
   width: 500px;
-  position: absolute;
-  top: 20%;
-  right: 10%;
 }
 
 #myPokemonImage {
@@ -109,7 +117,40 @@ button:hover {
   background-position: bottom;
   height: 300px;
   width: 500px;
-  position: absolute;
-  top: 20%;
-  left: 10%;
+}
+
+@media (max-width: 1750px) {
+  #tackle,
+  #specialAttack,
+  #back {
+    padding: 1.5rem;    
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  #tackle,
+  #specialAttack,
+  #back {
+    padding: 1.25rem;    
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  #tackle,
+  #specialAttack,
+  #back {
+    padding: 1rem;    
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1050px) {
+  #tackle,
+  #specialAttack,
+  #back {
+    padding: 0.8rem;    
+    font-size: 0.8rem;
+  }
 }
