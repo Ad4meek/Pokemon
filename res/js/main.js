@@ -205,10 +205,9 @@ function animation() {
     foreground.draw();
 
     let coliding = false;
+    character.moving = false;
 
     // Moving UP
-
-    character.moving = false;
 
     if (keys.w.pressed) {
       if (!battleStart) {
@@ -241,7 +240,6 @@ function animation() {
           ) {
             if (!coliding) {
               random = Math.floor(Math.random() * 100);
-              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -289,7 +287,6 @@ function animation() {
           ) {
             if (!coliding) {
               random = Math.floor(Math.random() * 100);
-              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -336,7 +333,6 @@ function animation() {
           ) {
             if (!coliding) {
               random = Math.floor(Math.random() * 100);
-              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -382,7 +378,6 @@ function animation() {
           ) {
             if (!coliding) {
               random = Math.floor(Math.random() * 100);
-              console.log(random);
               if (random == 1) {
                 battleStart = true;
                 battle();
@@ -401,6 +396,18 @@ function animation() {
 animation();
 
 // Battle
+function enemyAttack() {
+  if (!myPokemonTurn) {
+    if (myHp || enemyHp >= 1) {
+      myHp -= 1;
+      myPokemonTurn = true;
+    }
+  }
+  myPokemonHp.innerHTML = `${myHp} HP`;
+  enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+}
+
+let myPokemonTurn = false;
 
 function battle() {
   vancas.style.display = "none";
@@ -409,26 +416,38 @@ function battle() {
   enemyHp = 20;
   myPokemonHp.innerHTML = `${myHp} HP`;
   enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-  interval = setInterval(() => {
-    myHp -= 1;
-    myPokemonHp.innerHTML = `${myHp} HP`;
-    if (myHp <= 0) {
-      clearInterval(interval);
-    }
-  }, 200);
+
+  enemyAttack();
+
   back.onclick = () => {
     vancas.style.display = "block";
     battleground.style.display = "none";
-    clearInterval(interval);
     battleStart = false;
   };
 
   tackle.onclick = () => {
-    if (enemyHp >= 1) {
-      enemyHp -= 1;
-      enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-    } else {
-      console.log("mrtvej");
+    if (myPokemonTurn) {
+      if (enemyHp >= 1) {
+        enemyHp -= 1;
+        enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+      } else {
+        console.log("mrtvej");
+      }
+      myPokemonTurn = false;
+      enemyAttack();
+    }
+  };
+
+  specialAttack.onclick = () => {
+    if (myPokemonTurn) {
+      if (enemyHp >= 1) {
+        enemyHp -= 2;
+        enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+      } else {
+        console.log("mrtvej");
+      }
+      myPokemonTurn = false;
+      enemyAttack();
     }
   };
 }
@@ -436,7 +455,6 @@ function battle() {
 // Movement
 
 window.addEventListener("keydown", (e) => {
-  console.log(e.key);
   switch (e.key) {
     case "w":
       keys.w.pressed = true;

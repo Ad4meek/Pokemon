@@ -123,7 +123,7 @@ canvas {
   #tackle,
   #specialAttack,
   #back {
-    padding: 1.5rem;    
+    padding: 1.5rem;
     font-size: 1.5rem;
   }
 }
@@ -132,8 +132,9 @@ canvas {
   #tackle,
   #specialAttack,
   #back {
-    padding: 1.25rem;    
+    padding: 1.25rem;
     font-size: 1.25rem;
+    border: 8px solid black;
   }
 }
 
@@ -141,8 +142,9 @@ canvas {
   #tackle,
   #specialAttack,
   #back {
-    padding: 1rem;    
+    padding: 1rem;
     font-size: 1rem;
+    border: 6px solid black;
   }
 }
 
@@ -150,7 +152,8 @@ canvas {
   #tackle,
   #specialAttack,
   #back {
-    padding: 0.8rem;    
+    padding: 0.8rem;
     font-size: 0.8rem;
+    border: 5px solid black;
   }
 }
