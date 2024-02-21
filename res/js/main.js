@@ -9,9 +9,13 @@ const tackle = document.getElementById("tackle");
 const specialAttack = document.getElementById("specialAttack");
 const enemyPokemonHp = document.getElementById("enemyPokemonHp");
 const myPokemonHp = document.getElementById("myPokemonHp");
+const enemyPokemonName = document.getElementById("enemyPokemonName");
+const myPokemonName = document.getElementById("myPokemonName");
 
 let myHp;
 let enemyHp;
+let myName;
+let enemyName;
 
 const WidthHeight = {
   width: 1600,
@@ -396,24 +400,39 @@ function animation() {
 animation();
 
 // Battle
+
+let myPokemonTurn = true;
+let randomAttack;
+let randomSpecial;
+
 function enemyAttack() {
   if (!myPokemonTurn) {
-    if (myHp || enemyHp >= 1) {
-      myHp -= 1;
-      myPokemonTurn = true;
+    randomAttack = Math.floor(Math.random() * 5);
+    if (randomAttack == 1) {
+      if (myHp || enemyHp >= 1) {
+        myHp -= 2;
+        myPokemonTurn = true;
+      }
+    } else {
+      if (myHp || enemyHp >= 1) {
+        myHp -= 1;
+        myPokemonTurn = true;
+      }
     }
   }
   myPokemonHp.innerHTML = `${myHp} HP`;
   enemyPokemonHp.innerHTML = `${enemyHp} HP`;
 }
 
-let myPokemonTurn = false;
-
 function battle() {
   vancas.style.display = "none";
   battleground.style.display = "flex";
+  myName = "GALEWING";
+  enemyName = "SHADOWFANG";
   myHp = 20;
   enemyHp = 20;
+  myPokemonName.innerHTML = myName;
+  enemyPokemonName.innerHTML = enemyName;
   myPokemonHp.innerHTML = `${myHp} HP`;
   enemyPokemonHp.innerHTML = `${enemyHp} HP`;
 
@@ -440,11 +459,12 @@ function battle() {
 
   specialAttack.onclick = () => {
     if (myPokemonTurn) {
-      if (enemyHp >= 1) {
-        enemyHp -= 2;
-        enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-      } else {
-        console.log("mrtvej");
+      randomSpecial = Math.floor(Math.random() * 3);
+      if (randomSpecial == 1) {
+        if (enemyHp >= 1) {
+          enemyHp -= 2;
+          enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+        }
       }
       myPokemonTurn = false;
       enemyAttack();
