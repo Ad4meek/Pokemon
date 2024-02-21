@@ -409,12 +409,12 @@ function enemyAttack() {
   if (!myPokemonTurn) {
     randomAttack = Math.floor(Math.random() * 5);
     if (randomAttack == 1) {
-      if (myHp || enemyHp >= 1) {
+      if (myHp >= 1 && enemyHp >= 1) {
         myHp -= 2;
         myPokemonTurn = true;
       }
     } else {
-      if (myHp || enemyHp >= 1) {
+      if (myHp >= 1 && enemyHp >= 1) {
         myHp -= 1;
         myPokemonTurn = true;
       }
@@ -449,8 +449,6 @@ function battle() {
       if (enemyHp >= 1) {
         enemyHp -= 1;
         enemyPokemonHp.innerHTML = `${enemyHp} HP`;
-      } else {
-        console.log("mrtvej");
       }
       myPokemonTurn = false;
       enemyAttack();
