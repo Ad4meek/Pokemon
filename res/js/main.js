@@ -11,6 +11,7 @@ const enemyPokemonHp = document.getElementById("enemyPokemonHp");
 const myPokemonHp = document.getElementById("myPokemonHp");
 const enemyPokemonName = document.getElementById("enemyPokemonName");
 const myPokemonName = document.getElementById("myPokemonName");
+const info = document.getElementById("info");
 
 let myHp;
 let enemyHp;
@@ -412,6 +413,10 @@ function enemyAttack() {
       if (myHp >= 1 && enemyHp >= 1) {
         myHp -= 2;
         myPokemonTurn = true;
+        info.innerHTML = "ENEMY HIT SPECIAL ATTACK";
+          setTimeout(() => {
+            info.innerHTML = "";
+          }, 3000);
       }
     } else {
       if (myHp >= 1 && enemyHp >= 1) {
@@ -420,8 +425,17 @@ function enemyAttack() {
       }
     }
   }
-  myPokemonHp.innerHTML = `${myHp} HP`;
-  enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  if (myHp <= 0) {
+    myPokemonHp.innerHTML = `0 HP`;
+  } else {
+    myPokemonHp.innerHTML = `${myHp} HP`;
+    enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  }
+  if (myHp <= 0) {
+    info.innerHTML = "ENEMY WON";
+  } else if (enemyHp <= 0) {
+    info.innerHTML = "YOU WON";
+  }
 }
 
 function battle() {
@@ -435,8 +449,13 @@ function battle() {
   enemyPokemonName.innerHTML = enemyName;
   myPokemonHp.innerHTML = `${myHp} HP`;
   enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+  info.innerHTML = "";
 
-  enemyAttack();
+  if (myHp <= 0) {
+    info.innerHTML = "ENEMY WON";
+  } else if (enemyHp <= 0) {
+    info.innerHTML = "YOU WON";
+  }
 
   back.onclick = () => {
     vancas.style.display = "block";
@@ -451,7 +470,15 @@ function battle() {
         enemyPokemonHp.innerHTML = `${enemyHp} HP`;
       }
       myPokemonTurn = false;
-      enemyAttack();
+      setTimeout(() => {
+        enemyAttack();
+      }, 1000);
+      
+    }
+    if (myHp <= 0) {
+      info.innerHTML = "ENEMY WON";
+    } else if (enemyHp <= 0) {
+      info.innerHTML = "YOU WON";
     }
   };
 
@@ -462,10 +489,28 @@ function battle() {
         if (enemyHp >= 1) {
           enemyHp -= 2;
           enemyPokemonHp.innerHTML = `${enemyHp} HP`;
+          info.innerHTML = "YOU HIT SPECIAL ATTACK";
+          setTimeout(() => {
+            info.innerHTML = "";
+          }, 3000);
+        }
+      } else {
+        if (enemyHp >= 1) {
+          info.innerHTML = "YOU MISSED SPECIAL ATTACK";
+          setTimeout(() => {
+            info.innerHTML = "";
+          }, 3000);
         }
       }
       myPokemonTurn = false;
-      enemyAttack();
+      setTimeout(() => {
+        enemyAttack();
+      }, 1000);
+    }
+    if (myHp <= 0) {
+      info.innerHTML = "ENEMY WON";
+    } else if (enemyHp <= 0) {
+      info.innerHTML = "YOU WON";
     }
   };
 }
