@@ -20,11 +20,33 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
-#info {
+#battleground {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: cyan;
+  height: 80%;
+  width: 80%;
+  display: none;
+  flex-direction: column;
+}
+
+#optionBar {
+  border: 0.3125rem solid black;
+  border-radius: 2rem;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1.25rem;
+  background-color: white;
+}
+
+#info {
+  display: none;
+  font-size: 2rem;
+  padding: 2.625rem;
 }
 
 #tackle,
@@ -32,7 +54,7 @@ canvas {
 #back {
   background-color: white;
   padding: 2rem;
-  border: 10px solid black;
+  border: 0.625rem solid black;
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.7s;
@@ -46,37 +68,14 @@ canvas {
   background-color: cyan;
 }
 
-#battleground {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: cyan;
-  height: 80%;
-  width: 80%;
-  display: none;
-  flex-direction: column;
-}
-
-.options {
-  border: 5px solid black;
-  border-radius: 2rem;
-  width: 50%;
-  margin: auto;
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1.25rem;
-  background-color: white;
-}
-
-.pokemonStats {
+#pokemonStats {
   display: flex;
   justify-content: space-between;
   margin: 2rem;
 }
 
-.myPokemonStats {
-  border: 5px solid black;
+#myPokemonStats {
+  border: 0.3125rem solid black;
   border-radius: 2rem;
   display: flex;
   justify-content: space-evenly;
@@ -85,8 +84,8 @@ canvas {
   font-size: 1.5rem;
 }
 
-.enemyPokemonStats {
-  border: 5px solid black;
+#enemyPokemonStats {
+  border: 0.3125rem solid black;
   border-radius: 2rem;
   display: flex;
   justify-content: space-evenly;
@@ -102,7 +101,7 @@ canvas {
   padding: 0 1.25rem;
 }
 
-.pokemonImages {
+#pokemonImages {
   display: flex;
   justify-content: space-between;
   margin: 0 5rem;
@@ -113,8 +112,8 @@ canvas {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  height: 300px;
-  width: 500px;
+  height: 18.75rem;
+  width: 31.25rem;
 }
 
 #myPokemonImage {
@@ -122,11 +121,11 @@ canvas {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  height: 300px;
-  width: 500px;
+  height: 18.75rem;
+  width: 31.25rem;
 }
 
-@media (max-width: 1750px) {
+@media (max-width: 109.375rem) {
   #tackle,
   #specialAttack,
   #back {
@@ -135,32 +134,32 @@ canvas {
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 87.5rem) {
   #tackle,
   #specialAttack,
   #back {
     padding: 1.25rem;
     font-size: 1.25rem;
-    border: 8px solid black;
+    border: 0.5rem solid black;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 75rem) {
   #tackle,
   #specialAttack,
   #back {
     padding: 1rem;
     font-size: 1rem;
-    border: 6px solid black;
+    border: 0.375rem solid black;
   }
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 65.625rem) {
   #tackle,
   #specialAttack,
   #back {
     padding: 0.8rem;
     font-size: 0.8rem;
-    border: 5px solid black;
+    border: 0.3125rem solid black;
   }
 }
