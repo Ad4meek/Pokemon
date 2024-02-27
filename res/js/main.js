@@ -112,58 +112,58 @@ foregroundImage.src = "./res/img/maps/foreground.png";
 
 // Map Draw
 
-class Sprite {
-  constructor({
-    position,
-    image,
-    frames = { numberOfFrames: 1, imagePosition: 0, waitingFrames: 0 },
-  }) {
+class Character {
+  constructor({ position, image }) {
     this.position = position;
     this.image = image;
-    this.frames = frames;
+    this.imagePosition = 0;
+    this.waitingFrames = 0;
     this.moving = false;
   }
 
   draw() {
     ctx.drawImage(
       this.image,
-      this.frames.imagePosition * 50,
+      this.imagePosition * 50,
       0,
-      this.image.width / this.frames.numberOfFrames,
+      this.image.width / 4,
       this.image.height,
       this.position.x,
       this.position.y,
-      this.image.width / this.frames.numberOfFrames,
+      this.image.width / 4,
       this.image.height
     );
 
     if (this.moving) {
-      if (this.frames.numberOfFrames > 1) {
-        this.frames.waitingFrames++;
-      }
-      if (this.frames.waitingFrames % 10 === 0) {
-        if (this.frames.imagePosition < this.frames.numberOfFrames - 1) {
-          this.frames.imagePosition++;
+      this.waitingFrames++;
+      if (this.waitingFrames % 10 === 0) {
+        if (this.imagePosition < 3) {
+          this.imagePosition++;
         } else {
-          this.frames.imagePosition = 0;
+          this.imagePosition = 0;
         }
       }
     } else {
-      this.frames.imagePosition = 0;
+      this.imagePosition = 0;
     }
   }
 }
 
-const character = new Sprite({
+class Sprite {
+  constructor({ image, position }) {
+    this.position = position;
+    this.image = image;
+  }
+  draw() {
+    ctx.drawImage(this.image, this.position.x, this.position.y);
+  }
+}
+
+const character = new Character({
   image: characterImage,
   position: {
     x: WidthHeight.width / 2 - 124 / 4 / 2,
     y: WidthHeight.height / 2 - 38 / 2,
-  },
-  frames: {
-    numberOfFrames: 4,
-    imagePosition: 0,
-    waitingFrames: 0,
   },
 });
 
