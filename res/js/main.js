@@ -21,6 +21,17 @@ let myHp;
 let enemyHp;
 let myName;
 let enemyName;
+let myPokemonTurn = true;
+let randomAttack;
+let randomSpecial;
+let enemyImageInterval;
+let myImageInterval;
+let then = Date.now();
+let now;
+let delta;
+let interval = 1000 / 59;
+let random;
+let battleStart = false;
 
 const WidthHeight = {
   width: 1600,
@@ -162,8 +173,8 @@ class Sprite {
 const character = new Character({
   image: characterImage,
   position: {
-    x: WidthHeight.width / 2 - 124 / 4 / 2,
-    y: WidthHeight.height / 2 - 38 / 2,
+    x: WidthHeight.width / 2 - 200 / 4 / 2,
+    y: WidthHeight.height / 2 - 74 / 2,
   },
 });
 
@@ -195,13 +206,6 @@ const keys = {
 // Drawing images
 
 const movables = [background, ...boundaries, foreground, ...tallGrasses];
-
-let then = Date.now();
-let now;
-let delta;
-let interval = 1000 / 59;
-let random;
-let battleStart = false;
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -406,11 +410,17 @@ animation();
 
 // Battle
 
-let myPokemonTurn = true;
-let randomAttack;
-let randomSpecial;
-let enemyImageInterval;
-let myImageInterval;
+function BattleResult(winner) {
+  info.style.display = "block";
+  info.innerHTML = `${winner} WON`;
+  options.style.display = "none";
+  myPokemonTurn = true;
+  setTimeout(() => {
+    vancas.style.display = "block";
+    battleground.style.display = "none";
+    battleStart = false;
+  }, 2000);
+}
 
 function enemyAttack() {
   if (!myPokemonTurn) {
@@ -467,26 +477,9 @@ function enemyAttack() {
     }
 
     if (myHp <= 0) {
-      info.style.display = "block";
-      myPokemonHp.innerHTML = `0 HP`;
-      info.innerHTML = `${enemyName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(enemyName);
     } else if (enemyHp <= 0) {
-      info.style.display = "block";
-      info.innerHTML = `${myName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(myName);
     }
   }
 }
@@ -518,6 +511,7 @@ function battle() {
         info.style.display = "block";
         info.innerHTML = `${myName} USED TACKLE`;
         options.style.display = "none";
+        myPokemonTurn = false;
         myImageInterval = setInterval(() => {
           enemyPokemonImage.style.display = "none";
           setTimeout(() => {
@@ -529,7 +523,6 @@ function battle() {
           options.style.display = "block";
         }, 2000);
       }
-      myPokemonTurn = false;
       setTimeout(() => {
         clearInterval(myImageInterval);
       }, 450);
@@ -538,25 +531,9 @@ function battle() {
       }, 2000);
     }
     if (myHp <= 0) {
-      info.style.display = "block";
-      info.innerHTML = `${enemyName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(enemyName);
     } else if (enemyHp <= 0) {
-      info.style.display = "block";
-      info.innerHTML = `${myName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(myName);
     }
   };
 
@@ -609,48 +586,11 @@ function battle() {
     }
 
     if (myHp <= 0) {
-      info.style.display = "block";
-      info.innerHTML = `${enemyName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(enemyName);
     } else if (enemyHp <= 0) {
-      info.style.display = "block";
-      info.innerHTML = `${myName} WON`;
-      options.style.display = "none";
-      myPokemonTurn = true;
-      setTimeout(() => {
-        vancas.style.display = "block";
-        battleground.style.display = "none";
-        battleStart = false;
-      }, 2000);
+      BattleResult(myName);
     }
   };
-  if (myHp <= 0) {
-    info.style.display = "block";
-    info.innerHTML = `${enemyName} WON`;
-    options.style.display = "none";
-    myPokemonTurn = true;
-    setTimeout(() => {
-      vancas.style.display = "block";
-      battleground.style.display = "none";
-      battleStart = false;
-    }, 2000);
-  } else if (enemyHp <= 0) {
-    info.style.display = "block";
-    info.innerHTML = `${myName} WON`;
-    options.style.display = "none";
-    myPokemonTurn = true;
-    setTimeout(() => {
-      vancas.style.display = "block";
-      battleground.style.display = "none";
-      battleStart = false;
-    }, 2000);
-  }
 }
 
 // Movement
