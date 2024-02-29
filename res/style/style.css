@@ -108,7 +108,6 @@ canvas {
 }
 
 #enemyPokemonImage {
-  background-image: url("../img/pokemons/Shadowfang.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -117,7 +116,6 @@ canvas {
 }
 
 #myPokemonImage {
-  background-image: url("../img/pokemons/Galewing.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
