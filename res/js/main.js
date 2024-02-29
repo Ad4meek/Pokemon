@@ -17,6 +17,10 @@ const info = document.getElementById("info");
 const options = document.getElementById("options");
 const pokemonImages = document.getElementById("pokemonImages");
 const levelUp = document.getElementById("levelup");
+const pokemonSelect = document.getElementById("pokemonSelect");
+const firstPokemon = document.getElementById("firstPokemon");
+const secondPokemon = document.getElementById("secondPokemon");
+const thirdPokemon = document.getElementById("thirdPokemon");
 
 let myPokemonTurn = true;
 let myPokemon;
@@ -28,7 +32,7 @@ let delta;
 let interval = 1000 / 59;
 let random;
 let battleStart = false;
-let xp = 100;
+let xp = 10;
 
 const WidthHeight = {
   width: 1600,
@@ -412,7 +416,7 @@ const galewing = {
   damage: 1,
   specialDamage: 2,
   hp: 40,
-  image: "Galewing.png"
+  image: "Galewing.png",
 };
 
 const shadowfang = {
@@ -420,7 +424,7 @@ const shadowfang = {
   damage: 2,
   specialDamage: 3,
   hp: 30,
-  image: "Shadowfang.png"
+  image: "Shadowfang.png",
 };
 
 const frostbite = {
@@ -428,32 +432,60 @@ const frostbite = {
   damage: 3,
   specialDamage: 4,
   hp: 20,
-  image: "Frostbite.png"
+  image: "Frostbite.png",
 };
 
+let myPokemons = {
+  firstPokemon,
+  secondPokemon,
+  thirdPokemon
+};
 
+myPokemons.firstPokemon = galewing;
+myPokemons.secondPokemon = shadowfang;
+myPokemons.thirdPokemon = frostbite;
 
-function selectPokemon() {
-  const pokemons = [ galewing, shadowfang, frostbite ];
+// myPokemon = myPokemons.secondPokemon;
+// myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+
+function selectEnemyPokemon() {
+  const pokemons = [galewing, shadowfang, frostbite];
   let RandomPokemon = Math.floor(Math.random() * pokemons.length);
   enemyPokemon = pokemons[RandomPokemon];
   enemyPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${enemyPokemon.image}')`;
 }
 
-myPokemon = galewing;
-myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+function selectMyPokemon() {
+  vancas.style.display = "none";
+  firstPokemon.onclick = () => {
+    myPokemon = myPokemons.firstPokemon;
+    myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+    battleground.style.display = "flex";
+    pokemonSelect.style.display = "none";
+  };
+  secondPokemon.onclick = () => {
+    myPokemon = myPokemons.secondPokemon;
+    myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+    battleground.style.display = "flex";
+    pokemonSelect.style.display = "none";
+  };
+  thirdPokemon.onclick = () => {
+    myPokemon = myPokemons.thirdPokemon;
+    myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+    battleground.style.display = "flex";
+    pokemonSelect.style.display = "none";
+  };
+}
 
 levelUp.onclick = () => {
-  console.log("sadgsd");
   if (xp >= 1) {
     myPokemon.hp += 1;
     myPokemon.damage += 1;
     myPokemon.specialDamage += 1;
-    console.log(myPokemon.hp);
-  } else {
-    console.log("neni xp");
+    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+    xp -= 1;
   }
-}
+};
 
 function battleAnimation(pokemonImage) {
   imageInterval = setInterval(() => {
@@ -531,9 +563,11 @@ function enemyAttack() {
 }
 
 function battle() {
-  vancas.style.display = "none";
-  battleground.style.display = "flex";
-  selectPokemon();
+  selectMyPokemon();
+  selectEnemyPokemon();
+  // vancas.style.display = "none";
+  // battleground.style.display = "flex";
+  console.log(myPokemon);
   myPokemonName.innerHTML = myPokemon.name;
   enemyPokemonName.innerHTML = enemyPokemon.name;
   myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
@@ -547,6 +581,7 @@ function battle() {
   };
 
   tackle.onclick = () => {
+    console.log("sxgfsgdf");
     if (myPokemonTurn) {
       if (enemyPokemon.hp >= 1 && myPokemon.hp >= 1) {
         enemyPokemon.hp -= myPokemon.damage;
@@ -626,9 +661,7 @@ function battle() {
   };
 }
 
-battle()
-
-
+battle();
 
 // Movement
 
