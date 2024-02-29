@@ -444,15 +444,15 @@ let myPokemons = {
 myPokemons.firstPokemon = galewing;
 myPokemons.secondPokemon = shadowfang;
 myPokemons.thirdPokemon = frostbite;
-firstPokemon.style.backgroundImage = `url('../../res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-secondPokemon.style.backgroundImage = `url('../../res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-thirdPokemon.style.backgroundImage = `url('../../res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+firstPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
 
 function selectEnemyPokemon() {
   const pokemons = [galewing, shadowfang, frostbite];
   let RandomPokemon = Math.floor(Math.random() * pokemons.length);
   enemyPokemon = pokemons[RandomPokemon];
-  enemyPokemonImage.style.backgroundImage = `url('../../res/img/pokemons/${enemyPokemon.image}')`;
+  enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
 }
 
 function selectMyPokemon() {
@@ -460,21 +460,21 @@ function selectMyPokemon() {
   vancas.style.display = "none";
   firstPokemon.onclick = () => {
     myPokemon = myPokemons.firstPokemon;
-    myPokemonImage.style.backgroundImage = `url('../../res/img/pokemons/${myPokemon.image}')`;
+    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
     battle();
   };
   secondPokemon.onclick = () => {
     myPokemon = myPokemons.secondPokemon;
-    myPokemonImage.style.backgroundImage = `url('../../res/img/pokemons/${myPokemon.image}')`;
+    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
     battle();
   };
   thirdPokemon.onclick = () => {
     myPokemon = myPokemons.thirdPokemon;
-    myPokemonImage.style.backgroundImage = `url('../../res/img/pokemons/${myPokemon.image}')`;
+    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
     battle();
