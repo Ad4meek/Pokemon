@@ -256,7 +256,7 @@ function animation() {
               random = Math.floor(Math.random() * 100);
               if (random == 1) {
                 battleStart = true;
-                battle();
+                selectMyPokemon();
               }
             }
           }
@@ -303,7 +303,7 @@ function animation() {
               random = Math.floor(Math.random() * 100);
               if (random == 1) {
                 battleStart = true;
-                battle();
+                selectMyPokemon();
               }
             }
           }
@@ -349,7 +349,7 @@ function animation() {
               random = Math.floor(Math.random() * 100);
               if (random == 1) {
                 battleStart = true;
-                battle();
+                selectMyPokemon();
               }
             }
           }
@@ -394,7 +394,7 @@ function animation() {
               random = Math.floor(Math.random() * 100);
               if (random == 1) {
                 battleStart = true;
-                battle();
+                selectMyPokemon();
               }
             }
           }
@@ -438,15 +438,15 @@ const frostbite = {
 let myPokemons = {
   firstPokemon,
   secondPokemon,
-  thirdPokemon
+  thirdPokemon,
 };
 
 myPokemons.firstPokemon = galewing;
 myPokemons.secondPokemon = shadowfang;
 myPokemons.thirdPokemon = frostbite;
-
-// myPokemon = myPokemons.secondPokemon;
-// myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
+firstPokemon.style.backgroundImage = `url('../res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+secondPokemon.style.backgroundImage = `url('../res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+thirdPokemon.style.backgroundImage = `url('../res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
 
 function selectEnemyPokemon() {
   const pokemons = [galewing, shadowfang, frostbite];
@@ -456,24 +456,28 @@ function selectEnemyPokemon() {
 }
 
 function selectMyPokemon() {
+  pokemonSelect.style.display = "flex";
   vancas.style.display = "none";
   firstPokemon.onclick = () => {
     myPokemon = myPokemons.firstPokemon;
     myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
+    battle();
   };
   secondPokemon.onclick = () => {
     myPokemon = myPokemons.secondPokemon;
     myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
+    battle();
   };
   thirdPokemon.onclick = () => {
     myPokemon = myPokemons.thirdPokemon;
     myPokemonImage.style.backgroundImage = `url('../res/img/pokemons/${myPokemon.image}')`;
     battleground.style.display = "flex";
     pokemonSelect.style.display = "none";
+    battle();
   };
 }
 
@@ -507,6 +511,9 @@ function BattleResult(winner) {
   info.innerHTML = `${winner} WON`;
   options.style.display = "none";
   myPokemonTurn = true;
+  if (winner == myPokemon.name) {
+    xp++
+  }
   setTimeout(() => {
     vancas.style.display = "block";
     battleground.style.display = "none";
@@ -563,11 +570,7 @@ function enemyAttack() {
 }
 
 function battle() {
-  selectMyPokemon();
   selectEnemyPokemon();
-  // vancas.style.display = "none";
-  // battleground.style.display = "flex";
-  console.log(myPokemon);
   myPokemonName.innerHTML = myPokemon.name;
   enemyPokemonName.innerHTML = enemyPokemon.name;
   myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
@@ -581,7 +584,6 @@ function battle() {
   };
 
   tackle.onclick = () => {
-    console.log("sxgfsgdf");
     if (myPokemonTurn) {
       if (enemyPokemon.hp >= 1 && myPokemon.hp >= 1) {
         enemyPokemon.hp -= myPokemon.damage;
@@ -660,8 +662,6 @@ function battle() {
     }
   };
 }
-
-battle();
 
 // Movement
 

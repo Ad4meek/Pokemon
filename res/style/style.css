@@ -124,37 +124,46 @@ canvas {
 }
 
 #pokemonSelect {
-  display: flex;
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 80%;
   width: 80%;
+  align-items: center;
 }
 
 #firstPokemon {
-  background-image: url("../img/pokemons/Galewing.png");
   background-size: contain;
   background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
+  background-position: center;
+  height: 100%;
+  width: 33.3%;
+  transition: 0.3s;
 }
 
 #secondPokemon {
-  background-image: url("../img/pokemons/Shadowfang.png");
   background-size: contain;
   background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
+  background-position: center;
+  height: 100%;
+  width: 33.3%;
+  transition: 0.3s;
 }
 
 #thirdPokemon {
-  background-image: url("../img/pokemons/Frostbite.png");
   background-size: contain;
   background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
+  background-position: center;
+  height: 100%;
+  width: 33.3%;
+  transition: 0.3s;
+}
+
+#firstPokemon:hover, #secondPokemon:hover,#thirdPokemon:hover{
+  transform: scale(1.1);
+  
 }
 
 @media (max-width: 109.375rem) {
