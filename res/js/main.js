@@ -4,6 +4,7 @@ import {
   housecollisions,
   housetable,
   housedoor,
+  door,
 } from "./map.js";
 
 const canvas = document.querySelector("canvas");
@@ -103,10 +104,6 @@ class HouseBoundary {
     this.width = 80;
     this.height = 80;
   }
-  draw() {
-    ctx.fillRect(this.position.x, this.position.y, 80, 80);
-    ctx.fillStyle = "red";
-  }
 }
 
 const houseboundaries = [];
@@ -148,6 +145,43 @@ tallGrassMap.forEach((row, i) => {
     if (symbol === 1) {
       tallGrasses.push(
         new TallGrass({
+          position: {
+            x: j * 80 + offset.x,
+            y: i * 80 + offset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
+// door
+
+const doorMap = [];
+
+for (let i = 0; i < door.length; i += 40) {
+  doorMap.push(door.slice(i, 40 + i));
+}
+
+class Door {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+  draw() {
+    ctx.fillRect(this.position.x, this.position.y, 80, 80);
+    ctx.fillStyle = "blue";
+  }
+}
+
+const doorboundary = [];
+
+doorMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 2665) {
+      doorboundary.push(
+        new Door({
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
@@ -271,9 +305,10 @@ const movables = [
   ...tallGrasses,
   house,
   ...houseboundaries,
+  ...doorboundary
 ];
 
-houseEnter = true;
+houseEnter = false;
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -334,6 +369,23 @@ function animation() {
               }
             }
           }
+          for (let i = 0; i < doorboundary.length; i++) {
+            const doorneco = doorboundary[i];
+
+            if (
+              character.position.x + characterImage.width / 4 >=
+                doorneco.position.x &&
+              character.position.x <= doorneco.position.x + doorneco.width &&
+              character.position.y + characterImage.height >=
+                doorneco.position.y &&
+              character.position.y <= doorneco.position.y + doorneco.height
+            ) {
+              if (!coliding) {
+                houseEnter = true
+                }
+              }
+            }
+          
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
             const houseboundary = houseboundaries[i];

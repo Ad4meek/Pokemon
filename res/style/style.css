@@ -161,9 +161,10 @@ canvas {
   transition: 0.3s;
 }
 
-#firstPokemon:hover, #secondPokemon:hover,#thirdPokemon:hover{
+#firstPokemon:hover,
+#secondPokemon:hover,
+#thirdPokemon:hover {
   transform: scale(1.1);
-  
 }
 
 @media (max-width: 109.375rem) {
