@@ -1,4 +1,10 @@
-import { map } from "./map.js";
+import {
+  collisions,
+  tallgrass,
+  housecollisions,
+  housetable,
+  housedoor,
+} from "./map.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -33,17 +39,29 @@ let interval = 1000 / 59;
 let random;
 let battleStart = false;
 let xp = 10;
+let houseEnter;
 
 const WidthHeight = {
   width: 1600,
   height: 800,
 };
 
+const offset = {
+  x: -1920,
+  y: -600,
+};
+
+const houseoffset = {
+  x: -40,
+  y: -1000,
+};
+
 // Collisions
 
 const collisionMap = [];
-for (let i = 0; i < map.length; i += 40) {
-  collisionMap.push(map.slice(i, 40 + i));
+
+for (let i = 0; i < collisions.length; i += 40) {
+  collisionMap.push(collisions.slice(i, 40 + i));
 }
 
 class Boundary {
@@ -55,11 +73,6 @@ class Boundary {
 }
 
 const boundaries = [];
-
-const offset = {
-  x: -1920,
-  y: -600,
-};
 
 collisionMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
@@ -76,11 +89,48 @@ collisionMap.forEach((row, i) => {
   });
 });
 
+// house collisions
+
+const housecollisionMap = [];
+
+for (let i = 0; i < housecollisions.length; i += 20) {
+  housecollisionMap.push(housecollisions.slice(i, 20 + i));
+}
+
+class HouseBoundary {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+  draw() {
+    ctx.fillRect(this.position.x, this.position.y, 80, 80);
+    ctx.fillStyle = "red";
+  }
+}
+
+const houseboundaries = [];
+
+housecollisionMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 457) {
+      houseboundaries.push(
+        new HouseBoundary({
+          position: {
+            x: j * 80 + houseoffset.x,
+            y: i * 80 + houseoffset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
 // Tall Grass
 
 const tallGrassMap = [];
-for (let i = 0; i < map.length; i += 40) {
-  tallGrassMap.push(map.slice(i, 40 + i));
+for (let i = 0; i < tallgrass.length; i += 40) {
+  tallGrassMap.push(tallgrass.slice(i, 40 + i));
 }
 
 class TallGrass {
@@ -116,6 +166,9 @@ window.onload = () => {
 
 const image = new Image();
 image.src = "./res/img/maps/testmap.png";
+
+const housemap = new Image();
+housemap.src = "./res/img/maps/house.png";
 
 const characterImage = new Image();
 
@@ -179,6 +232,11 @@ const character = new Character({
   },
 });
 
+const house = new Sprite({
+  position: { x: -40, y: -1000 },
+  image: housemap,
+});
+
 const background = new Sprite({
   position: { x: -1920, y: -600 },
   image: image,
@@ -206,7 +264,16 @@ const keys = {
 
 // Drawing images
 
-const movables = [background, ...boundaries, foreground, ...tallGrasses];
+const movables = [
+  background,
+  ...boundaries,
+  foreground,
+  ...tallGrasses,
+  house,
+  ...houseboundaries,
+];
+
+houseEnter = true;
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -214,9 +281,14 @@ function animation() {
   delta = now - then;
   if (delta > interval) {
     then = now - (delta % interval);
-    background.draw();
-    character.draw();
-    foreground.draw();
+    if (houseEnter === true) {
+      house.draw();
+      character.draw();
+    } else {
+      background.draw();
+      character.draw();
+      foreground.draw();
+    }
 
     let coliding = false;
     character.moving = false;
@@ -227,40 +299,60 @@ function animation() {
       if (!battleStart) {
         characterImage.src = "./res/img/characters/characterUp.png";
         character.moving = true;
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
-          if (
-            character.position.x + characterImage.width / 4 >=
-              boundary.position.x &&
-            character.position.x <= boundary.position.x + boundary.width &&
-            character.position.y + characterImage.height >=
-              boundary.position.y + 5 &&
-            character.position.y <= boundary.position.y + boundary.height + 5
-          ) {
-            coliding = true;
-            break;
+        if (!houseEnter) {
+          for (let i = 0; i < boundaries.length; i++) {
+            const boundary = boundaries[i];
+            if (
+              character.position.x + characterImage.width / 4 >=
+                boundary.position.x &&
+              character.position.x <= boundary.position.x + boundary.width &&
+              character.position.y + characterImage.height >=
+                boundary.position.y + 5 &&
+              character.position.y <= boundary.position.y + boundary.height + 5
+            ) {
+              coliding = true;
+              break;
+            }
           }
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
+          for (let i = 0; i < tallGrasses.length; i++) {
+            const grasstall = tallGrasses[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              grasstall.position.x &&
-            character.position.x <= grasstall.position.x + grasstall.width &&
-            character.position.y + characterImage.height >=
-              grasstall.position.y &&
-            character.position.y <= grasstall.position.y + grasstall.height
-          ) {
-            if (!coliding) {
-              random = Math.floor(Math.random() * 100);
-              if (random == 1) {
-                battleStart = true;
-                selectMyPokemon();
+            if (
+              character.position.x + characterImage.width / 4 >=
+                grasstall.position.x &&
+              character.position.x <= grasstall.position.x + grasstall.width &&
+              character.position.y + characterImage.height >=
+                grasstall.position.y &&
+              character.position.y <= grasstall.position.y + grasstall.height
+            ) {
+              if (!coliding) {
+                random = Math.floor(Math.random() * 100);
+                if (random == 1) {
+                  battleStart = true;
+                  selectMyPokemon();
+                }
               }
             }
           }
+        } else {
+          for (let i = 0; i < houseboundaries.length; i++) {
+            const houseboundary = houseboundaries[i];
+            if (
+              character.position.x + characterImage.width / 4 >=
+                houseboundary.position.x &&
+              character.position.x <=
+                houseboundary.position.x + houseboundary.width &&
+              character.position.y + characterImage.height >=
+                houseboundary.position.y + 5 &&
+              character.position.y <=
+                houseboundary.position.y + houseboundary.height + 5
+            ) {
+              coliding = true;
+              break;
+            }
+          }
         }
+
         if (!coliding) {
           movables.forEach((movable) => {
             movable.position.y += 5;
@@ -273,41 +365,62 @@ function animation() {
       if (!battleStart) {
         character.moving = true;
         characterImage.src = "./res/img/characters/characterLeft.png";
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
+        if (!houseEnter) {
+          for (let i = 0; i < boundaries.length; i++) {
+            const boundary = boundaries[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              boundary.position.x + 5 &&
-            character.position.x <= boundary.position.x + boundary.width + 5 &&
-            character.position.y + characterImage.height >=
-              boundary.position.y &&
-            character.position.y <= boundary.position.y + boundary.height
-          ) {
-            coliding = true;
-            break;
+            if (
+              character.position.x + characterImage.width / 4 >=
+                boundary.position.x + 5 &&
+              character.position.x <=
+                boundary.position.x + boundary.width + 5 &&
+              character.position.y + characterImage.height >=
+                boundary.position.y &&
+              character.position.y <= boundary.position.y + boundary.height
+            ) {
+              coliding = true;
+              break;
+            }
           }
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
+          for (let i = 0; i < tallGrasses.length; i++) {
+            const grasstall = tallGrasses[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              grasstall.position.x &&
-            character.position.x <= grasstall.position.x + grasstall.width &&
-            character.position.y + characterImage.height >=
-              grasstall.position.y &&
-            character.position.y <= grasstall.position.y + grasstall.height
-          ) {
-            if (!coliding) {
-              random = Math.floor(Math.random() * 100);
-              if (random == 1) {
-                battleStart = true;
-                selectMyPokemon();
+            if (
+              character.position.x + characterImage.width / 4 >=
+                grasstall.position.x &&
+              character.position.x <= grasstall.position.x + grasstall.width &&
+              character.position.y + characterImage.height >=
+                grasstall.position.y &&
+              character.position.y <= grasstall.position.y + grasstall.height
+            ) {
+              if (!coliding) {
+                random = Math.floor(Math.random() * 100);
+                if (random == 1) {
+                  battleStart = true;
+                  selectMyPokemon();
+                }
               }
             }
           }
+        } else {
+          for (let i = 0; i < houseboundaries.length; i++) {
+            const houseboundary = houseboundaries[i];
+            if (
+              character.position.x + characterImage.width / 4 >=
+                houseboundary.position.x + 5 &&
+              character.position.x <=
+                houseboundary.position.x + houseboundary.width + 5 &&
+              character.position.y + characterImage.height >=
+                houseboundary.position.y &&
+              character.position.y <=
+                houseboundary.position.y + houseboundary.height
+            ) {
+              coliding = true;
+              break;
+            }
+          }
         }
+
         if (!coliding)
           movables.forEach((movable) => {
             movable.position.x += 5;
@@ -319,41 +432,61 @@ function animation() {
       if (!battleStart) {
         characterImage.src = "./res/img/characters/characterDown.png";
         character.moving = true;
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
+        if (!houseEnter) {
+          for (let i = 0; i < boundaries.length; i++) {
+            const boundary = boundaries[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              boundary.position.x &&
-            character.position.x <= boundary.position.x + boundary.width &&
-            character.position.y + characterImage.height >=
-              boundary.position.y - 5 &&
-            character.position.y <= boundary.position.y + boundary.height - 5
-          ) {
-            coliding = true;
-            break;
+            if (
+              character.position.x + characterImage.width / 4 >=
+                boundary.position.x &&
+              character.position.x <= boundary.position.x + boundary.width &&
+              character.position.y + characterImage.height >=
+                boundary.position.y - 5 &&
+              character.position.y <= boundary.position.y + boundary.height - 5
+            ) {
+              coliding = true;
+              break;
+            }
           }
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
+          for (let i = 0; i < tallGrasses.length; i++) {
+            const grasstall = tallGrasses[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              grasstall.position.x &&
-            character.position.x <= grasstall.position.x + grasstall.width &&
-            character.position.y + characterImage.height >=
-              grasstall.position.y &&
-            character.position.y <= grasstall.position.y + grasstall.height
-          ) {
-            if (!coliding) {
-              random = Math.floor(Math.random() * 100);
-              if (random == 1) {
-                battleStart = true;
-                selectMyPokemon();
+            if (
+              character.position.x + characterImage.width / 4 >=
+                grasstall.position.x &&
+              character.position.x <= grasstall.position.x + grasstall.width &&
+              character.position.y + characterImage.height >=
+                grasstall.position.y &&
+              character.position.y <= grasstall.position.y + grasstall.height
+            ) {
+              if (!coliding) {
+                random = Math.floor(Math.random() * 100);
+                if (random == 1) {
+                  battleStart = true;
+                  selectMyPokemon();
+                }
               }
             }
           }
+        } else {
+          for (let i = 0; i < houseboundaries.length; i++) {
+            const houseboundary = houseboundaries[i];
+            if (
+              character.position.x + characterImage.width / 4 >=
+                houseboundary.position.x &&
+              character.position.x <=
+                houseboundary.position.x + houseboundary.width &&
+              character.position.y + characterImage.height >=
+                houseboundary.position.y - 5 &&
+              character.position.y <=
+                houseboundary.position.y + houseboundary.height - 5
+            ) {
+              coliding = true;
+              break;
+            }
+          }
         }
+
         if (!coliding)
           movables.forEach((movable) => {
             movable.position.y -= 5;
@@ -364,41 +497,62 @@ function animation() {
       if (!battleStart) {
         characterImage.src = "./res/img/characters/characterRight.png";
         character.moving = true;
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
+        if (!houseEnter) {
+          for (let i = 0; i < boundaries.length; i++) {
+            const boundary = boundaries[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              boundary.position.x - 5 &&
-            character.position.x <= boundary.position.x + boundary.width - 5 &&
-            character.position.y + characterImage.height >=
-              boundary.position.y &&
-            character.position.y <= boundary.position.y + boundary.height
-          ) {
-            coliding = true;
-            break;
+            if (
+              character.position.x + characterImage.width / 4 >=
+                boundary.position.x - 5 &&
+              character.position.x <=
+                boundary.position.x + boundary.width - 5 &&
+              character.position.y + characterImage.height >=
+                boundary.position.y &&
+              character.position.y <= boundary.position.y + boundary.height
+            ) {
+              coliding = true;
+              break;
+            }
           }
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
+          for (let i = 0; i < tallGrasses.length; i++) {
+            const grasstall = tallGrasses[i];
 
-          if (
-            character.position.x + characterImage.width / 4 >=
-              grasstall.position.x &&
-            character.position.x <= grasstall.position.x + grasstall.width &&
-            character.position.y + characterImage.height >=
-              grasstall.position.y &&
-            character.position.y <= grasstall.position.y + grasstall.height
-          ) {
-            if (!coliding) {
-              random = Math.floor(Math.random() * 100);
-              if (random == 1) {
-                battleStart = true;
-                selectMyPokemon();
+            if (
+              character.position.x + characterImage.width / 4 >=
+                grasstall.position.x &&
+              character.position.x <= grasstall.position.x + grasstall.width &&
+              character.position.y + characterImage.height >=
+                grasstall.position.y &&
+              character.position.y <= grasstall.position.y + grasstall.height
+            ) {
+              if (!coliding) {
+                random = Math.floor(Math.random() * 100);
+                if (random == 1) {
+                  battleStart = true;
+                  selectMyPokemon();
+                }
               }
             }
           }
+        } else {
+          for (let i = 0; i < houseboundaries.length; i++) {
+            const houseboundary = houseboundaries[i];
+            if (
+              character.position.x + characterImage.width / 4 >=
+                houseboundary.position.x - 5 &&
+              character.position.x <=
+                houseboundary.position.x + houseboundary.width - 5 &&
+              character.position.y + characterImage.height >=
+                houseboundary.position.y &&
+              character.position.y <=
+                houseboundary.position.y + houseboundary.height
+            ) {
+              coliding = true;
+              break;
+            }
+          }
         }
+
         if (!coliding)
           movables.forEach((movable) => {
             movable.position.x -= 5;
@@ -512,7 +666,7 @@ function BattleResult(winner) {
   options.style.display = "none";
   myPokemonTurn = true;
   if (winner == myPokemon.name) {
-    xp++
+    xp++;
   }
   setTimeout(() => {
     vancas.style.display = "block";
