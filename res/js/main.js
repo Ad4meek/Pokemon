@@ -123,6 +123,43 @@ housecollisionMap.forEach((row, i) => {
   });
 });
 
+// house door
+
+const housedoorMap = [];
+
+for (let i = 0; i < housedoor.length; i += 20) {
+  housedoorMap.push(housedoor.slice(i, 20 + i));
+}
+
+class HouseDoor {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+  draw() {
+    ctx.fillRect(this.position.x, this.position.y, 80, 80);
+    ctx.fillStyle = "green";
+  }
+}
+
+const housedoors = [];
+
+housedoorMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 515) {
+      housedoors.push(
+        new HouseDoor({
+          position: {
+            x: j * 80 + houseoffset.x,
+            y: i * 80 + houseoffset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
 // Tall Grass
 
 const tallGrassMap = [];
@@ -305,7 +342,8 @@ const movables = [
   ...tallGrasses,
   house,
   ...houseboundaries,
-  ...doorboundary
+  ...doorboundary,
+  ...housedoors,
 ];
 
 houseEnter = false;
@@ -318,6 +356,9 @@ function animation() {
     then = now - (delta % interval);
     if (houseEnter === true) {
       house.draw();
+      housedoors.forEach((hoose) => {
+        hoose.draw();
+      });
       character.draw();
     } else {
       background.draw();
@@ -328,6 +369,50 @@ function animation() {
     let coliding = false;
     character.moving = false;
 
+    function detectBoundary(item, moveX, moveY) {
+      if (
+        character.position.x + characterImage.width / 4 >=
+          item.position.x + moveX &&
+        character.position.x <= item.position.x + item.width + moveX &&
+        character.position.y + characterImage.height >=
+          item.position.y + moveY &&
+        character.position.y <= item.position.y + item.height + moveY
+      ) {
+        coliding = true;
+      }
+    }
+
+    function detectTallGrass(item) {
+      if (
+        character.position.x + characterImage.width / 4 >= item.position.x &&
+        character.position.x <= item.position.x + item.width &&
+        character.position.y + characterImage.height >= item.position.y &&
+        character.position.y <= item.position.y + item.height
+      ) {
+        if (!coliding) {
+          random = Math.floor(Math.random() * 500);
+          if (random == 1) {
+            battleStart = true;
+            selectMyPokemon();
+          }
+        }
+      }
+    }
+
+    function detectContact(item, action) {
+      if (
+        character.position.x + characterImage.width / 4 >= item.position.x &&
+        character.position.x <= item.position.x + item.width &&
+        character.position.y + characterImage.height >= item.position.y &&
+        character.position.y <= item.position.y + item.height
+      ) {
+        if (!coliding) {
+          houseEnter = action;
+          console.log("gang");
+        }
+      }
+    }
+
     // Moving UP
 
     if (keys.w.pressed) {
@@ -337,71 +422,25 @@ function animation() {
         if (!houseEnter) {
           for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
-            if (
-              character.position.x + characterImage.width / 4 >=
-                boundary.position.x &&
-              character.position.x <= boundary.position.x + boundary.width &&
-              character.position.y + characterImage.height >=
-                boundary.position.y + 5 &&
-              character.position.y <= boundary.position.y + boundary.height + 5
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(boundary, 0, 5);
           }
           for (let i = 0; i < tallGrasses.length; i++) {
             const grasstall = tallGrasses[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                grasstall.position.x &&
-              character.position.x <= grasstall.position.x + grasstall.width &&
-              character.position.y + characterImage.height >=
-                grasstall.position.y &&
-              character.position.y <= grasstall.position.y + grasstall.height
-            ) {
-              if (!coliding) {
-                random = Math.floor(Math.random() * 100);
-                if (random == 1) {
-                  battleStart = true;
-                  selectMyPokemon();
-                }
-              }
-            }
+            detectTallGrass(grasstall);
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                doorneco.position.x &&
-              character.position.x <= doorneco.position.x + doorneco.width &&
-              character.position.y + characterImage.height >=
-                doorneco.position.y &&
-              character.position.y <= doorneco.position.y + doorneco.height
-            ) {
-              if (!coliding) {
-                houseEnter = true
-                }
-              }
-            }
-          
+            detectContact(doorneco, true);
+          }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
             const houseboundary = houseboundaries[i];
-            if (
-              character.position.x + characterImage.width / 4 >=
-                houseboundary.position.x &&
-              character.position.x <=
-                houseboundary.position.x + houseboundary.width &&
-              character.position.y + characterImage.height >=
-                houseboundary.position.y + 5 &&
-              character.position.y <=
-                houseboundary.position.y + houseboundary.height + 5
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(houseboundary, 0, 5);
+          }
+          for (let i = 0; i < housedoors.length; i++) {
+            const doorinside = houseboundaries[i];
+            detectContact(doorinside, false);
+            
           }
         }
 
@@ -420,56 +459,24 @@ function animation() {
         if (!houseEnter) {
           for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                boundary.position.x + 5 &&
-              character.position.x <=
-                boundary.position.x + boundary.width + 5 &&
-              character.position.y + characterImage.height >=
-                boundary.position.y &&
-              character.position.y <= boundary.position.y + boundary.height
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(boundary, 5, 0);
           }
           for (let i = 0; i < tallGrasses.length; i++) {
             const grasstall = tallGrasses[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                grasstall.position.x &&
-              character.position.x <= grasstall.position.x + grasstall.width &&
-              character.position.y + characterImage.height >=
-                grasstall.position.y &&
-              character.position.y <= grasstall.position.y + grasstall.height
-            ) {
-              if (!coliding) {
-                random = Math.floor(Math.random() * 100);
-                if (random == 1) {
-                  battleStart = true;
-                  selectMyPokemon();
-                }
-              }
-            }
+            detectTallGrass(grasstall);
+          }
+          for (let i = 0; i < doorboundary.length; i++) {
+            const doorneco = doorboundary[i];
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
             const houseboundary = houseboundaries[i];
-            if (
-              character.position.x + characterImage.width / 4 >=
-                houseboundary.position.x + 5 &&
-              character.position.x <=
-                houseboundary.position.x + houseboundary.width + 5 &&
-              character.position.y + characterImage.height >=
-                houseboundary.position.y &&
-              character.position.y <=
-                houseboundary.position.y + houseboundary.height
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(houseboundary, 5, 0);
+          }
+          for (let i = 0; i < housedoors.length; i++) {
+            const doorinside = houseboundaries[i];
+            detectContact(doorinside, false);
           }
         }
 
@@ -487,55 +494,25 @@ function animation() {
         if (!houseEnter) {
           for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                boundary.position.x &&
-              character.position.x <= boundary.position.x + boundary.width &&
-              character.position.y + characterImage.height >=
-                boundary.position.y - 5 &&
-              character.position.y <= boundary.position.y + boundary.height - 5
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(boundary, 0, -5);
           }
           for (let i = 0; i < tallGrasses.length; i++) {
             const grasstall = tallGrasses[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                grasstall.position.x &&
-              character.position.x <= grasstall.position.x + grasstall.width &&
-              character.position.y + characterImage.height >=
-                grasstall.position.y &&
-              character.position.y <= grasstall.position.y + grasstall.height
-            ) {
-              if (!coliding) {
-                random = Math.floor(Math.random() * 100);
-                if (random == 1) {
-                  battleStart = true;
-                  selectMyPokemon();
-                }
-              }
-            }
+            detectTallGrass(grasstall);
+          }
+          for (let i = 0; i < doorboundary.length; i++) {
+            const doorneco = doorboundary[i];
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
             const houseboundary = houseboundaries[i];
-            if (
-              character.position.x + characterImage.width / 4 >=
-                houseboundary.position.x &&
-              character.position.x <=
-                houseboundary.position.x + houseboundary.width &&
-              character.position.y + characterImage.height >=
-                houseboundary.position.y - 5 &&
-              character.position.y <=
-                houseboundary.position.y + houseboundary.height - 5
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(houseboundary, 0, -5);
+          }
+          for (let i = 0; i < housedoors.length; i++) {
+            const doorinside = housedoors[i];
+            detectContact(doorinside, false);
+            
           }
         }
 
@@ -552,56 +529,24 @@ function animation() {
         if (!houseEnter) {
           for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                boundary.position.x - 5 &&
-              character.position.x <=
-                boundary.position.x + boundary.width - 5 &&
-              character.position.y + characterImage.height >=
-                boundary.position.y &&
-              character.position.y <= boundary.position.y + boundary.height
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(boundary, -5, 0);
           }
           for (let i = 0; i < tallGrasses.length; i++) {
             const grasstall = tallGrasses[i];
-
-            if (
-              character.position.x + characterImage.width / 4 >=
-                grasstall.position.x &&
-              character.position.x <= grasstall.position.x + grasstall.width &&
-              character.position.y + characterImage.height >=
-                grasstall.position.y &&
-              character.position.y <= grasstall.position.y + grasstall.height
-            ) {
-              if (!coliding) {
-                random = Math.floor(Math.random() * 100);
-                if (random == 1) {
-                  battleStart = true;
-                  selectMyPokemon();
-                }
-              }
-            }
+            detectTallGrass(grasstall);
+          }
+          for (let i = 0; i < doorboundary.length; i++) {
+            const doorneco = doorboundary[i];
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
             const houseboundary = houseboundaries[i];
-            if (
-              character.position.x + characterImage.width / 4 >=
-                houseboundary.position.x - 5 &&
-              character.position.x <=
-                houseboundary.position.x + houseboundary.width - 5 &&
-              character.position.y + characterImage.height >=
-                houseboundary.position.y &&
-              character.position.y <=
-                houseboundary.position.y + houseboundary.height
-            ) {
-              coliding = true;
-              break;
-            }
+            detectBoundary(houseboundary, -5, 0);
+          }
+          for (let i = 0; i < housedoors.length; i++) {
+            const doorinside = houseboundaries[i];
+            detectContact(doorinside, false);
           }
         }
 
