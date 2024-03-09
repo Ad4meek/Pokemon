@@ -7,6 +7,8 @@ import {
   door,
 } from "./map.js";
 
+// Variables
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const vancas = document.getElementById("vancas");
@@ -57,7 +59,9 @@ const houseoffset = {
   y: -1000,
 };
 
-// Collisions
+// Map Contact Places
+
+// Map Boundaries
 
 const collisionMap = [];
 
@@ -83,76 +87,6 @@ collisionMap.forEach((row, i) => {
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// house collisions
-
-const housecollisionMap = [];
-
-for (let i = 0; i < housecollisions.length; i += 20) {
-  housecollisionMap.push(housecollisions.slice(i, 20 + i));
-}
-
-class HouseBoundary {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const houseboundaries = [];
-
-housecollisionMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 457) {
-      houseboundaries.push(
-        new HouseBoundary({
-          position: {
-            x: j * 80 + houseoffset.x,
-            y: i * 80 + houseoffset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// house door
-
-const housedoorMap = [];
-
-for (let i = 0; i < housedoor.length; i += 20) {
-  housedoorMap.push(housedoor.slice(i, 20 + i));
-}
-
-class HouseDoor {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-  draw() {
-    ctx.fillRect(this.position.x, this.position.y, 80, 80);
-    ctx.fillStyle = "green";
-  }
-}
-
-const housedoors = [];
-
-housedoorMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 515) {
-      housedoors.push(
-        new HouseDoor({
-          position: {
-            x: j * 80 + houseoffset.x,
-            y: i * 80 + houseoffset.y,
           },
         })
       );
@@ -192,7 +126,7 @@ tallGrassMap.forEach((row, i) => {
   });
 });
 
-// door
+// Door to House
 
 const doorMap = [];
 
@@ -206,10 +140,6 @@ class Door {
     this.width = 80;
     this.height = 80;
   }
-  draw() {
-    ctx.fillRect(this.position.x, this.position.y, 80, 80);
-    ctx.fillStyle = "blue";
-  }
 }
 
 const doorboundary = [];
@@ -222,6 +152,74 @@ doorMap.forEach((row, i) => {
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
+// House Contact Places
+
+// House Boundaries
+
+const housecollisionMap = [];
+
+for (let i = 0; i < housecollisions.length; i += 20) {
+  housecollisionMap.push(housecollisions.slice(i, 20 + i));
+}
+
+class HouseBoundary {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+}
+
+const houseboundaries = [];
+
+housecollisionMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 609) {
+      houseboundaries.push(
+        new HouseBoundary({
+          position: {
+            x: j * 80 + houseoffset.x,
+            y: i * 80 + houseoffset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
+// Doors from House
+
+const housedoorMap = [];
+
+for (let i = 0; i < housedoor.length; i += 20) {
+  housedoorMap.push(housedoor.slice(i, 20 + i));
+}
+
+class HouseDoor {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+}
+
+const housedoors = [];
+
+housedoorMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 607) {
+      housedoors.push(
+        new HouseDoor({
+          position: {
+            x: j * 80 + houseoffset.x,
+            y: i * 80 + houseoffset.y,
           },
         })
       );
@@ -246,7 +244,7 @@ const characterImage = new Image();
 const foregroundImage = new Image();
 foregroundImage.src = "./res/img/maps/foreground.png";
 
-// Map Draw
+// Character Draw
 
 class Character {
   constructor({ position, image }) {
@@ -285,6 +283,8 @@ class Character {
   }
 }
 
+// Map Draw
+
 class Sprite {
   constructor({ image, position }) {
     this.position = position;
@@ -304,19 +304,21 @@ const character = new Character({
 });
 
 const house = new Sprite({
-  position: { x: -40, y: -1000 },
+  position: { x: houseoffset.x, y: houseoffset.y },
   image: housemap,
 });
 
 const background = new Sprite({
-  position: { x: -1920, y: -600 },
+  position: { x: offset.x, y: offset.y },
   image: image,
 });
 
 const foreground = new Sprite({
-  position: { x: -1920, y: -600 },
+  position: { x: offset.x, y: offset.y },
   image: foregroundImage,
 });
+
+// Movement
 
 const keys = {
   w: {
@@ -332,6 +334,88 @@ const keys = {
     pressed: false,
   },
 };
+
+window.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "w":
+      keys.w.pressed = true;
+      break;
+    case "a":
+      keys.a.pressed = true;
+      break;
+    case "s":
+      keys.s.pressed = true;
+      break;
+    case "d":
+      keys.d.pressed = true;
+      break;
+    case "W":
+      keys.w.pressed = true;
+      break;
+    case "A":
+      keys.a.pressed = true;
+      break;
+    case "S":
+      keys.s.pressed = true;
+      break;
+    case "D":
+      keys.d.pressed = true;
+      break;
+    case "ArrowUp":
+      keys.w.pressed = true;
+      break;
+    case "ArrowLeft":
+      keys.a.pressed = true;
+      break;
+    case "ArrowDown":
+      keys.s.pressed = true;
+      break;
+    case "ArrowRight":
+      keys.d.pressed = true;
+      break;
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  switch (e.key) {
+    case "w":
+      keys.w.pressed = false;
+      break;
+    case "a":
+      keys.a.pressed = false;
+      break;
+    case "s":
+      keys.s.pressed = false;
+      break;
+    case "d":
+      keys.d.pressed = false;
+      break;
+    case "W":
+      keys.w.pressed = false;
+      break;
+    case "A":
+      keys.a.pressed = false;
+      break;
+    case "S":
+      keys.s.pressed = false;
+      break;
+    case "D":
+      keys.d.pressed = false;
+      break;
+    case "ArrowUp":
+      keys.w.pressed = false;
+      break;
+    case "ArrowLeft":
+      keys.a.pressed = false;
+      break;
+    case "ArrowDown":
+      keys.s.pressed = false;
+      break;
+    case "ArrowRight":
+      keys.d.pressed = false;
+      break;
+  }
+});
 
 // Drawing images
 
@@ -356,9 +440,6 @@ function animation() {
     then = now - (delta % interval);
     if (houseEnter === true) {
       house.draw();
-      housedoors.forEach((hoose) => {
-        hoose.draw();
-      });
       character.draw();
     } else {
       background.draw();
@@ -408,7 +489,6 @@ function animation() {
       ) {
         if (!coliding) {
           houseEnter = action;
-          console.log("gang");
         }
       }
     }
@@ -438,9 +518,8 @@ function animation() {
             detectBoundary(houseboundary, 0, 5);
           }
           for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = houseboundaries[i];
+            const doorinside = housedoors[i];
             detectContact(doorinside, false);
-            
           }
         }
 
@@ -475,7 +554,7 @@ function animation() {
             detectBoundary(houseboundary, 5, 0);
           }
           for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = houseboundaries[i];
+            const doorinside = housedoors[i];
             detectContact(doorinside, false);
           }
         }
@@ -512,7 +591,6 @@ function animation() {
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
             detectContact(doorinside, false);
-            
           }
         }
 
@@ -545,7 +623,7 @@ function animation() {
             detectBoundary(houseboundary, -5, 0);
           }
           for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = houseboundaries[i];
+            const doorinside = housedoors[i];
             detectContact(doorinside, false);
           }
         }
@@ -813,87 +891,3 @@ function battle() {
     }
   };
 }
-
-// Movement
-
-window.addEventListener("keydown", (e) => {
-  switch (e.key) {
-    case "w":
-      keys.w.pressed = true;
-      break;
-    case "a":
-      keys.a.pressed = true;
-      break;
-    case "s":
-      keys.s.pressed = true;
-      break;
-    case "d":
-      keys.d.pressed = true;
-      break;
-    case "W":
-      keys.w.pressed = true;
-      break;
-    case "A":
-      keys.a.pressed = true;
-      break;
-    case "S":
-      keys.s.pressed = true;
-      break;
-    case "D":
-      keys.d.pressed = true;
-      break;
-    case "ArrowUp":
-      keys.w.pressed = true;
-      break;
-    case "ArrowLeft":
-      keys.a.pressed = true;
-      break;
-    case "ArrowDown":
-      keys.s.pressed = true;
-      break;
-    case "ArrowRight":
-      keys.d.pressed = true;
-      break;
-  }
-});
-
-window.addEventListener("keyup", (e) => {
-  switch (e.key) {
-    case "w":
-      keys.w.pressed = false;
-      break;
-    case "a":
-      keys.a.pressed = false;
-      break;
-    case "s":
-      keys.s.pressed = false;
-      break;
-    case "d":
-      keys.d.pressed = false;
-      break;
-    case "W":
-      keys.w.pressed = false;
-      break;
-    case "A":
-      keys.a.pressed = false;
-      break;
-    case "S":
-      keys.s.pressed = false;
-      break;
-    case "D":
-      keys.d.pressed = false;
-      break;
-    case "ArrowUp":
-      keys.w.pressed = false;
-      break;
-    case "ArrowLeft":
-      keys.a.pressed = false;
-      break;
-    case "ArrowDown":
-      keys.s.pressed = false;
-      break;
-    case "ArrowRight":
-      keys.d.pressed = false;
-      break;
-  }
-});
