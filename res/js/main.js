@@ -175,6 +175,10 @@ class HouseBoundary {
     this.width = 80;
     this.height = 80;
   }
+  draw() {
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this, this.height);
+  }
 }
 
 const houseboundaries = [];
@@ -193,6 +197,8 @@ housecollisionMap.forEach((row, i) => {
     }
   });
 });
+
+
 
 // Doors from House
 
@@ -419,25 +425,24 @@ window.addEventListener("keyup", (e) => {
 
 // Drawing images
 
-const movables = [
-  background,
-  ...boundaries,
-  foreground,
-  ...tallGrasses,
-  house,
+let houseMovables = [
   ...houseboundaries,
   ...doorboundary,
   ...housedoors,
+  house,
 ];
 
-houseEnter = false;
+let mapMovables = [background, ...boundaries, foreground, ...tallGrasses];
 
+houseEnter = true;
 function animation() {
   window.requestAnimationFrame(animation);
+  
   now = Date.now();
   delta = now - then;
   if (delta > interval) {
     then = now - (delta % interval);
+    
     if (houseEnter === true) {
       house.draw();
       character.draw();
@@ -480,7 +485,7 @@ function animation() {
       }
     }
 
-    function detectContact(item, action) {
+    function detectContact(item, action, place) {
       if (
         character.position.x + characterImage.width / 4 >= item.position.x &&
         character.position.x <= item.position.x + item.width &&
@@ -488,6 +493,11 @@ function animation() {
         character.position.y <= item.position.y + item.height
       ) {
         if (!coliding) {
+          if (place === houseoffset) {
+            [...mapMovables] = mapMovables
+          } else if (place === offset) {
+            [...houseMovables] = houseMovables
+          }
           houseEnter = action;
         }
       }
@@ -510,7 +520,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
+            detectContact(doorneco, true, offset);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -519,14 +529,20 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false);
+            detectContact(doorinside, false, houseoffset);
           }
         }
 
         if (!coliding) {
-          movables.forEach((movable) => {
-            movable.position.y += 5;
-          });
+          if (houseEnter === true) {
+            [...houseMovables].forEach((movable) => {
+              movable.position.y += 5;
+            });
+          } else {
+            [...mapMovables].forEach((movable) => {
+              movable.position.y += 5;
+            });
+          }
         }
       }
 
@@ -546,7 +562,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
+            detectContact(doorneco, true, offset);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -555,14 +571,20 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false);
+            detectContact(doorinside, false, houseoffset);
           }
         }
 
         if (!coliding)
-          movables.forEach((movable) => {
-            movable.position.x += 5;
-          });
+          if (houseEnter === true) {
+            [...houseMovables].forEach((movable) => {
+              movable.position.x += 5;
+            });
+          } else {
+            [...mapMovables].forEach((movable) => {
+              movable.position.x += 5;
+            });
+          }
       }
 
       // Moving DOWN
@@ -581,7 +603,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
+            detectContact(doorneco, true, offset);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -590,14 +612,20 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false);
+            detectContact(doorinside, false, houseoffset);
           }
         }
 
         if (!coliding)
-          movables.forEach((movable) => {
-            movable.position.y -= 5;
-          });
+          if (houseEnter === true) {
+            [...houseMovables].forEach((movable) => {
+              movable.position.y -= 5;
+            });
+          } else {
+            [...mapMovables].forEach((movable) => {
+              movable.position.y -= 5;
+            });
+          }
       }
       // Moving RIGHT
     } else if (keys.d.pressed) {
@@ -615,7 +643,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
+            detectContact(doorneco, true, offset);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -624,14 +652,20 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false);
+            detectContact(doorinside, false, houseoffset);
           }
         }
 
         if (!coliding)
-          movables.forEach((movable) => {
-            movable.position.x -= 5;
-          });
+          if (houseEnter === true) {
+            [...houseMovables].forEach((movable) => {
+              movable.position.x -= 5;
+            });
+          } else {
+            [...mapMovables].forEach((movable) => {
+              movable.position.x -= 5;
+            });
+          }
       }
     }
   }
