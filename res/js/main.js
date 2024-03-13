@@ -11,7 +11,7 @@ import {
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-const vancas = document.getElementById("vancas");
+const vancas = document.getElementById("pokemonCanvas");
 const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
 const tackle = document.getElementById("tackle");
@@ -140,6 +140,10 @@ class Door {
     this.width = 80;
     this.height = 80;
   }
+  draw() {
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
 }
 
 const doorboundary = [];
@@ -176,8 +180,8 @@ class HouseBoundary {
     this.height = 80;
   }
   draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this, this.height);
+    ctx.fillStyle = "green";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -198,8 +202,6 @@ housecollisionMap.forEach((row, i) => {
   });
 });
 
-
-
 // Doors from House
 
 const housedoorMap = [];
@@ -213,6 +215,10 @@ class HouseDoor {
     this.position = position;
     this.width = 80;
     this.height = 80;
+  }
+  draw() {
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -425,24 +431,23 @@ window.addEventListener("keyup", (e) => {
 
 // Drawing images
 
-let houseMovables = [
-  ...houseboundaries,
+let houseMovables = [...houseboundaries, ...housedoors, house];
+
+let mapMovables = [
+  background,
+  ...boundaries,
+  foreground,
+  ...tallGrasses,
   ...doorboundary,
-  ...housedoors,
-  house,
 ];
 
-let mapMovables = [background, ...boundaries, foreground, ...tallGrasses];
-
-houseEnter = true;
+houseEnter = false;
 function animation() {
   window.requestAnimationFrame(animation);
-  
   now = Date.now();
   delta = now - then;
   if (delta > interval) {
     then = now - (delta % interval);
-    
     if (houseEnter === true) {
       house.draw();
       character.draw();
@@ -476,7 +481,7 @@ function animation() {
         character.position.y <= item.position.y + item.height
       ) {
         if (!coliding) {
-          random = Math.floor(Math.random() * 500);
+          random = Math.floor(Math.random() * 100);
           if (random == 1) {
             battleStart = true;
             selectMyPokemon();
@@ -485,7 +490,7 @@ function animation() {
       }
     }
 
-    function detectContact(item, action, place) {
+    function detectContact(item, action) {
       if (
         character.position.x + characterImage.width / 4 >= item.position.x &&
         character.position.x <= item.position.x + item.width &&
@@ -493,11 +498,6 @@ function animation() {
         character.position.y <= item.position.y + item.height
       ) {
         if (!coliding) {
-          if (place === houseoffset) {
-            [...mapMovables] = mapMovables
-          } else if (place === offset) {
-            [...houseMovables] = houseMovables
-          }
           houseEnter = action;
         }
       }
@@ -520,7 +520,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true, offset);
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -529,17 +529,17 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false, houseoffset);
+            detectContact(doorinside, false);
           }
         }
 
         if (!coliding) {
           if (houseEnter === true) {
-            [...houseMovables].forEach((movable) => {
+            houseMovables.forEach((movable) => {
               movable.position.y += 5;
             });
           } else {
-            [...mapMovables].forEach((movable) => {
+            mapMovables.forEach((movable) => {
               movable.position.y += 5;
             });
           }
@@ -562,7 +562,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true, offset);
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -571,17 +571,17 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false, houseoffset);
+            detectContact(doorinside, false);
           }
         }
 
         if (!coliding)
           if (houseEnter === true) {
-            [...houseMovables].forEach((movable) => {
+            houseMovables.forEach((movable) => {
               movable.position.x += 5;
             });
           } else {
-            [...mapMovables].forEach((movable) => {
+            mapMovables.forEach((movable) => {
               movable.position.x += 5;
             });
           }
@@ -603,7 +603,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true, offset);
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -612,17 +612,17 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false, houseoffset);
+            detectContact(doorinside, false);
           }
         }
 
         if (!coliding)
           if (houseEnter === true) {
-            [...houseMovables].forEach((movable) => {
+            houseMovables.forEach((movable) => {
               movable.position.y -= 5;
             });
           } else {
-            [...mapMovables].forEach((movable) => {
+            mapMovables.forEach((movable) => {
               movable.position.y -= 5;
             });
           }
@@ -643,7 +643,7 @@ function animation() {
           }
           for (let i = 0; i < doorboundary.length; i++) {
             const doorneco = doorboundary[i];
-            detectContact(doorneco, true, offset);
+            detectContact(doorneco, true);
           }
         } else {
           for (let i = 0; i < houseboundaries.length; i++) {
@@ -652,17 +652,17 @@ function animation() {
           }
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
-            detectContact(doorinside, false, houseoffset);
+            detectContact(doorinside, false);
           }
         }
 
         if (!coliding)
           if (houseEnter === true) {
-            [...houseMovables].forEach((movable) => {
+            houseMovables.forEach((movable) => {
               movable.position.x -= 5;
             });
           } else {
-            [...mapMovables].forEach((movable) => {
+            mapMovables.forEach((movable) => {
               movable.position.x -= 5;
             });
           }
@@ -698,6 +698,30 @@ const frostbite = {
   image: "Frostbite.png",
 };
 
+const enemyFrostbite = {
+  name: "FROSTBITE",
+  damage: 3,
+  specialDamage: 4,
+  hp: 20,
+  image: "Frostbite.png",
+};
+
+const enemyGalewing = {
+  name: "GALEWING",
+  damage: 1,
+  specialDamage: 2,
+  hp: 40,
+  image: "Galewing.png",
+};
+
+const enemyShadowfang = {
+  name: "SHADOWFANG",
+  damage: 2,
+  specialDamage: 3,
+  hp: 30,
+  image: "Shadowfang.png",
+};
+
 let myPokemons = {
   firstPokemon,
   secondPokemon,
@@ -712,7 +736,7 @@ secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.second
 thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
 
 function selectEnemyPokemon() {
-  const pokemons = [galewing, shadowfang, frostbite];
+  let pokemons = [enemyGalewing, enemyShadowfang, enemyFrostbite];
   let RandomPokemon = Math.floor(Math.random() * pokemons.length);
   enemyPokemon = pokemons[RandomPokemon];
   enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
