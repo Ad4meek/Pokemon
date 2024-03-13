@@ -30,6 +30,14 @@ const pokemonSelect = document.getElementById("pokemonSelect");
 const firstPokemon = document.getElementById("firstPokemon");
 const secondPokemon = document.getElementById("secondPokemon");
 const thirdPokemon = document.getElementById("thirdPokemon");
+const inventory = document.getElementById("inventory");
+const myInventory = document.getElementById("myInventory");
+const firstInventoryPokemon = document.getElementById("firstInventoryPokemon");
+const secondInventoryPokemon = document.getElementById(
+  "secondInventoryPokemon"
+);
+const thirdInventoryPokemon = document.getElementById("thirdInventoryPokemon");
+const backInventory = document.getElementById("backInventory");
 
 let myPokemonTurn = true;
 let myPokemon;
@@ -41,6 +49,7 @@ let delta;
 let interval = 1000 / 59;
 let random;
 let battleStart = false;
+let inventoryShow = false;
 let xp = 10;
 let houseEnter;
 
@@ -165,6 +174,43 @@ doorMap.forEach((row, i) => {
 
 // House Contact Places
 
+// House Table
+
+const housetableMap = [];
+
+for (let i = 0; i < housetable.length; i += 20) {
+  housetableMap.push(housetable.slice(i, 20 + i));
+}
+
+class HouseTable {
+  constructor({ position }) {
+    this.position = position;
+    this.width = 80;
+    this.height = 80;
+  }
+  draw() {
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    ctx.fillStyle = "green"
+  }
+}
+
+const housetables = [];
+
+housetableMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 71) {
+      housetables.push(
+        new HouseTable({
+          position: {
+            x: j * 80 + houseoffset.x,
+            y: i * 80 + houseoffset.y,
+          },
+        })
+      );
+    }
+  });
+});
+
 // House Boundaries
 
 const housecollisionMap = [];
@@ -178,10 +224,6 @@ class HouseBoundary {
     this.position = position;
     this.width = 80;
     this.height = 80;
-  }
-  draw() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -215,10 +257,6 @@ class HouseDoor {
     this.position = position;
     this.width = 80;
     this.height = 80;
-  }
-  draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -431,7 +469,7 @@ window.addEventListener("keyup", (e) => {
 
 // Drawing images
 
-let houseMovables = [...houseboundaries, ...housedoors, house];
+let houseMovables = [...houseboundaries, ...housedoors, house, ...housetables];
 
 let mapMovables = [
   background,
@@ -442,6 +480,7 @@ let mapMovables = [
 ];
 
 houseEnter = false;
+
 function animation() {
   window.requestAnimationFrame(animation);
   now = Date.now();
@@ -450,6 +489,9 @@ function animation() {
     then = now - (delta % interval);
     if (houseEnter === true) {
       house.draw();
+      housetables.forEach((asf)=>{
+        asf.draw()
+      })
       character.draw();
     } else {
       background.draw();
@@ -503,10 +545,27 @@ function animation() {
       }
     }
 
+    function detectTable(item, moveX, moveY) {
+      if (
+        character.position.x + characterImage.width / 4 >=
+          item.position.x + moveX &&
+        character.position.x <= item.position.x + item.width + moveX &&
+        character.position.y + characterImage.height >=
+          item.position.y + moveY &&
+        character.position.y <= item.position.y + item.height + moveY
+      ) {
+        if (!coliding) {
+          inventory.style.display = "block";
+          vancas.style.display = "none";
+          inventoryShow = true;
+        }
+      }
+    }
+
     // Moving UP
 
     if (keys.w.pressed) {
-      if (!battleStart) {
+      if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterUp.png";
         character.moving = true;
         if (!houseEnter) {
@@ -531,6 +590,10 @@ function animation() {
             const doorinside = housedoors[i];
             detectContact(doorinside, false);
           }
+          for (let i = 0; i < housetables.length; i++) {
+            const table = housetables[i];
+            detectTable(table, 0, 10);
+          }
         }
 
         if (!coliding) {
@@ -548,7 +611,7 @@ function animation() {
 
       // Moving LEFT
     } else if (keys.a.pressed) {
-      if (!battleStart) {
+      if (!battleStart && !inventoryShow) {
         character.moving = true;
         characterImage.src = "./res/img/characters/characterLeft.png";
         if (!houseEnter) {
@@ -573,6 +636,10 @@ function animation() {
             const doorinside = housedoors[i];
             detectContact(doorinside, false);
           }
+          for (let i = 0; i < housetables.length; i++) {
+            const table = housetables[i];
+            detectTable(table, 10, 0);
+          }
         }
 
         if (!coliding)
@@ -589,7 +656,7 @@ function animation() {
 
       // Moving DOWN
     } else if (keys.s.pressed) {
-      if (!battleStart) {
+      if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterDown.png";
         character.moving = true;
         if (!houseEnter) {
@@ -614,6 +681,10 @@ function animation() {
             const doorinside = housedoors[i];
             detectContact(doorinside, false);
           }
+          for (let i = 0; i < housetables.length; i++) {
+            const table = housetables[i];
+            detectTable(table, 0, -10);
+          }
         }
 
         if (!coliding)
@@ -629,7 +700,7 @@ function animation() {
       }
       // Moving RIGHT
     } else if (keys.d.pressed) {
-      if (!battleStart) {
+      if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterRight.png";
         character.moving = true;
         if (!houseEnter) {
@@ -653,6 +724,10 @@ function animation() {
           for (let i = 0; i < housedoors.length; i++) {
             const doorinside = housedoors[i];
             detectContact(doorinside, false);
+          }
+          for (let i = 0; i < housetables.length; i++) {
+            const table = housetables[i];
+            detectTable(table, -10, 0);
           }
         }
 
@@ -736,7 +811,7 @@ secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.second
 thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
 
 function selectEnemyPokemon() {
-  let pokemons = [enemyGalewing, enemyShadowfang, enemyFrostbite];
+  const pokemons = [enemyGalewing, enemyShadowfang, enemyFrostbite];
   let RandomPokemon = Math.floor(Math.random() * pokemons.length);
   enemyPokemon = pokemons[RandomPokemon];
   enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
@@ -767,6 +842,12 @@ function selectMyPokemon() {
     battle();
   };
 }
+
+backInventory.onclick = () => {
+  inventoryShow = false;
+  vancas.style.display = "block";
+  inventory.style.display = "none";
+};
 
 levelUp.onclick = () => {
   if (xp >= 1) {

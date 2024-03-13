@@ -20,6 +20,48 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
+#inventory {
+  display: none;
+}
+
+#firstLayer,
+#secondLayer,
+#thirdLayer {
+  display: flex;
+}
+
+#inventoryPokemons {
+  display: flex;
+}
+
+#firstInventoryPokemon,
+#secondInventoryPokemon,
+#thirdInventoryPokemon {
+  background-image: url("../img/pokemons/Frostbite.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150px;
+  width: 150px;
+}
+
+#pokemon1,
+#pokemon2,
+#pokemon3,
+#pokemon4,
+#pokemon5,
+#pokemon6,
+#pokemon7,
+#pokemon8,
+#pokemon9 {
+  background-image: url("../img/pokemons/Galewing.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150px;
+  width: 150px;
+}
+
 #battleground {
   position: absolute;
   top: 50%;
