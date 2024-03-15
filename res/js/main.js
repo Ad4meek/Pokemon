@@ -9,9 +9,14 @@ import {
 
 // Variables
 
+// Canvas Variables
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const vancas = document.getElementById("pokemonCanvas");
+
+// Battle Variables
+
 const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
 const tackle = document.getElementById("tackle");
@@ -25,11 +30,13 @@ const enemyPokemonImage = document.getElementById("enemyPokemonImage");
 const info = document.getElementById("info");
 const options = document.getElementById("options");
 const pokemonImages = document.getElementById("pokemonImages");
-const levelUp = document.getElementById("levelup");
 const pokemonSelect = document.getElementById("pokemonSelect");
 const firstPokemon = document.getElementById("firstPokemon");
 const secondPokemon = document.getElementById("secondPokemon");
 const thirdPokemon = document.getElementById("thirdPokemon");
+
+// Inventory variables
+
 const inventory = document.getElementById("inventory");
 const myInventory = document.getElementById("myInventory");
 const firstInventoryPokemon = document.getElementById("firstInventoryPokemon");
@@ -37,7 +44,34 @@ const secondInventoryPokemon = document.getElementById(
   "secondInventoryPokemon"
 );
 const thirdInventoryPokemon = document.getElementById("thirdInventoryPokemon");
+const firstInventoryPokemonImage = document.getElementById(
+  "firstInventoryPokemonImage"
+);
+const secondInventoryPokemonImage = document.getElementById(
+  "secondInventoryPokemonImage"
+);
+const thirdInventoryPokemonImage = document.getElementById(
+  "thirdInventoryPokemonImage"
+);
+const firstPokemonStats = document.getElementById("firstPokemonStats");
+const secondPokemonStats = document.getElementById("secondPokemonStats");
+const thirdPokemonStats = document.getElementById("thirdPokemonStats");
+const firstPokemonName = document.getElementById("firstPokemonName");
+const firstPokemonHp = document.getElementById("firstPokemonHp");
+const firstPokemonDamage = document.getElementById("firstPokemonDamage");
+const firstPokemonType = document.getElementById("firstPokemonType");
+const secondPokemonName = document.getElementById("secondPokemonName");
+const secondPokemonHp = document.getElementById("secondPokemonHp");
+const secondPokemonDamage = document.getElementById("secondPokemonDamage");
+const secondPokemonType = document.getElementById("secondPokemonType");
+const thirdPokemonName = document.getElementById("thirdPokemonName");
+const thirdPokemonHp = document.getElementById("thirdPokemonHp");
+const thirdPokemonDamage = document.getElementById("thirdPokemonDamage");
+const thirdPokemonType = document.getElementById("thirdPokemonType");
 const backInventory = document.getElementById("backInventory");
+const firstPokemonLevelUp = document.getElementById("firstPokemonLevelUp");
+const secondPokemonLevelUp = document.getElementById("secondPokemonLevelUp");
+const thirdPokemonLevelUp = document.getElementById("thirdPokemonLevelUp");
 
 let myPokemonTurn = true;
 let myPokemon;
@@ -50,7 +84,7 @@ let interval = 1000 / 59;
 let random;
 let battleStart = false;
 let inventoryShow = false;
-let xp = 10;
+let xp = 3000;
 let houseEnter;
 
 const WidthHeight = {
@@ -189,8 +223,8 @@ class HouseTable {
     this.height = 80;
   }
   draw() {
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-    ctx.fillStyle = "green"
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.fillStyle = "green";
   }
 }
 
@@ -489,9 +523,9 @@ function animation() {
     then = now - (delta % interval);
     if (houseEnter === true) {
       house.draw();
-      housetables.forEach((asf)=>{
-        asf.draw()
-      })
+      housetables.forEach((asf) => {
+        asf.draw();
+      });
       character.draw();
     } else {
       background.draw();
@@ -592,7 +626,7 @@ function animation() {
           }
           for (let i = 0; i < housetables.length; i++) {
             const table = housetables[i];
-            detectTable(table, 0, 10);
+            detectTable(table, 0, 15);
           }
         }
 
@@ -638,7 +672,7 @@ function animation() {
           }
           for (let i = 0; i < housetables.length; i++) {
             const table = housetables[i];
-            detectTable(table, 10, 0);
+            detectTable(table, 15, 0);
           }
         }
 
@@ -683,7 +717,7 @@ function animation() {
           }
           for (let i = 0; i < housetables.length; i++) {
             const table = housetables[i];
-            detectTable(table, 0, -10);
+            detectTable(table, 0, -15);
           }
         }
 
@@ -727,7 +761,7 @@ function animation() {
           }
           for (let i = 0; i < housetables.length; i++) {
             const table = housetables[i];
-            detectTable(table, -10, 0);
+            detectTable(table, -15, 0);
           }
         }
 
@@ -755,6 +789,7 @@ const galewing = {
   specialDamage: 2,
   hp: 40,
   image: "Galewing.png",
+  type: "Electric",
 };
 
 const shadowfang = {
@@ -763,6 +798,7 @@ const shadowfang = {
   specialDamage: 3,
   hp: 30,
   image: "Shadowfang.png",
+  type: "Shadow",
 };
 
 const frostbite = {
@@ -771,6 +807,7 @@ const frostbite = {
   specialDamage: 4,
   hp: 20,
   image: "Frostbite.png",
+  type: "Ice",
 };
 
 const enemyFrostbite = {
@@ -779,6 +816,7 @@ const enemyFrostbite = {
   specialDamage: 4,
   hp: 20,
   image: "Frostbite.png",
+  type: "Ice",
 };
 
 const enemyGalewing = {
@@ -787,6 +825,7 @@ const enemyGalewing = {
   specialDamage: 2,
   hp: 40,
   image: "Galewing.png",
+  type: "Electric",
 };
 
 const enemyShadowfang = {
@@ -795,6 +834,7 @@ const enemyShadowfang = {
   specialDamage: 3,
   hp: 30,
   image: "Shadowfang.png",
+  type: "Shadow",
 };
 
 let myPokemons = {
@@ -809,6 +849,58 @@ myPokemons.thirdPokemon = frostbite;
 firstPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
 secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
 thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+firstInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+secondInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
+firstPokemonHp.innerHTML = `${myPokemons.firstPokemon.hp} HP`;
+firstPokemonDamage.innerHTML = `${myPokemons.firstPokemon.damage} Damage`;
+firstPokemonType.innerHTML = `${myPokemons.firstPokemon.type} Type`;
+secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
+secondPokemonHp.innerHTML = `${myPokemons.secondPokemon.hp} HP`;
+secondPokemonDamage.innerHTML = `${myPokemons.secondPokemon.damage} Damage`;
+secondPokemonType.innerHTML = `${myPokemons.secondPokemon.type} Type`;
+thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
+thirdPokemonHp.innerHTML = `${myPokemons.thirdPokemon.hp} HP`;
+thirdPokemonDamage.innerHTML = `${myPokemons.thirdPokemon.damage} Damage`;
+thirdPokemonType.innerHTML = `${myPokemons.thirdPokemon.type} Type`;
+
+backInventory.onclick = () => {
+  inventoryShow = false;
+  vancas.style.display = "block";
+  inventory.style.display = "none";
+};
+
+firstPokemonLevelUp.onclick = () => {
+  if (xp >= 1) {
+    myPokemons.firstPokemon.hp += 1;
+    myPokemons.firstPokemon.damage += 1;
+    firstPokemonHp.innerHTML = `${myPokemons.firstPokemon.hp} HP`;
+    firstPokemonDamage.innerHTML = `${myPokemons.firstPokemon.damage} Damage`;
+    xp -= 1;
+    console.log("agada");
+  }
+};
+
+secondPokemonLevelUp.onclick = () => {
+  if (xp >= 1) {
+    myPokemons.secondPokemon.hp += 1;
+    myPokemons.secondPokemon.damage += 1;
+    secondPokemonHp.innerHTML = `${myPokemons.secondPokemon.hp} HP`;
+    secondPokemonDamage.innerHTML = `${myPokemons.secondPokemon.damage} Damage`;
+    xp -= 1;
+  }
+};
+
+thirdPokemonLevelUp.onclick = () => {
+  if (xp >= 1) {
+    myPokemons.thirdPokemon.hp += 1;
+    myPokemons.thirdPokemon.damage += 1;
+    thirdPokemonHp.innerHTML = `${myPokemons.thirdPokemon.hp} HP`;
+    thirdPokemonDamage.innerHTML = `${myPokemons.thirdPokemon.damage} Damage`;
+    xp -= 1;
+  }
+};
 
 function selectEnemyPokemon() {
   const pokemons = [enemyGalewing, enemyShadowfang, enemyFrostbite];
@@ -842,22 +934,6 @@ function selectMyPokemon() {
     battle();
   };
 }
-
-backInventory.onclick = () => {
-  inventoryShow = false;
-  vancas.style.display = "block";
-  inventory.style.display = "none";
-};
-
-levelUp.onclick = () => {
-  if (xp >= 1) {
-    myPokemon.hp += 1;
-    myPokemon.damage += 1;
-    myPokemon.specialDamage += 1;
-    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
-    xp -= 1;
-  }
-};
 
 function battleAnimation(pokemonImage) {
   imageInterval = setInterval(() => {
