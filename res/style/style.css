@@ -10,6 +10,15 @@ body {
   font-family: "Protest Strike", sans-serif;
 }
 
+button {
+  padding: 15px 30px;
+  border: 5px solid black;
+  border-radius: 1.5rem;
+  background-color: white;
+}
+
+/* Map */
+
 canvas {
   height: auto;
   width: 80%;
@@ -20,49 +29,42 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
+/* Inventory */
+
 #inventory {
   display: none;
-  max-width: 1600px;
-  max-height: 800px;
+  height: 80%;
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-#firstLayer,
-#secondLayer,
-#thirdLayer {
-  display: flex;
-}
-
 #myInventory {
   display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
 }
 
-#firstInventoryPokemonImage {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 150px;
-  width: 150px;
+#backInventory {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }
 
-#secondInventoryPokemonImage {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 150px;
-  width: 150px;
-}
-
+#firstInventoryPokemonImage,
+#secondInventoryPokemonImage,
 #thirdInventoryPokemonImage {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 150px;
-  width: 150px;
+  height: 300px;
+  width: 300px;
 }
+
+/* Battle */
 
 #battleground {
   position: absolute;
@@ -178,30 +180,14 @@ canvas {
   align-items: center;
 }
 
-#firstPokemon {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100%;
-  width: 33.3%;
-  transition: 0.3s;
-}
-
-#secondPokemon {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100%;
-  width: 33.3%;
-  transition: 0.3s;
-}
-
+#firstPokemon,
+#secondPokemon,
 #thirdPokemon {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   height: 100%;
-  width: 33.3%;
+  width: 100%;
   transition: 0.3s;
 }
 

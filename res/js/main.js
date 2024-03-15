@@ -183,10 +183,6 @@ class Door {
     this.width = 80;
     this.height = 80;
   }
-  draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
 }
 
 const doorboundary = [];
@@ -221,10 +217,6 @@ class HouseTable {
     this.position = position;
     this.width = 80;
     this.height = 80;
-  }
-  draw() {
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-    ctx.fillStyle = "green";
   }
 }
 
@@ -523,9 +515,6 @@ function animation() {
     then = now - (delta % interval);
     if (houseEnter === true) {
       house.draw();
-      housetables.forEach((asf) => {
-        asf.draw();
-      });
       character.draw();
     } else {
       background.draw();
@@ -786,7 +775,6 @@ animation();
 const galewing = {
   name: "GALEWING",
   damage: 1,
-  specialDamage: 2,
   hp: 40,
   image: "Galewing.png",
   type: "Electric",
@@ -795,7 +783,6 @@ const galewing = {
 const shadowfang = {
   name: "SHADOWFANG",
   damage: 2,
-  specialDamage: 3,
   hp: 30,
   image: "Shadowfang.png",
   type: "Shadow",
@@ -804,7 +791,6 @@ const shadowfang = {
 const frostbite = {
   name: "FROSTBITE",
   damage: 3,
-  specialDamage: 4,
   hp: 20,
   image: "Frostbite.png",
   type: "Ice",
@@ -813,7 +799,6 @@ const frostbite = {
 const enemyFrostbite = {
   name: "FROSTBITE",
   damage: 3,
-  specialDamage: 4,
   hp: 20,
   image: "Frostbite.png",
   type: "Ice",
@@ -822,7 +807,6 @@ const enemyFrostbite = {
 const enemyGalewing = {
   name: "GALEWING",
   damage: 1,
-  specialDamage: 2,
   hp: 40,
   image: "Galewing.png",
   type: "Electric",
@@ -831,7 +815,6 @@ const enemyGalewing = {
 const enemyShadowfang = {
   name: "SHADOWFANG",
   damage: 2,
-  specialDamage: 3,
   hp: 30,
   image: "Shadowfang.png",
   type: "Shadow",
@@ -878,7 +861,6 @@ firstPokemonLevelUp.onclick = () => {
     firstPokemonHp.innerHTML = `${myPokemons.firstPokemon.hp} HP`;
     firstPokemonDamage.innerHTML = `${myPokemons.firstPokemon.damage} Damage`;
     xp -= 1;
-    console.log("agada");
   }
 };
 
@@ -970,7 +952,7 @@ function enemyAttack() {
     let randomAttack = Math.floor(Math.random() * 5);
     if (randomAttack == 1) {
       if (myPokemon.hp >= 1 && enemyPokemon.hp >= 1) {
-        myPokemon.hp -= enemyPokemon.specialDamage;
+        myPokemon.hp -= enemyPokemon.damage * 2;
         myPokemonTurn = true;
         info.style.display = "block";
         info.innerHTML = `${enemyPokemon.name} USED SPECIAL ATTACK`;
@@ -1061,7 +1043,7 @@ function battle() {
       let randomSpecial = Math.floor(Math.random() * 3);
       if (randomSpecial == 1) {
         if (enemyPokemon.hp >= 1 && myPokemon.hp >= 1) {
-          enemyPokemon.hp -= myPokemon.specialDamage;
+          enemyPokemon.hp -= myPokemon.damage * 2;
           enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
           info.style.display = "block";
           info.innerHTML = `${myPokemon.name} USED SPECIAL ATTACK`;
