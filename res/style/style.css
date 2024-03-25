@@ -22,7 +22,7 @@ button {
 canvas {
   height: auto;
   width: 80%;
-  display: block;
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -41,6 +41,10 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
+#inventoryButton {
+  display: none;
+}
+
 #myInventory {
   display: flex;
   justify-content: space-evenly;
@@ -49,6 +53,7 @@ canvas {
 }
 
 #backInventory {
+  display: none;
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -62,6 +67,45 @@ canvas {
   background-position: center;
   height: 300px;
   width: 300px;
+}
+
+/* First pokemon select */
+
+#selectFirstPokemon {
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#thirdPokemonImage,
+#secondPokemonImage,
+#firstPokemonImage {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px;
+  width: 300px;
+}
+
+#thirdPokemonImage {
+  background-image: url("../img/pokemons/Frostbite.png");
+}
+
+#secondPokemonImage {
+  background-image: url("../img/pokemons/Shadowfang.png");
+}
+
+#firstPokemonImage {
+  background-image: url("../img/pokemons/Galewing.png");
+}
+
+#pokemonSelection {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 /* Battle */

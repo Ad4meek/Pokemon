@@ -1,11 +1,4 @@
-import {
-  collisions,
-  tallgrass,
-  housecollisions,
-  housetable,
-  housedoor,
-  door,
-} from "./map.js";
+import { collisions, tallgrass } from "./map.js";
 
 // Variables
 
@@ -38,40 +31,34 @@ const thirdPokemon = document.getElementById("thirdPokemon");
 // Inventory variables
 
 const inventory = document.getElementById("inventory");
-const myInventory = document.getElementById("myInventory");
-const firstInventoryPokemon = document.getElementById("firstInventoryPokemon");
-const secondInventoryPokemon = document.getElementById(
-  "secondInventoryPokemon"
-);
-const thirdInventoryPokemon = document.getElementById("thirdInventoryPokemon");
-const firstInventoryPokemonImage = document.getElementById(
-  "firstInventoryPokemonImage"
-);
-const secondInventoryPokemonImage = document.getElementById(
-  "secondInventoryPokemonImage"
-);
-const thirdInventoryPokemonImage = document.getElementById(
-  "thirdInventoryPokemonImage"
-);
-const firstPokemonStats = document.getElementById("firstPokemonStats");
-const secondPokemonStats = document.getElementById("secondPokemonStats");
-const thirdPokemonStats = document.getElementById("thirdPokemonStats");
+const inventoryButton = document.getElementById("inventoryButton");
 const firstPokemonName = document.getElementById("firstPokemonName");
 const firstPokemonHp = document.getElementById("firstPokemonHp");
 const firstPokemonDamage = document.getElementById("firstPokemonDamage");
 const firstPokemonType = document.getElementById("firstPokemonType");
+const firstPokemonSpeed = document.getElementById("firstPokemonSpeed");
+const firstPokemonLevel = document.getElementById("firstPokemonLevel");
 const secondPokemonName = document.getElementById("secondPokemonName");
 const secondPokemonHp = document.getElementById("secondPokemonHp");
 const secondPokemonDamage = document.getElementById("secondPokemonDamage");
 const secondPokemonType = document.getElementById("secondPokemonType");
+const secondPokemonSpeed = document.getElementById("secondPokemonSpeed");
+const secondPokemonLevel = document.getElementById("secondPokemonLevel");
 const thirdPokemonName = document.getElementById("thirdPokemonName");
 const thirdPokemonHp = document.getElementById("thirdPokemonHp");
 const thirdPokemonDamage = document.getElementById("thirdPokemonDamage");
 const thirdPokemonType = document.getElementById("thirdPokemonType");
+const thirdPokemonSpeed = document.getElementById("thirdPokemonSpeed");
+const thirdPokemonLevel = document.getElementById("thirdPokemonLevel");
 const backInventory = document.getElementById("backInventory");
-const firstPokemonLevelUp = document.getElementById("firstPokemonLevelUp");
-const secondPokemonLevelUp = document.getElementById("secondPokemonLevelUp");
-const thirdPokemonLevelUp = document.getElementById("thirdPokemonLevelUp");
+
+// First pokemon select variables
+
+const selectFirstPokemon = document.getElementById("selectFirstPokemon");
+const firstPokemonSelect = document.getElementById("firstPokemonSelect");
+const secondPokemonSelect = document.getElementById("secondPokemonSelect");
+const thirdPokemonSelect = document.getElementById("thirdPokemonSelect");
+const selectInfo = document.getElementById("selectInfo");
 
 let myPokemonTurn = true;
 let myPokemon;
@@ -84,8 +71,6 @@ let interval = 1000 / 59;
 let random;
 let battleStart = false;
 let inventoryShow = false;
-let xp = 3000;
-let houseEnter;
 
 const WidthHeight = {
   width: 1600,
@@ -96,13 +81,6 @@ const offset = {
   x: -1920,
   y: -600,
 };
-
-const houseoffset = {
-  x: -40,
-  y: -1000,
-};
-
-// Map Contact Places
 
 // Map Boundaries
 
@@ -169,140 +147,6 @@ tallGrassMap.forEach((row, i) => {
   });
 });
 
-// Door to House
-
-const doorMap = [];
-
-for (let i = 0; i < door.length; i += 40) {
-  doorMap.push(door.slice(i, 40 + i));
-}
-
-class Door {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const doorboundary = [];
-
-doorMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 2665) {
-      doorboundary.push(
-        new Door({
-          position: {
-            x: j * 80 + offset.x,
-            y: i * 80 + offset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// House Contact Places
-
-// House Table
-
-const housetableMap = [];
-
-for (let i = 0; i < housetable.length; i += 20) {
-  housetableMap.push(housetable.slice(i, 20 + i));
-}
-
-class HouseTable {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const housetables = [];
-
-housetableMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 71) {
-      housetables.push(
-        new HouseTable({
-          position: {
-            x: j * 80 + houseoffset.x,
-            y: i * 80 + houseoffset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// House Boundaries
-
-const housecollisionMap = [];
-
-for (let i = 0; i < housecollisions.length; i += 20) {
-  housecollisionMap.push(housecollisions.slice(i, 20 + i));
-}
-
-class HouseBoundary {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const houseboundaries = [];
-
-housecollisionMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 609) {
-      houseboundaries.push(
-        new HouseBoundary({
-          position: {
-            x: j * 80 + houseoffset.x,
-            y: i * 80 + houseoffset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// Doors from House
-
-const housedoorMap = [];
-
-for (let i = 0; i < housedoor.length; i += 20) {
-  housedoorMap.push(housedoor.slice(i, 20 + i));
-}
-
-class HouseDoor {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const housedoors = [];
-
-housedoorMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 607) {
-      housedoors.push(
-        new HouseDoor({
-          position: {
-            x: j * 80 + houseoffset.x,
-            y: i * 80 + houseoffset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
 // Images
 
 window.onload = () => {
@@ -311,9 +155,6 @@ window.onload = () => {
 
 const image = new Image();
 image.src = "./res/img/maps/testmap.png";
-
-const housemap = new Image();
-housemap.src = "./res/img/maps/house.png";
 
 const characterImage = new Image();
 
@@ -377,11 +218,6 @@ const character = new Character({
     x: WidthHeight.width / 2 - 200 / 4 / 2,
     y: WidthHeight.height / 2 - 74 / 2,
   },
-});
-
-const house = new Sprite({
-  position: { x: houseoffset.x, y: houseoffset.y },
-  image: housemap,
 });
 
 const background = new Sprite({
@@ -495,17 +331,37 @@ window.addEventListener("keyup", (e) => {
 
 // Drawing images
 
-let houseMovables = [...houseboundaries, ...housedoors, house, ...housetables];
+function FirstPokemonSelect() {
+  selectInfo.innerHTML = "Welcome, select your first pokemon!";
+  firstPokemonSelect.onclick = () => {
+    myPokemons.firstPokemon = galewing;
+    selectFirstPokemon.style.display = "none";
+    canvas.style.display = "block";
+    inventoryButton.style.display = "block";
+    backInventory.style.display = "block";
+    animation();
+  };
+  secondPokemonSelect.onclick = () => {
+    myPokemons.firstPokemon = shadowfang;
+    selectFirstPokemon.style.display = "none";
+    canvas.style.display = "block";
+    inventoryButton.style.display = "block";
+    backInventory.style.display = "block";
+    animation();
+  };
+  thirdPokemonSelect.onclick = () => {
+    myPokemons.firstPokemon = frostbite;
+    selectFirstPokemon.style.display = "none";
+    canvas.style.display = "block";
+    inventoryButton.style.display = "block";
+    backInventory.style.display = "block";
+    animation();
+  };
+}
 
-let mapMovables = [
-  background,
-  ...boundaries,
-  foreground,
-  ...tallGrasses,
-  ...doorboundary,
-];
+FirstPokemonSelect();
 
-houseEnter = false;
+let mapMovables = [background, ...boundaries, foreground, ...tallGrasses];
 
 function animation() {
   window.requestAnimationFrame(animation);
@@ -513,14 +369,9 @@ function animation() {
   delta = now - then;
   if (delta > interval) {
     then = now - (delta % interval);
-    if (houseEnter === true) {
-      house.draw();
-      character.draw();
-    } else {
-      background.draw();
-      character.draw();
-      foreground.draw();
-    }
+    background.draw();
+    character.draw();
+    foreground.draw();
 
     let coliding = false;
     character.moving = false;
@@ -555,80 +406,26 @@ function animation() {
       }
     }
 
-    function detectContact(item, action) {
-      if (
-        character.position.x + characterImage.width / 4 >= item.position.x &&
-        character.position.x <= item.position.x + item.width &&
-        character.position.y + characterImage.height >= item.position.y &&
-        character.position.y <= item.position.y + item.height
-      ) {
-        if (!coliding) {
-          houseEnter = action;
-        }
-      }
-    }
-
-    function detectTable(item, moveX, moveY) {
-      if (
-        character.position.x + characterImage.width / 4 >=
-          item.position.x + moveX &&
-        character.position.x <= item.position.x + item.width + moveX &&
-        character.position.y + characterImage.height >=
-          item.position.y + moveY &&
-        character.position.y <= item.position.y + item.height + moveY
-      ) {
-        if (!coliding) {
-          inventory.style.display = "block";
-          vancas.style.display = "none";
-          inventoryShow = true;
-        }
-      }
-    }
-
     // Moving UP
 
     if (keys.w.pressed) {
       if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterUp.png";
         character.moving = true;
-        if (!houseEnter) {
-          for (let i = 0; i < boundaries.length; i++) {
-            const boundary = boundaries[i];
-            detectBoundary(boundary, 0, 5);
-          }
-          for (let i = 0; i < tallGrasses.length; i++) {
-            const grasstall = tallGrasses[i];
-            detectTallGrass(grasstall);
-          }
-          for (let i = 0; i < doorboundary.length; i++) {
-            const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
-          }
-        } else {
-          for (let i = 0; i < houseboundaries.length; i++) {
-            const houseboundary = houseboundaries[i];
-            detectBoundary(houseboundary, 0, 5);
-          }
-          for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = housedoors[i];
-            detectContact(doorinside, false);
-          }
-          for (let i = 0; i < housetables.length; i++) {
-            const table = housetables[i];
-            detectTable(table, 0, 15);
-          }
+
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
+          detectBoundary(boundary, 0, 5);
+        }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+          detectTallGrass(grasstall);
         }
 
         if (!coliding) {
-          if (houseEnter === true) {
-            houseMovables.forEach((movable) => {
-              movable.position.y += 5;
-            });
-          } else {
-            mapMovables.forEach((movable) => {
-              movable.position.y += 5;
-            });
-          }
+          mapMovables.forEach((movable) => {
+            movable.position.y += 5;
+          });
         }
       }
 
@@ -637,44 +434,20 @@ function animation() {
       if (!battleStart && !inventoryShow) {
         character.moving = true;
         characterImage.src = "./res/img/characters/characterLeft.png";
-        if (!houseEnter) {
-          for (let i = 0; i < boundaries.length; i++) {
-            const boundary = boundaries[i];
-            detectBoundary(boundary, 5, 0);
-          }
-          for (let i = 0; i < tallGrasses.length; i++) {
-            const grasstall = tallGrasses[i];
-            detectTallGrass(grasstall);
-          }
-          for (let i = 0; i < doorboundary.length; i++) {
-            const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
-          }
-        } else {
-          for (let i = 0; i < houseboundaries.length; i++) {
-            const houseboundary = houseboundaries[i];
-            detectBoundary(houseboundary, 5, 0);
-          }
-          for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = housedoors[i];
-            detectContact(doorinside, false);
-          }
-          for (let i = 0; i < housetables.length; i++) {
-            const table = housetables[i];
-            detectTable(table, 15, 0);
-          }
+
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
+          detectBoundary(boundary, 5, 0);
+        }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+          detectTallGrass(grasstall);
         }
 
         if (!coliding)
-          if (houseEnter === true) {
-            houseMovables.forEach((movable) => {
-              movable.position.x += 5;
-            });
-          } else {
-            mapMovables.forEach((movable) => {
-              movable.position.x += 5;
-            });
-          }
+          mapMovables.forEach((movable) => {
+            movable.position.x += 5;
+          });
       }
 
       // Moving DOWN
@@ -682,93 +455,44 @@ function animation() {
       if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterDown.png";
         character.moving = true;
-        if (!houseEnter) {
-          for (let i = 0; i < boundaries.length; i++) {
-            const boundary = boundaries[i];
-            detectBoundary(boundary, 0, -5);
-          }
-          for (let i = 0; i < tallGrasses.length; i++) {
-            const grasstall = tallGrasses[i];
-            detectTallGrass(grasstall);
-          }
-          for (let i = 0; i < doorboundary.length; i++) {
-            const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
-          }
-        } else {
-          for (let i = 0; i < houseboundaries.length; i++) {
-            const houseboundary = houseboundaries[i];
-            detectBoundary(houseboundary, 0, -5);
-          }
-          for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = housedoors[i];
-            detectContact(doorinside, false);
-          }
-          for (let i = 0; i < housetables.length; i++) {
-            const table = housetables[i];
-            detectTable(table, 0, -15);
-          }
+
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
+          detectBoundary(boundary, 0, -5);
+        }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+          detectTallGrass(grasstall);
         }
 
         if (!coliding)
-          if (houseEnter === true) {
-            houseMovables.forEach((movable) => {
-              movable.position.y -= 5;
-            });
-          } else {
-            mapMovables.forEach((movable) => {
-              movable.position.y -= 5;
-            });
-          }
+          mapMovables.forEach((movable) => {
+            movable.position.y -= 5;
+          });
       }
       // Moving RIGHT
     } else if (keys.d.pressed) {
       if (!battleStart && !inventoryShow) {
         characterImage.src = "./res/img/characters/characterRight.png";
         character.moving = true;
-        if (!houseEnter) {
-          for (let i = 0; i < boundaries.length; i++) {
-            const boundary = boundaries[i];
-            detectBoundary(boundary, -5, 0);
-          }
-          for (let i = 0; i < tallGrasses.length; i++) {
-            const grasstall = tallGrasses[i];
-            detectTallGrass(grasstall);
-          }
-          for (let i = 0; i < doorboundary.length; i++) {
-            const doorneco = doorboundary[i];
-            detectContact(doorneco, true);
-          }
-        } else {
-          for (let i = 0; i < houseboundaries.length; i++) {
-            const houseboundary = houseboundaries[i];
-            detectBoundary(houseboundary, -5, 0);
-          }
-          for (let i = 0; i < housedoors.length; i++) {
-            const doorinside = housedoors[i];
-            detectContact(doorinside, false);
-          }
-          for (let i = 0; i < housetables.length; i++) {
-            const table = housetables[i];
-            detectTable(table, -15, 0);
-          }
+
+        for (let i = 0; i < boundaries.length; i++) {
+          const boundary = boundaries[i];
+          detectBoundary(boundary, -5, 0);
+        }
+        for (let i = 0; i < tallGrasses.length; i++) {
+          const grasstall = tallGrasses[i];
+          detectTallGrass(grasstall);
         }
 
         if (!coliding)
-          if (houseEnter === true) {
-            houseMovables.forEach((movable) => {
-              movable.position.x -= 5;
-            });
-          } else {
-            mapMovables.forEach((movable) => {
-              movable.position.x -= 5;
-            });
-          }
+          mapMovables.forEach((movable) => {
+            movable.position.x -= 5;
+          });
       }
     }
   }
 }
-animation();
 
 // Battle
 
@@ -778,6 +502,8 @@ const galewing = {
   hp: 40,
   image: "Galewing.png",
   type: "Electric",
+  speed: 1,
+  level: 1,
 };
 
 const shadowfang = {
@@ -786,6 +512,8 @@ const shadowfang = {
   hp: 30,
   image: "Shadowfang.png",
   type: "Shadow",
+  speed: 1,
+  level: 1,
 };
 
 const frostbite = {
@@ -794,6 +522,8 @@ const frostbite = {
   hp: 20,
   image: "Frostbite.png",
   type: "Ice",
+  speed: 1,
+  level: 1,
 };
 
 const enemyFrostbite = {
@@ -802,6 +532,8 @@ const enemyFrostbite = {
   hp: 20,
   image: "Frostbite.png",
   type: "Ice",
+  speed: 1,
+  level: 1,
 };
 
 const enemyGalewing = {
@@ -810,6 +542,8 @@ const enemyGalewing = {
   hp: 40,
   image: "Galewing.png",
   type: "Electric",
+  speed: 1,
+  level: 1,
 };
 
 const enemyShadowfang = {
@@ -818,6 +552,8 @@ const enemyShadowfang = {
   hp: 30,
   image: "Shadowfang.png",
   type: "Shadow",
+  speed: 1,
+  level: 1,
 };
 
 let myPokemons = {
@@ -826,62 +562,50 @@ let myPokemons = {
   thirdPokemon,
 };
 
-myPokemons.firstPokemon = galewing;
-myPokemons.secondPokemon = shadowfang;
-myPokemons.thirdPokemon = frostbite;
-firstPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
-firstInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-secondInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
-firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
-firstPokemonHp.innerHTML = `${myPokemons.firstPokemon.hp} HP`;
-firstPokemonDamage.innerHTML = `${myPokemons.firstPokemon.damage} Damage`;
-firstPokemonType.innerHTML = `${myPokemons.firstPokemon.type} Type`;
-secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
-secondPokemonHp.innerHTML = `${myPokemons.secondPokemon.hp} HP`;
-secondPokemonDamage.innerHTML = `${myPokemons.secondPokemon.damage} Damage`;
-secondPokemonType.innerHTML = `${myPokemons.secondPokemon.type} Type`;
-thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
-thirdPokemonHp.innerHTML = `${myPokemons.thirdPokemon.hp} HP`;
-thirdPokemonDamage.innerHTML = `${myPokemons.thirdPokemon.damage} Damage`;
-thirdPokemonType.innerHTML = `${myPokemons.thirdPokemon.type} Type`;
+// myPokemons.firstPokemon = shadowfang;
+// myPokemons.secondPokemon = galewing;
+// myPokemons.thirdPokemon = frostbite;
+if (myPokemons.firstPokemon != null) {
+  firstInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+  firstPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+  firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
+  firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
+  firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
+  firstPokemonType.innerHTML = `Type: ${myPokemons.firstPokemon.type}`;
+  firstPokemonSpeed.innerHTML = `Speed: ${myPokemons.firstPokemon.speed}`;
+  firstPokemonLevel.innerHTML = `Level: ${myPokemons.firstPokemon.level}`;
+}
+if (myPokemons.secondPokemon != null) {
+  secondInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+  secondPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+  secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
+  secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
+  secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
+  secondPokemonType.innerHTML = `Type: ${myPokemons.secondPokemon.type}`;
+  secondPokemonSpeed.innerHTML = `Speed: ${myPokemons.secondPokemon.speed}`;
+  secondPokemonLevel.innerHTML = `Level: ${myPokemons.secondPokemon.level}`;
+}
+if (myPokemons.thirdPokemon != null) {
+  thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+  thirdPokemon.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+  thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
+  thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
+  thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
+  thirdPokemonType.innerHTML = `Type: ${myPokemons.thirdPokemon.type}`;
+  thirdPokemonSpeed.innerHTML = `Speed: ${myPokemons.thirdPokemon.speed}`;
+  thirdPokemonLevel.innerHTML = `Level: ${myPokemons.thirdPokemon.level}`;
+}
+
+inventoryButton.onclick = () => {
+  inventoryShow = true;
+  vancas.style.display = "none";
+  inventory.style.display = "block";
+};
 
 backInventory.onclick = () => {
   inventoryShow = false;
   vancas.style.display = "block";
   inventory.style.display = "none";
-};
-
-firstPokemonLevelUp.onclick = () => {
-  if (xp >= 1) {
-    myPokemons.firstPokemon.hp += 1;
-    myPokemons.firstPokemon.damage += 1;
-    firstPokemonHp.innerHTML = `${myPokemons.firstPokemon.hp} HP`;
-    firstPokemonDamage.innerHTML = `${myPokemons.firstPokemon.damage} Damage`;
-    xp -= 1;
-  }
-};
-
-secondPokemonLevelUp.onclick = () => {
-  if (xp >= 1) {
-    myPokemons.secondPokemon.hp += 1;
-    myPokemons.secondPokemon.damage += 1;
-    secondPokemonHp.innerHTML = `${myPokemons.secondPokemon.hp} HP`;
-    secondPokemonDamage.innerHTML = `${myPokemons.secondPokemon.damage} Damage`;
-    xp -= 1;
-  }
-};
-
-thirdPokemonLevelUp.onclick = () => {
-  if (xp >= 1) {
-    myPokemons.thirdPokemon.hp += 1;
-    myPokemons.thirdPokemon.damage += 1;
-    thirdPokemonHp.innerHTML = `${myPokemons.thirdPokemon.hp} HP`;
-    thirdPokemonDamage.innerHTML = `${myPokemons.thirdPokemon.damage} Damage`;
-    xp -= 1;
-  }
 };
 
 function selectEnemyPokemon() {
@@ -894,13 +618,16 @@ function selectEnemyPokemon() {
 function selectMyPokemon() {
   pokemonSelect.style.display = "flex";
   vancas.style.display = "none";
-  firstPokemon.onclick = () => {
-    myPokemon = myPokemons.firstPokemon;
-    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
-    battleground.style.display = "flex";
-    pokemonSelect.style.display = "none";
-    battle();
-  };
+  if (myPokemons.firstPokemon != null) {
+    firstPokemon.onclick = () => {
+      myPokemon = myPokemons.firstPokemon;
+      myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
+      battleground.style.display = "flex";
+      pokemonSelect.style.display = "none";
+      battle();
+    };
+  }
+  if (myPokemons.thirdPokemon != null) {
   secondPokemon.onclick = () => {
     myPokemon = myPokemons.secondPokemon;
     myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
@@ -908,6 +635,8 @@ function selectMyPokemon() {
     pokemonSelect.style.display = "none";
     battle();
   };
+}
+  if (myPokemons.secondPokemon != null) {
   thirdPokemon.onclick = () => {
     myPokemon = myPokemons.thirdPokemon;
     myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
@@ -915,6 +644,7 @@ function selectMyPokemon() {
     pokemonSelect.style.display = "none";
     battle();
   };
+}
 }
 
 function battleAnimation(pokemonImage) {
@@ -937,9 +667,6 @@ function BattleResult(winner) {
   info.innerHTML = `${winner} WON`;
   options.style.display = "none";
   myPokemonTurn = true;
-  if (winner == myPokemon.name) {
-    xp++;
-  }
   setTimeout(() => {
     vancas.style.display = "block";
     battleground.style.display = "none";
