@@ -86,16 +86,16 @@ canvas {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  height: 300px;
+  height: 250px;
   width: 300px;
 }
 
 #thirdPokemonImage {
-  background-image: url("../img/pokemons/Frostbite.png");
+  background-image: url("../img/pokemons/Vineflare.png");
 }
 
 #secondPokemonImage {
-  background-image: url("../img/pokemons/Shadowfang.png");
+  background-image: url("../img/pokemons/Aquarift.png");
 }
 
 #firstPokemonImage {
