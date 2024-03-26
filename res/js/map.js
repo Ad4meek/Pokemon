@@ -66,4 +66,4 @@ const tallgrass = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
-export { collisions, tallgrass};
+export { collisions, tallgrass };
