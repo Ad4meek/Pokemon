@@ -1,4 +1,4 @@
-import { collisions, tallgrass } from "./map.js";
+
 import {
   enemySunspark,
   enemyLuminara,
@@ -22,6 +22,7 @@ import {
   blazeleo,
 } from "./pokemons.js";
 import { keys } from "./movement.js";
+import {tallGrasses , boundaries, background, foreground} from "./map.js"
 
 // Variables
 
@@ -47,9 +48,9 @@ const info = document.getElementById("info");
 const options = document.getElementById("options");
 const pokemonImages = document.getElementById("pokemonImages");
 const pokemonSelect = document.getElementById("pokemonSelect");
-const firstPokemon = document.getElementById("firstPokemon");
-const secondPokemon = document.getElementById("secondPokemon");
-const thirdPokemon = document.getElementById("thirdPokemon");
+const firstPokemon = document.getElementById("firstSelectedPokemon");
+const secondPokemon = document.getElementById("secondSelectedPokemon");
+const thirdPokemon = document.getElementById("thirdSelectedPokemon");
 
 // Inventory variables
 
@@ -92,6 +93,17 @@ const secondPokemonSelect = document.getElementById("secondPokemonSelect");
 const thirdPokemonSelect = document.getElementById("thirdPokemonSelect");
 const selectInfo = document.getElementById("selectInfo");
 
+// Pokemon Select
+const firstSelectedPokemonImage = document.getElementById(
+  "firstSelectedPokemonImage"
+);
+const secondSelectedPokemonImage = document.getElementById(
+  "secondSelectedPokemonImage"
+);
+const thirdSelectedPokemonImage = document.getElementById(
+  "thirdSelectedPokemonImage"
+);
+
 let myPokemonTurn = true;
 let myPokemon;
 let enemyPokemon;
@@ -103,9 +115,9 @@ let interval = 1000 / 59;
 let random;
 let battleStart = false;
 let inventoryShow = false;
-let firstPokemonSelected = true;
-let secondPokemonSelected = true;
-let thirdPokemonSelected = true;
+let firstPokemonSelected = false;
+let secondPokemonSelected = false;
+let thirdPokemonSelected = false;
 
 const WidthHeight = {
   width: 1600,
@@ -117,84 +129,17 @@ const offset = {
   y: -600,
 };
 
-// Map Boundaries
-
-const collisionMap = [];
-
-for (let i = 0; i < collisions.length; i += 40) {
-  collisionMap.push(collisions.slice(i, 40 + i));
-}
-
-class Boundary {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const boundaries = [];
-
-collisionMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 2) {
-      boundaries.push(
-        new Boundary({
-          position: {
-            x: j * 80 + offset.x,
-            y: i * 80 + offset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
-// Tall Grass
-
-const tallGrassMap = [];
-for (let i = 0; i < tallgrass.length; i += 40) {
-  tallGrassMap.push(tallgrass.slice(i, 40 + i));
-}
-
-class TallGrass {
-  constructor({ position }) {
-    this.position = position;
-    this.width = 80;
-    this.height = 80;
-  }
-}
-
-const tallGrasses = [];
-
-tallGrassMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 1) {
-      tallGrasses.push(
-        new TallGrass({
-          position: {
-            x: j * 80 + offset.x,
-            y: i * 80 + offset.y,
-          },
-        })
-      );
-    }
-  });
-});
-
 // Images
 
 window.onload = () => {
   characterImage.src = "./res/img/characters/characterDown.png";
 };
 
-const image = new Image();
-image.src = "./res/img/maps/testmap.png";
+
 
 const characterImage = new Image();
 
-const foregroundImage = new Image();
-foregroundImage.src = "./res/img/maps/foreground.png";
+
 
 // Character Draw
 
@@ -237,15 +182,7 @@ class Character {
 
 // Map Draw
 
-class Sprite {
-  constructor({ image, position }) {
-    this.position = position;
-    this.image = image;
-  }
-  draw() {
-    ctx.drawImage(this.image, this.position.x, this.position.y);
-  }
-}
+
 
 const character = new Character({
   image: characterImage,
@@ -255,15 +192,7 @@ const character = new Character({
   },
 });
 
-const background = new Sprite({
-  position: { x: offset.x, y: offset.y },
-  image: image,
-});
 
-const foreground = new Sprite({
-  position: { x: offset.x, y: offset.y },
-  image: foregroundImage,
-});
 
 // Drawing images
 
@@ -408,10 +337,6 @@ let myPokemons = {
   thirdPokemon,
 };
 
-myPokemons.firstPokemon = galewing;
-myPokemons.secondPokemon = aquarift;
-myPokemons.thirdPokemon = vineflare;
-
 function FirstPokemonSelect() {
   selectInfo.innerHTML = "Welcome, select your first pokemon!";
   firstPokemonSelect.onclick = () => {
@@ -513,7 +438,7 @@ function selectMyPokemon() {
   vancas.style.display = "none";
   if (firstPokemonSelected) {
     firstInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-
+    firstSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
     firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
     firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
     firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
@@ -524,7 +449,7 @@ function selectMyPokemon() {
 
   if (secondPokemonSelected) {
     secondInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-
+    secondSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
     secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
     secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
     secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
@@ -535,7 +460,7 @@ function selectMyPokemon() {
 
   if (thirdPokemonSelected) {
     thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
-
+    thirdSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
     thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
     thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
     thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
@@ -593,16 +518,17 @@ function BattleResult(winner) {
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
     battleStart = false;
-    if (winner === myPokemon.name) {
-      PokemonCatch();
-    }
+    // if (winner === myPokemon.name) {
+    //   PokemonCatch();
+    // }
   }, 2000);
 }
 
-function PokemonCatch() {
-  myPokemons.secondPokemon = enemyPokemon;
-  secondPokemonSelected = true;
-}
+// function PokemonCatch() {
+//   pokemonSelect.style.display = "flex";
+//   // myPokemons.secondPokemon = enemyPokemon;
+//   // secondPokemonSelected = true;
+// }
 
 function enemyAttack() {
   if (!myPokemonTurn) {

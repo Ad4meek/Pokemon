@@ -90,16 +90,16 @@ canvas {
   width: 300px;
 }
 
-#thirdPokemonImage {
-  background-image: url("../img/pokemons/Vineflare.png");
+#firstPokemonImage {
+  background-image: url("../img/pokemons/Galewing.png");
 }
 
 #secondPokemonImage {
   background-image: url("../img/pokemons/Aquarift.png");
 }
 
-#firstPokemonImage {
-  background-image: url("../img/pokemons/Galewing.png");
+#thirdPokemonImage {
+  background-image: url("../img/pokemons/Vineflare.png");
 }
 
 #pokemonSelection {
@@ -226,9 +226,9 @@ canvas {
   align-items: center;
 }
 
-#firstPokemon,
-#secondPokemon,
-#thirdPokemon {
+#firstSelectedPokemonImage,
+#firstSelectedPokemonImage,
+#firstSelectedPokemonImage {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -237,9 +237,9 @@ canvas {
   transition: 0.3s;
 }
 
-#firstPokemon:hover,
-#secondPokemon:hover,
-#thirdPokemon:hover {
+#firstSelectedPokemonImage:hover,
+#firstSelectedPokemonImage:hover,
+#firstSelectedPokemonImage:hover {
   transform: scale(1.05);
 }
 
