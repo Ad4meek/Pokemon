@@ -27,7 +27,7 @@ const galewing = {
 const aquarift = {
   name: "AQUARIFT",
   damage: 3,
-  hp: 1,
+  hp: 20,
   image: "Aquarift.png",
   type: "Water",
   speed: 1,
