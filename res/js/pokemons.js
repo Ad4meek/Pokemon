@@ -20,6 +20,7 @@ const galewing = {
   type: "Fire",
   speed: 1,
   level: 1,
+  xp: 0
 };
 
 // Water pokemons

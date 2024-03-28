@@ -123,11 +123,6 @@ const WidthHeight = {
   height: 800,
 };
 
-const offset = {
-  x: -1920,
-  y: -600,
-};
-
 // Images
 
 window.onload = () => {
@@ -512,7 +507,7 @@ function selectMyPokemon() {
         }, 2000);
       }
     } else {
-      selectInfo.innerHTML = "This is empty slot!";
+      selectInfo.innerHTML = "This is an empty slot!";
       setTimeout(() => {
         selectInfo.innerHTML = "";
       }, 2000);
@@ -527,7 +522,7 @@ function selectMyPokemon() {
       pokemonSelect.style.display = "none";
       selectInfo.innerHTML = "";
     } else {
-      selectInfo.innerHTML = "This is empty slot!";
+      selectInfo.innerHTML = "This is an empty slot!";
       setTimeout(() => {
         selectInfo.innerHTML = "";
       }, 2000);
@@ -543,7 +538,7 @@ function selectMyPokemon() {
       selectInfo.innerHTML = "";
       battle();
     } else {
-      selectInfo.innerHTML = "This is empty slot!";
+      selectInfo.innerHTML = "This is an empty slot!";
       setTimeout(() => {
         selectInfo.innerHTML = "";
       }, 2000);
