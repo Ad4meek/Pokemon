@@ -176,7 +176,9 @@ canvas {
   margin-bottom: 30px;
 }
 
-#firstInventoryPokemon, #secondInventoryPokemon, #thirdInventoryPokemon {
+#firstInventoryPokemon,
+#secondInventoryPokemon,
+#thirdInventoryPokemon {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -264,7 +266,9 @@ canvas {
   background-image: url("../img/pokemons/Vineflare.png");
 }
 
-#firstPokemonSelect, #secondPokemonSelect, #thirdPokemonSelect {
+#firstPokemonSelect,
+#secondPokemonSelect,
+#thirdPokemonSelect {
   display: flex;
   flex-direction: column;
   align-items: center;

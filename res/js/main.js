@@ -363,10 +363,10 @@ FirstPokemonSelect();
 
 inventoryButton.onclick = () => {
   inventoryShow = true;
-  inventoryButton.style.display = "none"
+  inventoryButton.style.display = "none";
   vancas.style.display = "none";
   inventory.style.display = "flex";
-  backInventory.style.display = "block"
+  backInventory.style.display = "block";
   selectInfo.innerHTML = "This is your pokemon inventory!";
 
   if (firstPokemonSelected) {
@@ -411,8 +411,8 @@ backInventory.onclick = () => {
   vancas.style.display = "block";
   inventory.style.display = "none";
   selectInfo.innerHTML = "";
-  inventoryButton.style.display = "block"
-  backInventory.style.display = "none"
+  inventoryButton.style.display = "block";
+  backInventory.style.display = "none";
 };
 
 // Battle
@@ -487,7 +487,7 @@ function selectMyPokemon() {
       console.log(myPokemon.speed);
       console.log(enemyPokemon.speed);
       if (myPokemon.speed >= enemyPokemon.speed) {
-        myPokemonTurn = true
+        myPokemonTurn = true;
         myPokemonName.innerHTML = myPokemon.name;
         enemyPokemonName.innerHTML = enemyPokemon.name;
         myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
@@ -498,9 +498,8 @@ function selectMyPokemon() {
         setTimeout(() => {
           battle();
         }, 2000);
-        
       } else {
-        myPokemonTurn = false
+        myPokemonTurn = false;
         myPokemonName.innerHTML = myPokemon.name;
         enemyPokemonName.innerHTML = enemyPokemon.name;
         myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
@@ -509,9 +508,8 @@ function selectMyPokemon() {
         info.innerHTML = `${enemyPokemon.name} ROUND`;
         options.style.display = "none";
         setTimeout(() => {
-          enemyAttack()
+          enemyAttack();
         }, 2000);
-        
       }
     } else {
       selectInfo.innerHTML = "This is empty slot!";
@@ -528,8 +526,6 @@ function selectMyPokemon() {
       battleground.style.display = "flex";
       pokemonSelect.style.display = "none";
       selectInfo.innerHTML = "";
-      
-      
     } else {
       selectInfo.innerHTML = "This is empty slot!";
       setTimeout(() => {
