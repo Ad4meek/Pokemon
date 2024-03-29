@@ -198,6 +198,14 @@ canvas {
   align-items: center;
 }
 
+#firstSelectedPokemon,
+#secondSelectedPokemon,
+#thirdSelectedPokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #firstSelectedPokemonImage,
 #secondSelectedPokemonImage,
 #thirdSelectedPokemonImage {
@@ -220,6 +228,7 @@ canvas {
   left: 50%;
   bottom: 10%;
   transform: translateX(-50%);
+  font-size: 2rem;
 }
 
 /* First pokemon select */
