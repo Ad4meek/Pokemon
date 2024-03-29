@@ -157,7 +157,7 @@ canvas {
   right: 15%;
 }
 
-#backInventory {
+#backInventory, #backBattle {
   z-index: 500;
   display: none;
   position: absolute;

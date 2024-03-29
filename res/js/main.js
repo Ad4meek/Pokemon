@@ -68,6 +68,7 @@ const thirdPokemonType = document.getElementById("thirdPokemonType");
 const thirdPokemonSpeed = document.getElementById("thirdPokemonSpeed");
 const thirdPokemonLevel = document.getElementById("thirdPokemonLevel");
 const backInventory = document.getElementById("backInventory");
+const backBattle = document.getElementById("backBattle");
 const selectInfo = document.getElementById("selectInfo");
 
 let myPokemonTurn;
@@ -444,7 +445,7 @@ function BattleResult(winner) {
     vancas.style.display = "block";
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
-    battleStart = false;
+    
     if (winner === myPokemon.name && myPokemon.hp >= 1) {
       PokemonCatch();
     }
@@ -505,7 +506,7 @@ function PokemonCatch() {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
   vancas.style.display = "none";
-  backInventory.style.display = "block";
+  backBattle.style.display = "block";
   selectInfo.innerHTML = "Choose which pokemon you want to switch!";
   pokemonShow();
 
@@ -527,7 +528,8 @@ function PokemonCatch() {
         pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
-        backInventory.style.display = "none";
+        backBattle.style.display = "none";
+        battleStart = false;
       }, 2000);
     }
   };
@@ -549,7 +551,8 @@ function PokemonCatch() {
         pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
-        backInventory.style.display = "none";
+        backBattle.style.display = "none";
+        battleStart = false;
       }, 2000);
     }
   };
@@ -573,17 +576,23 @@ function PokemonCatch() {
         pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
-        backInventory.style.display = "none";
+        backBattle.style.display = "none";
+        battleStart = false;
       }, 2000);
     }
   };
 
-  backInventory.onclick = () => {
+
+  backBattle.onclick = () => {
     inventoryButton.style.display = "block";
     pokemonList.style.display = "none";
     vancas.style.display = "block";
     selectInfo.innerHTML = "";
-    backInventory.style.display = "none";
+    backBattle.style.display = "none";
+    battleStart = false;
+    pokemonCatched = true;
+    console.log(battleStart);
+    console.log(inventoryShow);
   };
 }
 
