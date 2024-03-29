@@ -71,7 +71,7 @@ const blossomleaf = {
 
 const shadowfang = {
   name: "SHADOWFANG",
-  damage: 1,
+  damage: 0,
   hp: 1,
   image: "Shadowfang.png",
   type: "Dark",

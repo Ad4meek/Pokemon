@@ -394,10 +394,10 @@ const ctx = canvas.getContext("2d");
 
 // Map Boundaries
 
- const offset = {
-   x: -6080,
-   y: -920,
- };
+const offset = {
+  x: -6080,
+  y: -920,
+};
 
 // const offset = {
 //   x: -4700,

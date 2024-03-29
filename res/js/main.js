@@ -28,9 +28,6 @@ import { character, characterImage } from "./character.js";
 
 const canvas = document.querySelector("canvas");
 const vancas = document.getElementById("pokemonCanvas");
-
-// Battle Variables
-
 const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
 const tackle = document.getElementById("tackle");
@@ -44,36 +41,26 @@ const enemyPokemonImage = document.getElementById("enemyPokemonImage");
 const info = document.getElementById("info");
 const options = document.getElementById("options");
 const pokemonImages = document.getElementById("pokemonImages");
-const pokemonSelect = document.getElementById("pokemonSelect");
-const firstPokemon = document.getElementById("firstSelectedPokemon");
-const secondPokemon = document.getElementById("secondSelectedPokemon");
-const thirdPokemon = document.getElementById("thirdSelectedPokemon");
-
-// Inventory variables
-
-const inventory = document.getElementById("inventory");
+const firstPokemon = document.getElementById("firstPokemon");
+const secondPokemon = document.getElementById("secondPokemon");
+const thirdPokemon = document.getElementById("thirdPokemon");
+const pokemonList = document.getElementById("pokemonList");
 const inventoryButton = document.getElementById("inventoryButton");
-const firstInventoryPokemonImage = document.getElementById(
-  "firstInventoryPokemonImage"
-);
+const firstPokemonImage = document.getElementById("firstPokemonImage");
 const firstPokemonName = document.getElementById("firstPokemonName");
 const firstPokemonHp = document.getElementById("firstPokemonHp");
 const firstPokemonDamage = document.getElementById("firstPokemonDamage");
 const firstPokemonType = document.getElementById("firstPokemonType");
 const firstPokemonSpeed = document.getElementById("firstPokemonSpeed");
 const firstPokemonLevel = document.getElementById("firstPokemonLevel");
-const secondInventoryPokemonImage = document.getElementById(
-  "secondInventoryPokemonImage"
-);
+const secondPokemonImage = document.getElementById("secondPokemonImage");
 const secondPokemonName = document.getElementById("secondPokemonName");
 const secondPokemonHp = document.getElementById("secondPokemonHp");
 const secondPokemonDamage = document.getElementById("secondPokemonDamage");
 const secondPokemonType = document.getElementById("secondPokemonType");
 const secondPokemonSpeed = document.getElementById("secondPokemonSpeed");
 const secondPokemonLevel = document.getElementById("secondPokemonLevel");
-const thirdInventoryPokemonImage = document.getElementById(
-  "thirdInventoryPokemonImage"
-);
+const thirdPokemonImage = document.getElementById("thirdPokemonImage");
 const thirdPokemonName = document.getElementById("thirdPokemonName");
 const thirdPokemonHp = document.getElementById("thirdPokemonHp");
 const thirdPokemonDamage = document.getElementById("thirdPokemonDamage");
@@ -81,25 +68,7 @@ const thirdPokemonType = document.getElementById("thirdPokemonType");
 const thirdPokemonSpeed = document.getElementById("thirdPokemonSpeed");
 const thirdPokemonLevel = document.getElementById("thirdPokemonLevel");
 const backInventory = document.getElementById("backInventory");
-
-// First pokemon select variables
-
-const selectFirstPokemon = document.getElementById("selectFirstPokemon");
-const firstPokemonSelect = document.getElementById("firstPokemonSelect");
-const secondPokemonSelect = document.getElementById("secondPokemonSelect");
-const thirdPokemonSelect = document.getElementById("thirdPokemonSelect");
 const selectInfo = document.getElementById("selectInfo");
-
-// Pokemon Select
-const firstSelectedPokemonImage = document.getElementById(
-  "firstSelectedPokemonImage"
-);
-const secondSelectedPokemonImage = document.getElementById(
-  "secondSelectedPokemonImage"
-);
-const thirdSelectedPokemonImage = document.getElementById(
-  "thirdSelectedPokemonImage"
-);
 
 let myPokemonTurn;
 let myPokemon;
@@ -118,6 +87,7 @@ let thirdPokemonSelected = false;
 let additionalEnemyPokemon;
 let chosenPokemon;
 let pokemonCatched = false;
+let firstPokemonSelection = false;
 
 // Animation
 
@@ -261,33 +231,63 @@ let myPokemons = {
 };
 
 function FirstPokemonSelect() {
+  firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${galewing.image}')`;
+  firstPokemonName.innerHTML = galewing.name;
+  firstPokemonHp.innerHTML = `Hp: ${galewing.hp}`;
+  firstPokemonDamage.innerHTML = `Damage: ${galewing.damage}`;
+  firstPokemonType.innerHTML = `Type: ${galewing.type}`;
+  firstPokemonSpeed.innerHTML = `Speed: ${galewing.speed}`;
+  firstPokemonLevel.innerHTML = `Level: ${galewing.level}`;
+  secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${aquarift.image}')`;
+  secondPokemonName.innerHTML = aquarift.name;
+  secondPokemonHp.innerHTML = `Hp: ${aquarift.hp}`;
+  secondPokemonDamage.innerHTML = `Damage: ${aquarift.damage}`;
+  secondPokemonType.innerHTML = `Type: ${aquarift.type}`;
+  secondPokemonSpeed.innerHTML = `Speed: ${aquarift.speed}`;
+  secondPokemonLevel.innerHTML = `Level: ${aquarift.level}`;
+  thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${vineflare.image}')`;
+  thirdPokemonName.innerHTML = vineflare.name;
+  thirdPokemonHp.innerHTML = `Hp: ${vineflare.hp}`;
+  thirdPokemonDamage.innerHTML = `Damage: ${vineflare.damage}`;
+  thirdPokemonType.innerHTML = `Type: ${vineflare.type}`;
+  thirdPokemonSpeed.innerHTML = `Speed: ${vineflare.speed}`;
+  thirdPokemonLevel.innerHTML = `Level: ${vineflare.level}`;
   selectInfo.innerHTML = "Welcome, select your first pokemon!";
-  firstPokemonSelect.onclick = () => {
-    firstPokemonSelected = true;
-    myPokemons.firstPokemon = galewing;
-    selectFirstPokemon.style.display = "none";
-    canvas.style.display = "block";
-    inventoryButton.style.display = "block";
-    selectInfo.innerHTML = "";
-    animation();
+  firstPokemon.onclick = () => {
+    if (!firstPokemonSelection) {
+      firstPokemonSelected = true;
+      myPokemons.firstPokemon = galewing;
+      pokemonList.style.display = "none";
+      canvas.style.display = "block";
+      inventoryButton.style.display = "block";
+      selectInfo.innerHTML = "";
+      firstPokemonSelection = true;
+      animation();
+    }
   };
-  secondPokemonSelect.onclick = () => {
-    firstPokemonSelected = true;
-    myPokemons.firstPokemon = aquarift;
-    selectFirstPokemon.style.display = "none";
-    canvas.style.display = "block";
-    inventoryButton.style.display = "block";
-    selectInfo.innerHTML = "";
-    animation();
+  secondPokemon.onclick = () => {
+    if (!firstPokemonSelection) {
+      firstPokemonSelected = true;
+      myPokemons.firstPokemon = aquarift;
+      pokemonList.style.display = "none";
+      canvas.style.display = "block";
+      inventoryButton.style.display = "block";
+      selectInfo.innerHTML = "";
+      firstPokemonSelection = true;
+      animation();
+    }
   };
-  thirdPokemonSelect.onclick = () => {
-    firstPokemonSelected = true;
-    myPokemons.firstPokemon = vineflare;
-    selectFirstPokemon.style.display = "none";
-    canvas.style.display = "block";
-    inventoryButton.style.display = "block";
-    selectInfo.innerHTML = "";
-    animation();
+  thirdPokemon.onclick = () => {
+    if (!firstPokemonSelection) {
+      firstPokemonSelected = true;
+      myPokemons.firstPokemon = vineflare;
+      pokemonList.style.display = "none";
+      canvas.style.display = "block";
+      inventoryButton.style.display = "block";
+      selectInfo.innerHTML = "";
+      firstPokemonSelection = true;
+      animation();
+    }
   };
 }
 
@@ -297,7 +297,7 @@ inventoryButton.onclick = () => {
   inventoryShow = true;
   inventoryButton.style.display = "none";
   vancas.style.display = "none";
-  inventory.style.display = "flex";
+  pokemonList.style.display = "flex";
   backInventory.style.display = "block";
   selectInfo.innerHTML = "This is your pokemon inventory!";
   pokemonShow();
@@ -306,7 +306,7 @@ inventoryButton.onclick = () => {
 backInventory.onclick = () => {
   inventoryShow = false;
   vancas.style.display = "block";
-  inventory.style.display = "none";
+  pokemonList.style.display = "none";
   selectInfo.innerHTML = "";
   inventoryButton.style.display = "block";
   backInventory.style.display = "none";
@@ -364,7 +364,7 @@ function startBattle() {
 
 function selectMyPokemon() {
   inventoryButton.style.display = "none";
-  pokemonSelect.style.display = "flex";
+  pokemonList.style.display = "flex";
   vancas.style.display = "none";
   selectInfo.innerHTML = "Choose the pokemon you want to use for battle!";
   pokemonShow();
@@ -373,7 +373,7 @@ function selectMyPokemon() {
       myPokemon = myPokemons.firstPokemon;
       myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
       battleground.style.display = "flex";
-      pokemonSelect.style.display = "none";
+      pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectEnemyPokemon();
       startBattle();
@@ -390,7 +390,7 @@ function selectMyPokemon() {
       myPokemon = myPokemons.secondPokemon;
       myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
       battleground.style.display = "flex";
-      pokemonSelect.style.display = "none";
+      pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectEnemyPokemon();
       startBattle();
@@ -407,7 +407,7 @@ function selectMyPokemon() {
       myPokemon = myPokemons.thirdPokemon;
       myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
       battleground.style.display = "flex";
-      pokemonSelect.style.display = "none";
+      pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectEnemyPokemon();
       startBattle();
@@ -445,15 +445,14 @@ function BattleResult(winner) {
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
     battleStart = false;
-    if (winner === myPokemon.name) {
+    if (winner === myPokemon.name && myPokemon.hp >= 1) {
       PokemonCatch();
     }
   }, 2000);
 }
 function pokemonShow() {
   if (firstPokemonSelected) {
-    firstInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-    firstSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+    firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
     firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
     firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
     firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
@@ -461,13 +460,11 @@ function pokemonShow() {
     firstPokemonSpeed.innerHTML = `Speed: ${myPokemons.firstPokemon.speed}`;
     firstPokemonLevel.innerHTML = `Level: ${myPokemons.firstPokemon.level}`;
   } else {
-    firstInventoryPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-    firstSelectedPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    firstPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
   }
 
   if (secondPokemonSelected) {
-    secondInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-    secondSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+    secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
     secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
     secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
     secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
@@ -475,13 +472,17 @@ function pokemonShow() {
     secondPokemonSpeed.innerHTML = `Speed: ${myPokemons.secondPokemon.speed}`;
     secondPokemonLevel.innerHTML = `Level: ${myPokemons.secondPokemon.level}`;
   } else {
-    secondInventoryPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-    secondSelectedPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    secondPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    secondPokemonName.innerHTML = "";
+    secondPokemonHp.innerHTML = "";
+    secondPokemonDamage.innerHTML = "";
+    secondPokemonType.innerHTML = "";
+    secondPokemonSpeed.innerHTML = "";
+    secondPokemonLevel.innerHTML = "";
   }
 
   if (thirdPokemonSelected) {
-    thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
-    thirdSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+    thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
     thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
     thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
     thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
@@ -489,15 +490,20 @@ function pokemonShow() {
     thirdPokemonSpeed.innerHTML = `Speed: ${myPokemons.thirdPokemon.speed}`;
     thirdPokemonLevel.innerHTML = `Level: ${myPokemons.thirdPokemon.level}`;
   } else {
-    thirdInventoryPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-    thirdSelectedPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    thirdPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    thirdPokemonName.innerHTML = "";
+    thirdPokemonHp.innerHTML = "";
+    thirdPokemonDamage.innerHTML = "";
+    thirdPokemonType.innerHTML = "";
+    thirdPokemonSpeed.innerHTML = "";
+    thirdPokemonLevel.innerHTML = "";
   }
 }
 
 function PokemonCatch() {
   pokemonCatched = false;
   inventoryButton.style.display = "none";
-  pokemonSelect.style.display = "flex";
+  pokemonList.style.display = "flex";
   vancas.style.display = "none";
   backInventory.style.display = "block";
   selectInfo.innerHTML = "Choose which pokemon you want to switch!";
@@ -507,12 +513,18 @@ function PokemonCatch() {
     if (!pokemonCatched) {
       pokemonCatched = true;
       myPokemons.firstPokemon = additionalEnemyPokemon;
-      firstSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+      firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+      firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
+      firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
+      firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
+      firstPokemonType.innerHTML = `Type: ${myPokemons.firstPokemon.type}`;
+      firstPokemonSpeed.innerHTML = `Speed: ${myPokemons.firstPokemon.speed}`;
+      firstPokemonLevel.innerHTML = `Level: ${myPokemons.firstPokemon.level}`;
       firstPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
         inventoryButton.style.display = "block";
-        pokemonSelect.style.display = "none";
+        pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
         backInventory.style.display = "none";
@@ -523,12 +535,18 @@ function PokemonCatch() {
     if (!pokemonCatched) {
       pokemonCatched = true;
       myPokemons.secondPokemon = additionalEnemyPokemon;
-      secondSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+      secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+      secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
+      secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
+      secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
+      secondPokemonType.innerHTML = `Type: ${myPokemons.secondPokemon.type}`;
+      secondPokemonSpeed.innerHTML = `Speed: ${myPokemons.secondPokemon.speed}`;
+      secondPokemonLevel.innerHTML = `Level: ${myPokemons.secondPokemon.level}`;
       secondPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
         inventoryButton.style.display = "block";
-        pokemonSelect.style.display = "none";
+        pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
         backInventory.style.display = "none";
@@ -540,12 +558,19 @@ function PokemonCatch() {
     if (!pokemonCatched) {
       pokemonCatched = true;
       myPokemons.thirdPokemon = additionalEnemyPokemon;
-      thirdSelectedPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+      thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+      thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+      thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
+      thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
+      thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
+      thirdPokemonType.innerHTML = `Type: ${myPokemons.thirdPokemon.type}`;
+      thirdPokemonSpeed.innerHTML = `Speed: ${myPokemons.thirdPokemon.speed}`;
+      thirdPokemonLevel.innerHTML = `Level: ${myPokemons.thirdPokemon.level}`;
       thirdPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
         inventoryButton.style.display = "block";
-        pokemonSelect.style.display = "none";
+        pokemonList.style.display = "none";
         vancas.style.display = "block";
         selectInfo.innerHTML = "";
         backInventory.style.display = "none";
@@ -555,7 +580,7 @@ function PokemonCatch() {
 
   backInventory.onclick = () => {
     inventoryButton.style.display = "block";
-    pokemonSelect.style.display = "none";
+    pokemonList.style.display = "none";
     vancas.style.display = "block";
     selectInfo.innerHTML = "";
     backInventory.style.display = "none";
