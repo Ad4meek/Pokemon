@@ -177,12 +177,23 @@ canvas {
   transition: 0.5s;
 }
 
+#firstPokemonImage:hover, #secondPokemonImage:hover, #thirdPokemonImage:hover {
+  transform: scale(1.1);
+}
+
 #firstPokemon,
 #secondPokemon,
 #thirdPokemon {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#firstPokemonName,
+#secondPokemonName,
+#thirdPokemonName {
+  margin-bottom: 10px;
+  font-size: 2rem;
 }
 
 #selectInfo {

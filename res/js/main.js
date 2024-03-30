@@ -231,68 +231,81 @@ let myPokemons = {
   thirdPokemon,
 };
 
+// First pokemon selection
+
 function FirstPokemonSelect() {
   firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${galewing.image}')`;
   firstPokemonName.innerHTML = galewing.name;
-  firstPokemonHp.innerHTML = `Hp: ${galewing.hp}`;
-  firstPokemonDamage.innerHTML = `Damage: ${galewing.damage}`;
-  firstPokemonType.innerHTML = `Type: ${galewing.type}`;
-  firstPokemonSpeed.innerHTML = `Speed: ${galewing.speed}`;
-  firstPokemonLevel.innerHTML = `Level: ${galewing.level}`;
+  firstPokemonHp.innerHTML = `HP: ${galewing.hp}`;
+  firstPokemonDamage.innerHTML = `DAMAGE: ${galewing.damage}`;
+  firstPokemonType.innerHTML = `TYPE: ${galewing.type}`;
+  firstPokemonSpeed.innerHTML = `SPEED: ${galewing.speed}`;
+  firstPokemonLevel.innerHTML = `LEVEL: ${galewing.level}`;
   secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${aquarift.image}')`;
   secondPokemonName.innerHTML = aquarift.name;
-  secondPokemonHp.innerHTML = `Hp: ${aquarift.hp}`;
-  secondPokemonDamage.innerHTML = `Damage: ${aquarift.damage}`;
-  secondPokemonType.innerHTML = `Type: ${aquarift.type}`;
-  secondPokemonSpeed.innerHTML = `Speed: ${aquarift.speed}`;
-  secondPokemonLevel.innerHTML = `Level: ${aquarift.level}`;
+  secondPokemonHp.innerHTML = `HP: ${aquarift.hp}`;
+  secondPokemonDamage.innerHTML = `DAMAGE: ${aquarift.damage}`;
+  secondPokemonType.innerHTML = `TYPE: ${aquarift.type}`;
+  secondPokemonSpeed.innerHTML = `SPEED: ${aquarift.speed}`;
+  secondPokemonLevel.innerHTML = `LEVEL: ${aquarift.level}`;
   thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${vineflare.image}')`;
   thirdPokemonName.innerHTML = vineflare.name;
-  thirdPokemonHp.innerHTML = `Hp: ${vineflare.hp}`;
-  thirdPokemonDamage.innerHTML = `Damage: ${vineflare.damage}`;
-  thirdPokemonType.innerHTML = `Type: ${vineflare.type}`;
-  thirdPokemonSpeed.innerHTML = `Speed: ${vineflare.speed}`;
-  thirdPokemonLevel.innerHTML = `Level: ${vineflare.level}`;
+  thirdPokemonHp.innerHTML = `HP: ${vineflare.hp}`;
+  thirdPokemonDamage.innerHTML = `DAMAGE: ${vineflare.damage}`;
+  thirdPokemonType.innerHTML = `TYPE: ${vineflare.type}`;
+  thirdPokemonSpeed.innerHTML = `SPEED: ${vineflare.speed}`;
+  thirdPokemonLevel.innerHTML = `LEVEL: ${vineflare.level}`;
   selectInfo.innerHTML = "Welcome, select your first pokemon!";
   firstPokemon.onclick = () => {
     if (!firstPokemonSelection) {
-      firstPokemonSelected = true;
-      myPokemons.firstPokemon = galewing;
-      pokemonList.style.display = "none";
-      canvas.style.display = "block";
-      inventoryButton.style.display = "block";
-      selectInfo.innerHTML = "";
-      firstPokemonSelection = true;
-      animation();
+      selectInfo.innerHTML = `Congratulations, you have chosen ${galewing.name}!`;
+      setTimeout(() => {
+        firstPokemonSelected = true;
+        myPokemons.firstPokemon = galewing;
+        pokemonList.style.display = "none";
+        canvas.style.display = "block";
+        inventoryButton.style.display = "block";
+        selectInfo.innerHTML = "";
+        firstPokemonSelection = true;
+        animation();
+      }, 2000);
     }
   };
   secondPokemon.onclick = () => {
     if (!firstPokemonSelection) {
-      firstPokemonSelected = true;
-      myPokemons.firstPokemon = aquarift;
-      pokemonList.style.display = "none";
-      canvas.style.display = "block";
-      inventoryButton.style.display = "block";
-      selectInfo.innerHTML = "";
-      firstPokemonSelection = true;
-      animation();
+      selectInfo.innerHTML = `Congratulations, you have chosen ${aquarift.name}!`;
+      setTimeout(() => {
+        firstPokemonSelected = true;
+        myPokemons.firstPokemon = aquarift;
+        pokemonList.style.display = "none";
+        canvas.style.display = "block";
+        inventoryButton.style.display = "block";
+        selectInfo.innerHTML = "";
+        firstPokemonSelection = true;
+        animation();
+      }, 2000);
     }
   };
   thirdPokemon.onclick = () => {
     if (!firstPokemonSelection) {
-      firstPokemonSelected = true;
-      myPokemons.firstPokemon = vineflare;
-      pokemonList.style.display = "none";
-      canvas.style.display = "block";
-      inventoryButton.style.display = "block";
-      selectInfo.innerHTML = "";
-      firstPokemonSelection = true;
-      animation();
+      selectInfo.innerHTML = `Congratulations, you have chosen ${vineflare.name}!`;
+      setTimeout(() => {
+        firstPokemonSelected = true;
+        myPokemons.firstPokemon = vineflare;
+        pokemonList.style.display = "none";
+        canvas.style.display = "block";
+        inventoryButton.style.display = "block";
+        selectInfo.innerHTML = "";
+        firstPokemonSelection = true;
+        animation();
+      }, 2000);
     }
   };
 }
 
 FirstPokemonSelect();
+
+// Inventory
 
 inventoryButton.onclick = () => {
   inventoryShow = true;
@@ -313,7 +326,65 @@ backInventory.onclick = () => {
   backInventory.style.display = "none";
 };
 
-// Battle
+// Show pokemon list
+
+function pokemonShow() {
+  if (firstPokemonSelected) {
+    firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
+    firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
+    firstPokemonHp.innerHTML = `HP: ${myPokemons.firstPokemon.hp}`;
+    firstPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.firstPokemon.damage}`;
+    firstPokemonType.innerHTML = `TYPE: ${myPokemons.firstPokemon.type}`;
+    firstPokemonSpeed.innerHTML = `SPEED: ${myPokemons.firstPokemon.speed}`;
+    firstPokemonLevel.innerHTML = `LEVEL: ${myPokemons.firstPokemon.level}`;
+  } else {
+    firstPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    firstPokemonName.innerHTML = "EMPTY SLOT FOR POKEMON";
+    firstPokemonHp.innerHTML = "";
+    firstPokemonDamage.innerHTML = "";
+    firstPokemonType.innerHTML = "";
+    firstPokemonSpeed.innerHTML = "";
+    firstPokemonLevel.innerHTML = "";
+  }
+
+  if (secondPokemonSelected) {
+    secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
+    secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
+    secondPokemonHp.innerHTML = `HP: ${myPokemons.secondPokemon.hp}`;
+    secondPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.secondPokemon.damage}`;
+    secondPokemonType.innerHTML = `TYPE: ${myPokemons.secondPokemon.type}`;
+    secondPokemonSpeed.innerHTML = `SPEED: ${myPokemons.secondPokemon.speed}`;
+    secondPokemonLevel.innerHTML = `LEVEL: ${myPokemons.secondPokemon.level}`;
+  } else {
+    secondPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    secondPokemonName.innerHTML = "EMPTY SLOT FOR POKEMON";
+    secondPokemonHp.innerHTML = "";
+    secondPokemonDamage.innerHTML = "";
+    secondPokemonType.innerHTML = "";
+    secondPokemonSpeed.innerHTML = "";
+    secondPokemonLevel.innerHTML = "";
+  }
+
+  if (thirdPokemonSelected) {
+    thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
+    thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
+    thirdPokemonHp.innerHTML = `HP: ${myPokemons.thirdPokemon.hp}`;
+    thirdPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.thirdPokemon.damage}`;
+    thirdPokemonType.innerHTML = `TYPE: ${myPokemons.thirdPokemon.type}`;
+    thirdPokemonSpeed.innerHTML = `SPEED: ${myPokemons.thirdPokemon.speed}`;
+    thirdPokemonLevel.innerHTML = `LEVEL: ${myPokemons.thirdPokemon.level}`;
+  } else {
+    thirdPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
+    thirdPokemonName.innerHTML = "EMPTY SLOT FOR POKEMON";
+    thirdPokemonHp.innerHTML = "";
+    thirdPokemonDamage.innerHTML = "";
+    thirdPokemonType.innerHTML = "";
+    thirdPokemonSpeed.innerHTML = "";
+    thirdPokemonLevel.innerHTML = "";
+  }
+}
+
+// Select enemy pokemon
 
 function selectEnemyPokemon() {
   const pokemons = [
@@ -335,33 +406,7 @@ function selectEnemyPokemon() {
   enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
 }
 
-function startBattle() {
-  if (myPokemon.speed >= enemyPokemon.speed) {
-    myPokemonTurn = true;
-    myPokemonName.innerHTML = myPokemon.name;
-    enemyPokemonName.innerHTML = enemyPokemon.name;
-    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
-    enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
-    info.style.display = "block";
-    info.innerHTML = `${myPokemon.name}'S ROUND`;
-    options.style.display = "none";
-    setTimeout(() => {
-      battle();
-    }, 2000);
-  } else {
-    myPokemonTurn = false;
-    myPokemonName.innerHTML = myPokemon.name;
-    enemyPokemonName.innerHTML = enemyPokemon.name;
-    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
-    enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
-    info.style.display = "block";
-    info.innerHTML = `${enemyPokemon.name}'S ROUND`;
-    options.style.display = "none";
-    setTimeout(() => {
-      enemyAttack();
-    }, 2000);
-  }
-}
+// Select my pokemon for battle
 
 function selectMyPokemon() {
   inventoryButton.style.display = "none";
@@ -421,6 +466,8 @@ function selectMyPokemon() {
   };
 }
 
+// Helping functions for battle
+
 function battleAnimation(pokemonImage) {
   imageInterval = setInterval(() => {
     pokemonImage.style.display = "none";
@@ -445,61 +492,14 @@ function BattleResult(winner) {
     vancas.style.display = "block";
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
-    
+
     if (winner === myPokemon.name && myPokemon.hp >= 1) {
       PokemonCatch();
     }
   }, 2000);
 }
-function pokemonShow() {
-  if (firstPokemonSelected) {
-    firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
-    firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
-    firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
-    firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
-    firstPokemonType.innerHTML = `Type: ${myPokemons.firstPokemon.type}`;
-    firstPokemonSpeed.innerHTML = `Speed: ${myPokemons.firstPokemon.speed}`;
-    firstPokemonLevel.innerHTML = `Level: ${myPokemons.firstPokemon.level}`;
-  } else {
-    firstPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-  }
 
-  if (secondPokemonSelected) {
-    secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
-    secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
-    secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
-    secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
-    secondPokemonType.innerHTML = `Type: ${myPokemons.secondPokemon.type}`;
-    secondPokemonSpeed.innerHTML = `Speed: ${myPokemons.secondPokemon.speed}`;
-    secondPokemonLevel.innerHTML = `Level: ${myPokemons.secondPokemon.level}`;
-  } else {
-    secondPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-    secondPokemonName.innerHTML = "";
-    secondPokemonHp.innerHTML = "";
-    secondPokemonDamage.innerHTML = "";
-    secondPokemonType.innerHTML = "";
-    secondPokemonSpeed.innerHTML = "";
-    secondPokemonLevel.innerHTML = "";
-  }
-
-  if (thirdPokemonSelected) {
-    thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
-    thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
-    thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
-    thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
-    thirdPokemonType.innerHTML = `Type: ${myPokemons.thirdPokemon.type}`;
-    thirdPokemonSpeed.innerHTML = `Speed: ${myPokemons.thirdPokemon.speed}`;
-    thirdPokemonLevel.innerHTML = `Level: ${myPokemons.thirdPokemon.level}`;
-  } else {
-    thirdPokemonImage.style.backgroundImage = `url('res/img/details/questionMark.png')`;
-    thirdPokemonName.innerHTML = "";
-    thirdPokemonHp.innerHTML = "";
-    thirdPokemonDamage.innerHTML = "";
-    thirdPokemonType.innerHTML = "";
-    thirdPokemonSpeed.innerHTML = "";
-    thirdPokemonLevel.innerHTML = "";
-  }
-}
+// Pokemon catch
 
 function PokemonCatch() {
   pokemonCatched = false;
@@ -516,11 +516,11 @@ function PokemonCatch() {
       myPokemons.firstPokemon = additionalEnemyPokemon;
       firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
       firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
-      firstPokemonHp.innerHTML = `Hp: ${myPokemons.firstPokemon.hp}`;
-      firstPokemonDamage.innerHTML = `Damage: ${myPokemons.firstPokemon.damage}`;
-      firstPokemonType.innerHTML = `Type: ${myPokemons.firstPokemon.type}`;
-      firstPokemonSpeed.innerHTML = `Speed: ${myPokemons.firstPokemon.speed}`;
-      firstPokemonLevel.innerHTML = `Level: ${myPokemons.firstPokemon.level}`;
+      firstPokemonHp.innerHTML = `HP: ${myPokemons.firstPokemon.hp}`;
+      firstPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.firstPokemon.damage}`;
+      firstPokemonType.innerHTML = `TYPE: ${myPokemons.firstPokemon.type}`;
+      firstPokemonSpeed.innerHTML = `SPEED: ${myPokemons.firstPokemon.speed}`;
+      firstPokemonLevel.innerHTML = `LEVEL: ${myPokemons.firstPokemon.level}`;
       firstPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
@@ -539,11 +539,11 @@ function PokemonCatch() {
       myPokemons.secondPokemon = additionalEnemyPokemon;
       secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
       secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
-      secondPokemonHp.innerHTML = `Hp: ${myPokemons.secondPokemon.hp}`;
-      secondPokemonDamage.innerHTML = `Damage: ${myPokemons.secondPokemon.damage}`;
-      secondPokemonType.innerHTML = `Type: ${myPokemons.secondPokemon.type}`;
-      secondPokemonSpeed.innerHTML = `Speed: ${myPokemons.secondPokemon.speed}`;
-      secondPokemonLevel.innerHTML = `Level: ${myPokemons.secondPokemon.level}`;
+      secondPokemonHp.innerHTML = `HP: ${myPokemons.secondPokemon.hp}`;
+      secondPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.secondPokemon.damage}`;
+      secondPokemonType.innerHTML = `TYPE: ${myPokemons.secondPokemon.type}`;
+      secondPokemonSpeed.innerHTML = `SPEED: ${myPokemons.secondPokemon.speed}`;
+      secondPokemonLevel.innerHTML = `LEVEL: ${myPokemons.secondPokemon.level}`;
       secondPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
@@ -564,11 +564,11 @@ function PokemonCatch() {
       thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
       thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
       thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
-      thirdPokemonHp.innerHTML = `Hp: ${myPokemons.thirdPokemon.hp}`;
-      thirdPokemonDamage.innerHTML = `Damage: ${myPokemons.thirdPokemon.damage}`;
-      thirdPokemonType.innerHTML = `Type: ${myPokemons.thirdPokemon.type}`;
-      thirdPokemonSpeed.innerHTML = `Speed: ${myPokemons.thirdPokemon.speed}`;
-      thirdPokemonLevel.innerHTML = `Level: ${myPokemons.thirdPokemon.level}`;
+      thirdPokemonHp.innerHTML = `HP: ${myPokemons.thirdPokemon.hp}`;
+      thirdPokemonDamage.innerHTML = `DAMAGE: ${myPokemons.thirdPokemon.damage}`;
+      thirdPokemonType.innerHTML = `TYPE: ${myPokemons.thirdPokemon.type}`;
+      thirdPokemonSpeed.innerHTML = `SPEED: ${myPokemons.thirdPokemon.speed}`;
+      thirdPokemonLevel.innerHTML = `LEVEL: ${myPokemons.thirdPokemon.level}`;
       thirdPokemonSelected = true;
       selectInfo.innerHTML = `You caught ${enemyPokemon.name}`;
       setTimeout(() => {
@@ -582,7 +582,6 @@ function PokemonCatch() {
     }
   };
 
-
   backBattle.onclick = () => {
     inventoryButton.style.display = "block";
     pokemonList.style.display = "none";
@@ -591,17 +590,66 @@ function PokemonCatch() {
     backBattle.style.display = "none";
     battleStart = false;
     pokemonCatched = true;
-    console.log(battleStart);
-    console.log(inventoryShow);
   };
 }
+
+// Start Battle
+
+function startBattle() {
+  if (myPokemon.speed >= enemyPokemon.speed) {
+    myPokemonTurn = true;
+    myPokemonName.innerHTML = myPokemon.name;
+    enemyPokemonName.innerHTML = enemyPokemon.name;
+    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+    enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
+    info.style.display = "block";
+    info.innerHTML = `${myPokemon.name}'S ROUND`;
+    options.style.display = "none";
+    setTimeout(() => {
+      battle();
+    }, 2000);
+  } else {
+    myPokemonTurn = false;
+    myPokemonName.innerHTML = myPokemon.name;
+    enemyPokemonName.innerHTML = enemyPokemon.name;
+    myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+    enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
+    info.style.display = "block";
+    info.innerHTML = `${enemyPokemon.name}'S ROUND`;
+    options.style.display = "none";
+    setTimeout(() => {
+      enemyAttack();
+    }, 2000);
+  }
+}
+
+// Enemy attack
 
 function enemyAttack() {
   if (!myPokemonTurn) {
     let randomAttack = Math.floor(Math.random() * 5);
     if (randomAttack == 1) {
       if (myPokemon.hp >= 1 && enemyPokemon.hp >= 1) {
-        myPokemon.hp -= enemyPokemon.damage * 2;
+        if (enemyPokemon.type == "Grass" && myPokemon.type == "Water") {
+          myPokemon.hp -= enemyPokemon.damage * 2;
+        } else if (enemyPokemon.type == "Grass" && myPokemon.type == "Fire") {
+          myPokemon.hp -= enemyPokemon.damage * 0.5;
+        } else if (enemyPokemon.type == "Water" && myPokemon.type == "Fire") {
+          myPokemon.hp -= enemyPokemon.damage * 2;
+        } else if (enemyPokemon.type == "Water" && myPokemon.type == "Grass") {
+          myPokemon.hp -= enemyPokemon.damage * 0.5;
+        } else if (enemyPokemon.type == "Fire" && myPokemon.type == "Grass") {
+          myPokemon.hp -= enemyPokemon.damage * 2;
+        } else if (enemyPokemon.type == "Fire" && myPokemon.type == "Water") {
+          myPokemon.hp -= enemyPokemon.damage * 0.5;
+        } else if (enemyPokemon.type == "Dark" && myPokemon.type == "Light") {
+          myPokemon.hp -= enemyPokemon.damage * 2;
+        } else if (enemyPokemon.type == "Light" && myPokemon.type == "Dark") {
+          myPokemon.hp -= enemyPokemon.damage * 2;
+        } else {
+          myPokemon.hp -= enemyPokemon.damage;
+        }
+
         myPokemonTurn = true;
         info.style.display = "block";
         info.innerHTML = `${enemyPokemon.name} USED SPECIAL ATTACK`;
@@ -643,6 +691,8 @@ function enemyAttack() {
     }
   }
 }
+
+// Battle
 
 function battle() {
   myPokemonName.innerHTML = myPokemon.name;
@@ -692,7 +742,25 @@ function battle() {
       let randomSpecial = Math.floor(Math.random() * 3);
       if (randomSpecial == 1) {
         if (enemyPokemon.hp >= 1 && myPokemon.hp >= 1) {
-          enemyPokemon.hp -= myPokemon.damage * 2;
+          if (myPokemon.type == "Grass" && enemyPokemon.type == "Water") {
+            enemyPokemon.hp -= myPokemon.damage * 2;
+          } else if (myPokemon.type == "Grass" && enemyPokemon.type == "Fire") {
+            enemyPokemon.hp -= myPokemon.damage * 0.5;
+          } else if (myPokemon.type == "Water" && enemyPokemon.type == "Fire") {
+            enemyPokemon.hp -= myPokemon.damage * 2;
+          } else if (myPokemon.type == "Water" && enemyPokemon.type == "Grass") {
+            enemyPokemon.hp -= myPokemon.damage * 0.5;
+          } else if (myPokemon.type == "Fire" && enemyPokemon.type == "Grass") {
+            enemyPokemon.hp -= myPokemon.damage * 2;
+          } else if (myPokemon.type == "Fire" && enemyPokemon.type == "Water") {
+            enemyPokemon.hp -= myPokemon.damage * 0.5;
+          } else if (myPokemon.type == "Dark" && enemyPokemon.type == "Light") {
+            enemyPokemon.hp -= myPokemon.damage * 2;
+          } else if (myPokemon.type == "Light" && enemyPokemon.type == "Dark") {
+            enemyPokemon.hp -= myPokemon.damage * 2;
+          } else {
+            enemyPokemon.hp -= myPokemon.damage;
+          }
           enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
           info.style.display = "block";
           info.innerHTML = `${myPokemon.name} USED SPECIAL ATTACK`;
