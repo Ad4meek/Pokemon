@@ -197,11 +197,15 @@ canvas {
 }
 
 #selectInfo {
+  display: none ;
   position: absolute;
   left: 50%;
   bottom: 10%;
   transform: translateX(-50%);
   font-size: 2rem;
+  border: 0.3125rem solid black;
+  padding: 2.625rem;
+  border-radius: 2rem;
 }
 
 @media (max-width: 109.375rem) {

@@ -5,7 +5,8 @@
 const blazeleo = {
   name: "BLAZELEO",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Blazeleo.png",
   type: "Fire",
   speed: 1,
@@ -15,7 +16,8 @@ const blazeleo = {
 const galewing = {
   name: "GALEWING",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Galewing.png",
   type: "Fire",
   speed: 1,
@@ -27,7 +29,8 @@ const galewing = {
 const aquarift = {
   name: "AQUARIFT",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 3,
   image: "Aquarift.png",
   type: "Water",
   speed: 1,
@@ -37,7 +40,8 @@ const aquarift = {
 const frostbite = {
   name: "FROSTBITE",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Frostbite.png",
   type: "Water",
   speed: 1,
@@ -49,7 +53,8 @@ const frostbite = {
 const vineflare = {
   name: "VINEFLARE",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Vineflare.png",
   type: "Grass",
   speed: 1,
@@ -59,7 +64,8 @@ const vineflare = {
 const blossomleaf = {
   name: "BLOSSOMLEAF",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Blossomleaf.png",
   type: "Grass",
   speed: 1,
@@ -71,7 +77,8 @@ const blossomleaf = {
 const shadowfang = {
   name: "SHADOWFANG",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Shadowfang.png",
   type: "Dark",
   speed: 1,
@@ -81,7 +88,8 @@ const shadowfang = {
 const duskmaw = {
   name: "DUSKMAW",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Duskmaw.png",
   type: "Dark",
   speed: 1,
@@ -93,7 +101,8 @@ const duskmaw = {
 const luminara = {
   name: "LUMINARA",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Luminara.png",
   type: "Light",
   speed: 1,
@@ -103,7 +112,8 @@ const luminara = {
 const sunspark = {
   name: "SUNSPARK",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Sunspark.png",
   type: "Light",
   speed: 1,
@@ -117,7 +127,8 @@ const sunspark = {
 const enemyBlazeleo = {
   name: "BLAZELEO",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Blazeleo.png",
   type: "Fire",
   speed: 1,
@@ -127,7 +138,8 @@ const enemyBlazeleo = {
 const enemyGalewing = {
   name: "GALEWING",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Galewing.png",
   type: "Fire",
   speed: 1,
@@ -139,7 +151,8 @@ const enemyGalewing = {
 const enemyAquarift = {
   name: "AQUARIFT",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Aquarift.png",
   type: "Water",
   speed: 1,
@@ -149,7 +162,8 @@ const enemyAquarift = {
 const enemyFrostbite = {
   name: "FROSTBITE",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Frostbite.png",
   type: "Water",
   speed: 1,
@@ -161,7 +175,8 @@ const enemyFrostbite = {
 const enemyVineflare = {
   name: "VINEFLARE",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Vineflare.png",
   type: "Grass",
   speed: 1,
@@ -171,7 +186,8 @@ const enemyVineflare = {
 const enemyBlossomleaf = {
   name: "BLOSSOMLEAF",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Blossomleaf.png",
   type: "Grass",
   speed: 1,
@@ -183,7 +199,8 @@ const enemyBlossomleaf = {
 const enemyShadowfang = {
   name: "SHADOWFANG",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Shadowfang.png",
   type: "Dark",
   speed: 1,
@@ -193,7 +210,8 @@ const enemyShadowfang = {
 const enemyDuskmaw = {
   name: "DUSKMAW",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Duskmaw.png",
   type: "Dark",
   speed: 1,
@@ -205,7 +223,8 @@ const enemyDuskmaw = {
 const enemyLuminara = {
   name: "LUMINARA",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Luminara.png",
   type: "Light",
   speed: 1,
@@ -215,7 +234,8 @@ const enemyLuminara = {
 const enemySunspark = {
   name: "SUNSPARK",
   damage: 1,
-  hp: 20,
+  hp: 2,
+  maxHp: 2,
   image: "Sunspark.png",
   type: "Light",
   speed: 1,
