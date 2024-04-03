@@ -36,7 +36,7 @@ const blazeleo = {
   hp: 2,
   maxHp: 2,
   image: "Blazeleo.png",
-  type: "Fire",
+  type: "FIRE",
   speed: 1,
   level: 1,
 };
@@ -47,7 +47,7 @@ const galewing = {
   hp: 2,
   maxHp: 2,
   image: "Galewing.png",
-  type: "Fire",
+  type: "FIRE",
   speed: 1,
   level: 1,
 };
@@ -60,7 +60,7 @@ const aquarift = {
   hp: 2,
   maxHp: 3,
   image: "Aquarift.png",
-  type: "Water",
+  type: "WATER",
   speed: 1,
   level: 1,
 };
@@ -71,7 +71,7 @@ const frostbite = {
   hp: 2,
   maxHp: 2,
   image: "Frostbite.png",
-  type: "Water",
+  type: "WATER",
   speed: 1,
   level: 1,
 };
@@ -84,7 +84,7 @@ const vineflare = {
   hp: 2,
   maxHp: 2,
   image: "Vineflare.png",
-  type: "Grass",
+  type: "GRASS",
   speed: 1,
   level: 1,
 };
@@ -95,7 +95,7 @@ const blossomleaf = {
   hp: 2,
   maxHp: 2,
   image: "Blossomleaf.png",
-  type: "Grass",
+  type: "GRASS",
   speed: 1,
   level: 1,
 };
@@ -108,7 +108,7 @@ const shadowfang = {
   hp: 2,
   maxHp: 2,
   image: "Shadowfang.png",
-  type: "Dark",
+  type: "DARK",
   speed: 1,
   level: 1,
 };
@@ -119,7 +119,7 @@ const duskmaw = {
   hp: 2,
   maxHp: 2,
   image: "Duskmaw.png",
-  type: "Dark",
+  type: "DARK",
   speed: 1,
   level: 1,
 };
@@ -132,7 +132,7 @@ const luminara = {
   hp: 2,
   maxHp: 2,
   image: "Luminara.png",
-  type: "Light",
+  type: "LIGHT",
   speed: 1,
   level: 1,
 };
@@ -143,7 +143,7 @@ const sunspark = {
   hp: 2,
   maxHp: 2,
   image: "Sunspark.png",
-  type: "Light",
+  type: "LIGHT",
   speed: 1,
   level: 1,
 };
@@ -158,7 +158,7 @@ const enemyBlazeleo = {
   hp: 2,
   maxHp: 2,
   image: "Blazeleo.png",
-  type: "Fire",
+  type: "FIRE",
   speed: 1,
   level: 1,
 };
@@ -169,7 +169,7 @@ const enemyGalewing = {
   hp: 2,
   maxHp: 2,
   image: "Galewing.png",
-  type: "Fire",
+  type: "FIRE",
   speed: 1,
   level: 1,
 };
@@ -182,7 +182,7 @@ const enemyAquarift = {
   hp: 2,
   maxHp: 2,
   image: "Aquarift.png",
-  type: "Water",
+  type: "WATER",
   speed: 1,
   level: 1,
 };
@@ -193,7 +193,7 @@ const enemyFrostbite = {
   hp: 2,
   maxHp: 2,
   image: "Frostbite.png",
-  type: "Water",
+  type: "WATER",
   speed: 1,
   level: 1,
 };
@@ -206,7 +206,7 @@ const enemyVineflare = {
   hp: 2,
   maxHp: 2,
   image: "Vineflare.png",
-  type: "Grass",
+  type: "GRASS",
   speed: 1,
   level: 1,
 };
@@ -217,7 +217,7 @@ const enemyBlossomleaf = {
   hp: 2,
   maxHp: 2,
   image: "Blossomleaf.png",
-  type: "Grass",
+  type: "GRASS",
   speed: 1,
   level: 1,
 };
@@ -230,7 +230,7 @@ const enemyShadowfang = {
   hp: 2,
   maxHp: 2,
   image: "Shadowfang.png",
-  type: "Dark",
+  type: "DARK",
   speed: 1,
   level: 1,
 };
@@ -241,7 +241,7 @@ const enemyDuskmaw = {
   hp: 2,
   maxHp: 2,
   image: "Duskmaw.png",
-  type: "Dark",
+  type: "DARK",
   speed: 1,
   level: 1,
 };
@@ -254,7 +254,7 @@ const enemyLuminara = {
   hp: 2,
   maxHp: 2,
   image: "Luminara.png",
-  type: "Light",
+  type: "LIGHT",
   speed: 1,
   level: 1,
 };
@@ -265,58 +265,36 @@ const enemySunspark = {
   hp: 2,
   maxHp: 2,
   image: "Sunspark.png",
-  type: "Light",
+  type: "LIGHT",
   speed: 1,
   level: 1,
 };
 
-// let firstPokemonObject = {
-//   name: "",
-//   damage: 0,
-//   hp: 0,
-//   maxHp: 0,
-//   image: "",
-//   type: "",
-//   speed: 0,
-//   level: 0,
-// };
+const ePokemons = [
+  enemySunspark,
+  enemyLuminara,
+  enemyDuskmaw,
+  enemyShadowfang,
+  enemyBlossomleaf,
+  enemyVineflare,
+  enemyFrostbite,
+  enemyAquarift,
+  enemyGalewing,
+  enemyBlazeleo,
+];
 
-// let secondPokemonObject = {
-//   name: "",
-//   damage: 0,
-//   hp: 0,
-//   maxHp: 0,
-//   image: "",
-//   type: "",
-//   speed: 0,
-//   level: 0,
-// };
-
-// let thirdPokemonObject = {
-//   name: "",
-//   damage: 0,
-//   hp: 0,
-//   maxHp: 0,
-//   image: "",
-//   type: "",
-//   speed: 0,
-//   level: 0,
-// };
-
-// let pokemonObjects = {};
-// for (let i = 1; i < 4; i++) {
-//   pokemonObjects[i] = {
-//     name: "",
-//     damage: 0,
-//     hp: 0,
-//     maxHp: 0,
-//     image: "",
-//     type: "",
-//     speed: 0,
-//     level: 0,
-//   };
-// }
-// console.log(pokemonObjects);
+const myPokemonsObjects = [
+  sunspark,
+  luminara,
+  duskmaw,
+  shadowfang,
+  blossomleaf,
+  vineflare,
+  frostbite,
+  aquarift,
+  galewing,
+  blazeleo,
+];
 
 export {
   enemySunspark,
@@ -339,9 +317,6 @@ export {
   aquarift,
   galewing,
   blazeleo,
-  // firstPokemonObject,
-  // secondPokemonObject,
-  // thirdPokemonObject,
-  // pokemonObjects,
-  // pokemons
+  ePokemons,
+  myPokemonsObjects
 };
