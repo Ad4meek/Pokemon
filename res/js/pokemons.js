@@ -1,5 +1,33 @@
 // My pokemons
 
+// let pokemons = {
+//   my: {
+//     blazeleo: {
+//       name: "BLAZELEO",
+//       damage: 1,
+//       hp: 2,
+//       maxHp: 2,
+//       image: "Blazeleo.png",
+//       type: "Fire",
+//       speed: 1,
+//       level: 1,
+//     }
+//   },
+//   enemy: {
+//     blazeleo: {
+//       name: "eBLAZELEO",
+//       damage: 1,
+//       hp: 2,
+//       maxHp: 2,
+//       image: "Blazeleo.png",
+//       type: "Fire",
+//       speed: 1,
+//       level: 1,
+//       objName: "blazeleo"
+//     }
+//   }
+// }
+
 // Fire pokemons
 
 const blazeleo = {
@@ -125,7 +153,7 @@ const sunspark = {
 // Fire pokemons
 
 const enemyBlazeleo = {
-  name: "BLAZELEO",
+  name: "eBLAZELEO",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -136,7 +164,7 @@ const enemyBlazeleo = {
 };
 
 const enemyGalewing = {
-  name: "GALEWING",
+  name: "eGALEWING",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -149,7 +177,7 @@ const enemyGalewing = {
 // Water pokemons
 
 const enemyAquarift = {
-  name: "AQUARIFT",
+  name: "eAQUARIFT",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -160,7 +188,7 @@ const enemyAquarift = {
 };
 
 const enemyFrostbite = {
-  name: "FROSTBITE",
+  name: "eFROSTBITE",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -173,7 +201,7 @@ const enemyFrostbite = {
 // Grass Pokemons
 
 const enemyVineflare = {
-  name: "VINEFLARE",
+  name: "eVINEFLARE",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -184,7 +212,7 @@ const enemyVineflare = {
 };
 
 const enemyBlossomleaf = {
-  name: "BLOSSOMLEAF",
+  name: "eBLOSSOMLEAF",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -197,7 +225,7 @@ const enemyBlossomleaf = {
 // Dark pokemons
 
 const enemyShadowfang = {
-  name: "SHADOWFANG",
+  name: "eSHADOWFANG",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -208,7 +236,7 @@ const enemyShadowfang = {
 };
 
 const enemyDuskmaw = {
-  name: "DUSKMAW",
+  name: "eDUSKMAW",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -221,7 +249,7 @@ const enemyDuskmaw = {
 // Light pokemons
 
 const enemyLuminara = {
-  name: "LUMINARA",
+  name: "eLUMINARA",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -232,7 +260,7 @@ const enemyLuminara = {
 };
 
 const enemySunspark = {
-  name: "SUNSPARK",
+  name: "eSUNSPARK",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -241,6 +269,54 @@ const enemySunspark = {
   speed: 1,
   level: 1,
 };
+
+// let firstPokemonObject = {
+//   name: "",
+//   damage: 0,
+//   hp: 0,
+//   maxHp: 0,
+//   image: "",
+//   type: "",
+//   speed: 0,
+//   level: 0,
+// };
+
+// let secondPokemonObject = {
+//   name: "",
+//   damage: 0,
+//   hp: 0,
+//   maxHp: 0,
+//   image: "",
+//   type: "",
+//   speed: 0,
+//   level: 0,
+// };
+
+// let thirdPokemonObject = {
+//   name: "",
+//   damage: 0,
+//   hp: 0,
+//   maxHp: 0,
+//   image: "",
+//   type: "",
+//   speed: 0,
+//   level: 0,
+// };
+
+// let pokemonObjects = {};
+// for (let i = 1; i < 4; i++) {
+//   pokemonObjects[i] = {
+//     name: "",
+//     damage: 0,
+//     hp: 0,
+//     maxHp: 0,
+//     image: "",
+//     type: "",
+//     speed: 0,
+//     level: 0,
+//   };
+// }
+// console.log(pokemonObjects);
 
 export {
   enemySunspark,
@@ -263,4 +339,9 @@ export {
   aquarift,
   galewing,
   blazeleo,
+  // firstPokemonObject,
+  // secondPokemonObject,
+  // thirdPokemonObject,
+  // pokemonObjects,
+  // pokemons
 };

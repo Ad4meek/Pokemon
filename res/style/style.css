@@ -90,6 +90,7 @@ canvas {
   border: 0.3125rem solid black;
   border-radius: 2rem;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   padding: 1.25rem 0;
   background-color: white;
@@ -100,6 +101,7 @@ canvas {
   border: 0.3125rem solid black;
   border-radius: 2rem;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   padding: 1.25rem 0;
   background-color: white;
@@ -108,8 +110,14 @@ canvas {
 
 #myPokemonName,
 #myPokemonHp,
+#myPokemonDamage,
+#myPokemonSpeed,
+#myPokemonLevel,
 #enemyPokemonName,
-#enemyPokemonHp {
+#enemyPokemonHp,
+#enemyPokemonDamage,
+#enemyPokemonSpeed,
+#enemyPokemonLevel {
   padding: 0 1.25rem;
 }
 
@@ -157,7 +165,8 @@ canvas {
   right: 15%;
 }
 
-#backInventory, #backBattle {
+#backInventory,
+#backBattle {
   z-index: 500;
   display: none;
   position: absolute;
@@ -177,7 +186,9 @@ canvas {
   transition: 0.5s;
 }
 
-#firstPokemonImage:hover, #secondPokemonImage:hover, #thirdPokemonImage:hover {
+#firstPokemonImage:hover,
+#secondPokemonImage:hover,
+#thirdPokemonImage:hover {
   transform: scale(1.1);
 }
 
@@ -197,7 +208,7 @@ canvas {
 }
 
 #selectInfo {
-  display: none ;
+  display: none;
   position: absolute;
   left: 50%;
   bottom: 10%;

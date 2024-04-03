@@ -32,10 +32,19 @@ const battleground = document.getElementById("battleground");
 const back = document.getElementById("back");
 const tackle = document.getElementById("tackle");
 const specialAttack = document.getElementById("specialAttack");
-const enemyPokemonHp = document.getElementById("enemyPokemonHp");
-const myPokemonHp = document.getElementById("myPokemonHp");
-const enemyPokemonName = document.getElementById("enemyPokemonName");
+
 const myPokemonName = document.getElementById("myPokemonName");
+const myPokemonHp = document.getElementById("myPokemonHp");
+const myPokemonDamage = document.getElementById("myPokemonDamage");
+const myPokemonSpeed = document.getElementById("myPokemonSpeed");
+const myPokemonLevel = document.getElementById("myPokemonLevel");
+
+const enemyPokemonName = document.getElementById("enemyPokemonName");
+const enemyPokemonHp = document.getElementById("enemyPokemonHp");
+const enemyPokemonDamage = document.getElementById("enemyPokemonDamage");
+const enemyPokemonSpeed = document.getElementById("enemyPokemonSpeed");
+const enemyPokemonLevel = document.getElementById("enemyPokemonLevel");
+
 const myPokemonImage = document.getElementById("myPokemonImage");
 const enemyPokemonImage = document.getElementById("enemyPokemonImage");
 const info = document.getElementById("info");
@@ -90,6 +99,7 @@ let firstPokemonSelection = false;
 let randomSpeed;
 let randomDamage;
 let randomMaxHp;
+let additionalPokemon;
 
 // Animation
 
@@ -393,7 +403,7 @@ function pokemonShow() {
 
 // Select enemy pokemon
 
-const pokemons = [
+const ePokemons = [
   enemySunspark,
   enemyLuminara,
   enemyDuskmaw,
@@ -406,9 +416,23 @@ const pokemons = [
   enemyBlazeleo,
 ];
 
+const myPokemonsObjects = [
+  sunspark,
+  luminara,
+  duskmaw,
+  shadowfang,
+  blossomleaf,
+  vineflare,
+  frostbite,
+  aquarift,
+  galewing,
+  blazeleo,
+];
+
 function selectEnemyPokemon() {
-  let RandomPokemon = Math.floor(Math.random() * pokemons.length);
-  enemyPokemon = pokemons[RandomPokemon];
+  let RandomPokemon = Math.floor(Math.random() * ePokemons.length);
+  enemyPokemon = ePokemons[RandomPokemon];
+  additionalPokemon = myPokemonsObjects[RandomPokemon];
   enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
 }
 
@@ -532,15 +556,23 @@ function myLevelUp() {
 }
 
 function enemyLevelUp() {
+  ePokemons.forEach((enemy) => {
+    enemy.damage = 1;
+    enemy.maxHp = 2;
+    enemy.hp = 2;
+    enemy.speed = 1;
+    enemy.level = 1;
+  });
   if (myPokemon.level > enemyPokemon.level) {
     randomDamage = Math.floor(Math.random() * 3);
     randomMaxHp = Math.floor(Math.random() * 3);
     randomSpeed = Math.floor(Math.random() * 3);
-    pokemons.forEach((enemy) => {
-      enemy.damage += randomDamage;
-      enemy.maxHp += randomMaxHp;
-      enemy.speed += randomSpeed;
-      enemy.level += 1;
+    ePokemons.forEach((enemy) => {
+      enemy.damage += randomDamage * (myPokemon.level - 1);
+      enemy.maxHp += randomMaxHp * (myPokemon.level - 1);
+      enemy.hp += randomMaxHp * (myPokemon.level - 1);
+      enemy.speed += randomSpeed * (myPokemon.level - 1);
+      enemy.level += myPokemon.level - 1;
     });
   }
 }
@@ -560,7 +592,7 @@ function PokemonCatch() {
   firstPokemon.onclick = () => {
     if (!pokemonCatched) {
       pokemonCatched = true;
-      myPokemons.firstPokemon = enemyPokemon;
+      myPokemons.firstPokemon = additionalPokemon;
       firstPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.firstPokemon.image}')`;
       firstPokemonName.innerHTML = myPokemons.firstPokemon.name;
       firstPokemonHp.innerHTML = `HP: ${myPokemons.firstPokemon.hp}`;
@@ -584,7 +616,7 @@ function PokemonCatch() {
   secondPokemon.onclick = () => {
     if (!pokemonCatched) {
       pokemonCatched = true;
-      myPokemons.secondPokemon = enemyPokemon;
+      myPokemons.secondPokemon = additionalPokemon;
       secondPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.secondPokemon.image}')`;
       secondPokemonName.innerHTML = myPokemons.secondPokemon.name;
       secondPokemonHp.innerHTML = `HP: ${myPokemons.secondPokemon.hp}`;
@@ -609,7 +641,7 @@ function PokemonCatch() {
   thirdPokemon.onclick = () => {
     if (!pokemonCatched) {
       pokemonCatched = true;
-      myPokemons.thirdPokemon = enemyPokemon;
+      myPokemons.thirdPokemon = additionalPokemon;
       thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
       thirdPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemons.thirdPokemon.image}')`;
       thirdPokemonName.innerHTML = myPokemons.thirdPokemon.name;
@@ -647,13 +679,19 @@ function PokemonCatch() {
 // Start Battle
 
 function startBattle() {
-  enemyLevelUp()
+  enemyLevelUp();
   if (myPokemon.speed >= enemyPokemon.speed) {
     myPokemonTurn = true;
     myPokemonName.innerHTML = myPokemon.name;
-    enemyPokemonName.innerHTML = enemyPokemon.name;
     myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+    myPokemonDamage.innerHTML = `${myPokemon.damage} DAMAGE`;
+    myPokemonSpeed.innerHTML = `${myPokemon.speed} SPEED`;
+    myPokemonLevel.innerHTML = `${myPokemon.level} LEVEL`;
+    enemyPokemonName.innerHTML = enemyPokemon.name;
     enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
+    enemyPokemonDamage.innerHTML = `${enemyPokemon.damage} DAMAGE`;
+    enemyPokemonSpeed.innerHTML = `${enemyPokemon.speed} SPEED`;
+    enemyPokemonLevel.innerHTML = `${enemyPokemon.level} LEVEL`;
     info.style.display = "block";
     info.innerHTML = `${myPokemon.name}'S ROUND`;
     options.style.display = "none";
@@ -663,9 +701,15 @@ function startBattle() {
   } else {
     myPokemonTurn = false;
     myPokemonName.innerHTML = myPokemon.name;
-    enemyPokemonName.innerHTML = enemyPokemon.name;
     myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+    myPokemonDamage.innerHTML = `${myPokemon.damage} DAMAGE`;
+    myPokemonSpeed.innerHTML = `${myPokemon.speed} SPEED`;
+    myPokemonLevel.innerHTML = `${myPokemon.level} LEVEL`;
+    enemyPokemonName.innerHTML = enemyPokemon.name;
     enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
+    enemyPokemonDamage.innerHTML = `${enemyPokemon.damage} DAMAGE`;
+    enemyPokemonSpeed.innerHTML = `${enemyPokemon.speed} SPEED`;
+    enemyPokemonLevel.innerHTML = `${enemyPokemon.level} LEVEL`;
     info.style.display = "block";
     info.innerHTML = `${enemyPokemon.name}'S ROUND`;
     options.style.display = "none";
@@ -684,10 +728,10 @@ function enemyAttack() {
     console.log(`enemy damage${enemyPokemon.damage}`);
     console.log(`enemy speed${enemyPokemon.speed}`);
     console.log(`enemy level${enemyPokemon.level}`);
-    console.log(`my hp${enemyPokemon.hp}`);
-    console.log(`my damage${enemyPokemon.damage}`);
-    console.log(`my speed${enemyPokemon.speed}`);
-    console.log(`my level${enemyPokemon.level}`);
+    console.log(`my hp${myPokemon.hp}`);
+    console.log(`my damage${myPokemon.damage}`);
+    console.log(`my speed${myPokemon.speed}`);
+    console.log(`my level${myPokemon.level}`);
     if (randomAttack == 1) {
       if (myPokemon.hp >= 1 && enemyPokemon.hp >= 1) {
         if (enemyPokemon.type == "Grass" && myPokemon.type == "Water") {
@@ -756,19 +800,25 @@ function enemyAttack() {
 
 function battle() {
   myPokemonName.innerHTML = myPokemon.name;
-  enemyPokemonName.innerHTML = enemyPokemon.name;
   myPokemonHp.innerHTML = `${myPokemon.hp} HP`;
+  myPokemonDamage.innerHTML = `${myPokemon.damage} DAMAGE`;
+  myPokemonSpeed.innerHTML = `${myPokemon.speed} SPEED`;
+  myPokemonLevel.innerHTML = `${myPokemon.level} LEVEL`;
+  enemyPokemonName.innerHTML = enemyPokemon.name;
   enemyPokemonHp.innerHTML = `${enemyPokemon.hp} HP`;
+  enemyPokemonDamage.innerHTML = `${enemyPokemon.damage} DAMAGE`;
+  enemyPokemonSpeed.innerHTML = `${enemyPokemon.speed} SPEED`;
+  enemyPokemonLevel.innerHTML = `${enemyPokemon.level} LEVEL`;
   info.style.display = "none";
   options.style.display = "block";
   console.log(`enemy hp${enemyPokemon.hp}`);
   console.log(`enemy damage${enemyPokemon.damage}`);
   console.log(`enemy speed${enemyPokemon.speed}`);
   console.log(`enemy level${enemyPokemon.level}`);
-  console.log(`my hp${enemyPokemon.hp}`);
-  console.log(`my damage${enemyPokemon.damage}`);
-  console.log(`my speed${enemyPokemon.speed}`);
-  console.log(`my level${enemyPokemon.level}`);
+  console.log(`my hp${myPokemon.hp}`);
+  console.log(`my damage${myPokemon.damage}`);
+  console.log(`my speed${myPokemon.speed}`);
+  console.log(`my level${myPokemon.level}`);
   back.onclick = () => {
     vancas.style.display = "block";
     battleground.style.display = "none";
