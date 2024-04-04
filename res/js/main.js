@@ -109,7 +109,7 @@ function FirstPokemonSelect() {
   thirdPokemonLevel.innerHTML = `LEVEL: ${myPokemonsObjects[5].level}`;
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Welcome, select your first pokemon!";
-  firstPokemon.onclick = () => {
+  firstPokemonImage.onclick = () => {
     if (!firstPokemonSelection) {
       selectInfo.innerHTML = `Congratulations, you have chosen ${myPokemonsObjects[8].name}!`;
       setTimeout(() => {
@@ -125,7 +125,7 @@ function FirstPokemonSelect() {
       }, 2000);
     }
   };
-  secondPokemon.onclick = () => {
+  secondPokemonImage.onclick = () => {
     if (!firstPokemonSelection) {
       selectInfo.innerHTML = `Congratulations, you have chosen ${myPokemonsObjects[7].name}!`;
       setTimeout(() => {
@@ -141,7 +141,7 @@ function FirstPokemonSelect() {
       }, 2000);
     }
   };
-  thirdPokemon.onclick = () => {
+  thirdPokemonImage.onclick = () => {
     if (!firstPokemonSelection) {
       selectInfo.innerHTML = `Congratulations, you have chosen ${myPokemonsObjects[5].name}!`;
       setTimeout(() => {
@@ -724,3 +724,5 @@ function battle() {
     }
   };
 }
+
+
