@@ -318,5 +318,5 @@ export {
   galewing,
   blazeleo,
   ePokemons,
-  myPokemonsObjects
+  myPokemonsObjects,
 };

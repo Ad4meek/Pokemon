@@ -1,9 +1,8 @@
 import { ePokemons, myPokemonsObjects } from "./pokemons.js";
-import { keys } from "./movement.js";
-import { tallGrasses, boundaries, background, foreground } from "./map.js";
-import { character, characterImage } from "./character.js";
+import { animation } from "./animation.js";
+import { setBattleStart, setInventoryShow } from "./variables.js";
 
-// Canvas Variables
+// Canvas
 
 const canvas = document.querySelector("canvas");
 const vancas = document.getElementById("pokemonCanvas");
@@ -68,13 +67,6 @@ let myPokemonTurn;
 let myPokemon;
 let enemyPokemon;
 let imageInterval;
-let then = Date.now();
-let now;
-let delta;
-let interval = 1000 / 59;
-let random;
-let battleStart = false;
-let inventoryShow = false;
 let firstPokemonSelected = false;
 let secondPokemonSelected = false;
 let thirdPokemonSelected = false;
@@ -84,141 +76,6 @@ let randomSpeed;
 let randomDamage;
 let randomMaxHp;
 let additionalPokemon;
-
-// Animation
-
-let mapMovables = [background, ...boundaries, foreground, ...tallGrasses];
-
-function animation() {
-  window.requestAnimationFrame(animation);
-  now = Date.now();
-  delta = now - then;
-  if (delta > interval) {
-    then = now - (delta % interval);
-    background.draw();
-    character.draw();
-    foreground.draw();
-
-    let coliding = false;
-    character.moving = false;
-
-    function detectBoundary(item, moveX, moveY) {
-      if (
-        character.position.x + characterImage.width / 4 >=
-          item.position.x + moveX &&
-        character.position.x <= item.position.x + item.width + moveX &&
-        character.position.y + characterImage.height >=
-          item.position.y + moveY &&
-        character.position.y <= item.position.y + item.height + moveY
-      ) {
-        coliding = true;
-      }
-    }
-
-    function detectTallGrass(item) {
-      if (
-        character.position.x + characterImage.width / 4 >= item.position.x &&
-        character.position.x <= item.position.x + item.width &&
-        character.position.y + characterImage.height >= item.position.y &&
-        character.position.y <= item.position.y + item.height
-      ) {
-        if (!coliding) {
-          random = Math.floor(Math.random() * 100);
-          if (random == 1) {
-            battleStart = true;
-            selectMyPokemon();
-          }
-        }
-      }
-    }
-
-    // Moving UP
-
-    if (keys.w.pressed) {
-      if (!battleStart && !inventoryShow) {
-        characterImage.src = "./res/img/characters/characterUp.png";
-        character.moving = true;
-
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
-          detectBoundary(boundary, 0, 5);
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
-          detectTallGrass(grasstall);
-        }
-
-        if (!coliding) {
-          mapMovables.forEach((movable) => {
-            movable.position.y += 5;
-          });
-        }
-      }
-
-      // Moving LEFT
-    } else if (keys.a.pressed) {
-      if (!battleStart && !inventoryShow) {
-        character.moving = true;
-        characterImage.src = "./res/img/characters/characterLeft.png";
-
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
-          detectBoundary(boundary, 5, 0);
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
-          detectTallGrass(grasstall);
-        }
-
-        if (!coliding)
-          mapMovables.forEach((movable) => {
-            movable.position.x += 5;
-          });
-      }
-
-      // Moving DOWN
-    } else if (keys.s.pressed) {
-      if (!battleStart && !inventoryShow) {
-        characterImage.src = "./res/img/characters/characterDown.png";
-        character.moving = true;
-
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
-          detectBoundary(boundary, 0, -5);
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
-          detectTallGrass(grasstall);
-        }
-
-        if (!coliding)
-          mapMovables.forEach((movable) => {
-            movable.position.y -= 5;
-          });
-      }
-      // Moving RIGHT
-    } else if (keys.d.pressed) {
-      if (!battleStart && !inventoryShow) {
-        characterImage.src = "./res/img/characters/characterRight.png";
-        character.moving = true;
-
-        for (let i = 0; i < boundaries.length; i++) {
-          const boundary = boundaries[i];
-          detectBoundary(boundary, -5, 0);
-        }
-        for (let i = 0; i < tallGrasses.length; i++) {
-          const grasstall = tallGrasses[i];
-          detectTallGrass(grasstall);
-        }
-
-        if (!coliding)
-          mapMovables.forEach((movable) => {
-            movable.position.x -= 5;
-          });
-      }
-    }
-  }
-}
 
 let myPokemons = {
   firstPokemon,
@@ -307,7 +164,7 @@ FirstPokemonSelect();
 // Inventory
 
 inventoryButton.onclick = () => {
-  inventoryShow = true;
+  setInventoryShow(true);
   inventoryButton.style.display = "none";
   vancas.style.display = "none";
   pokemonList.style.display = "flex";
@@ -318,7 +175,7 @@ inventoryButton.onclick = () => {
 };
 
 backInventory.onclick = () => {
-  inventoryShow = false;
+  setInventoryShow(false);
   vancas.style.display = "block";
   pokemonList.style.display = "none";
   selectInfo.innerHTML = "";
@@ -396,7 +253,7 @@ function selectEnemyPokemon() {
 
 // Select my pokemon for battle
 
-function selectMyPokemon() {
+export function selectMyPokemon() {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
   vancas.style.display = "none";
@@ -464,43 +321,6 @@ function selectMyPokemon() {
   };
 }
 
-// Helping functions for battle
-
-function battleAnimation(pokemonImage) {
-  imageInterval = setInterval(() => {
-    pokemonImage.style.display = "none";
-    if (pokemonImage == myPokemonImage) {
-      pokemonImages.style.justifyContent = "flex-end";
-    }
-    setTimeout(() => {
-      pokemonImage.style.display = "block";
-      if (pokemonImage == myPokemonImage) {
-        pokemonImages.style.justifyContent = "space-between";
-      }
-    }, 100);
-  }, 150);
-}
-
-function BattleResult(winner) {
-  info.style.display = "block";
-  info.innerHTML = `${winner} WON`;
-  options.style.display = "none";
-  myPokemonTurn = true;
-  myPokemon.hp = myPokemon.maxHp;
-  enemyPokemon.hp = enemyPokemon.maxHp;
-  setTimeout(() => {
-    vancas.style.display = "block";
-    battleground.style.display = "none";
-    inventoryButton.style.display = "block";
-
-    if (winner === myPokemon.name && myPokemon.hp >= 1) {
-      myLevelUp();
-      PokemonCatch();
-    }
-    battleStart = false;
-  }, 2000);
-}
-
 // Level UP
 
 function myLevelUp() {
@@ -546,7 +366,6 @@ function PokemonCatch() {
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Choose which pokemon you want to switch!";
   pokemonShow();
-
   firstPokemon.onclick = () => {
     if (!pokemonCatched) {
       pokemonCatched = true;
@@ -567,7 +386,7 @@ function PokemonCatch() {
         selectInfo.innerHTML = "";
         selectInfo.style.display = "none";
         backBattle.style.display = "none";
-        battleStart = false;
+        setBattleStart(false);
       }, 2000);
     }
   };
@@ -591,7 +410,7 @@ function PokemonCatch() {
         selectInfo.innerHTML = "";
         selectInfo.style.display = "none";
         backBattle.style.display = "none";
-        battleStart = false;
+        setBattleStart(false);
       }, 2000);
     }
   };
@@ -616,7 +435,7 @@ function PokemonCatch() {
         selectInfo.innerHTML = "";
         selectInfo.style.display = "none";
         backBattle.style.display = "none";
-        battleStart = false;
+        setBattleStart(false);
       }, 2000);
     }
   };
@@ -628,7 +447,7 @@ function PokemonCatch() {
     selectInfo.innerHTML = "";
     selectInfo.style.display = "none";
     backBattle.style.display = "none";
-    battleStart = false;
+    setBattleStart(false);
     pokemonCatched = true;
   };
 }
@@ -677,6 +496,43 @@ function startBattle() {
       enemyAttack();
     }, 2000);
   }
+}
+
+// Helping functions for battle
+
+function battleAnimation(pokemonImage) {
+  imageInterval = setInterval(() => {
+    pokemonImage.style.display = "none";
+    if (pokemonImage == myPokemonImage) {
+      pokemonImages.style.justifyContent = "flex-end";
+    }
+    setTimeout(() => {
+      pokemonImage.style.display = "block";
+      if (pokemonImage == myPokemonImage) {
+        pokemonImages.style.justifyContent = "space-between";
+      }
+    }, 100);
+  }, 150);
+}
+
+function BattleResult(winner) {
+  info.style.display = "block";
+  info.innerHTML = `${winner} WON`;
+  options.style.display = "none";
+  myPokemonTurn = true;
+  myPokemon.hp = myPokemon.maxHp;
+  enemyPokemon.hp = enemyPokemon.maxHp;
+  setTimeout(() => {
+    if (winner === myPokemon.name && myPokemon.hp >= 1) {
+      myLevelUp();
+      PokemonCatch();
+    } else {
+      vancas.style.display = "block";
+      battleground.style.display = "none";
+      inventoryButton.style.display = "block";
+      setBattleStart(false);
+    }
+  }, 2000);
 }
 
 // Enemy attack
@@ -757,7 +613,7 @@ function battle() {
     vancas.style.display = "block";
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
-    battleStart = false;
+    setBattleStart(false);
   };
 
   tackle.onclick = () => {
