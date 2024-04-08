@@ -43,13 +43,13 @@ collisionMap.forEach((row, i) => {
 
 // Bosses
 
-const thaddeusMap = [];
+const thornMap = [];
 
 for (let i = 0; i < door.length; i += 100) {
-  thaddeusMap.push(door.slice(i, 100 + i));
+  thornMap.push(door.slice(i, 100 + i));
 }
 
-class Thaddeus {
+class Thorn {
   constructor({ position }) {
     this.position = position;
     this.width = 80;
@@ -57,13 +57,13 @@ class Thaddeus {
   }
 }
 
-const thaddeusBoss = [];
+const thornBoss = [];
 
-doorMap.forEach((row, i) => {
+thornMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 5) {
-      thaddeusBoss.push(
-        new Thaddeus({
+      thornBoss.push(
+        new Thorn({
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
@@ -76,13 +76,13 @@ doorMap.forEach((row, i) => {
 
 // Bosses
 
-const azraelMap = [];
+const auroraMap = [];
 
 for (let i = 0; i < door.length; i += 100) {
-  azraelMap.push(door.slice(i, 100 + i));
+  auroraMap.push(door.slice(i, 100 + i));
 }
 
-class Azrael {
+class Aurora {
   constructor({ position }) {
     this.position = position;
     this.width = 80;
@@ -90,13 +90,13 @@ class Azrael {
   }
 }
 
-const azraelBoss = [];
+const auroraBoss = [];
 
-azraelBoss.forEach((row, i) => {
+auroraMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 3) {
-      doors.push(
-        new Azrael({
+      auroraBoss.push(
+        new Aurora({
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
@@ -109,13 +109,13 @@ azraelBoss.forEach((row, i) => {
 
 // Bosses
 
-const isoldeMap = [];
+const voltarMap = [];
 
 for (let i = 0; i < door.length; i += 100) {
-  isoldeMap.push(door.slice(i, 100 + i));
+  voltarMap.push(door.slice(i, 100 + i));
 }
 
-class Isolde {
+class Voltar {
   constructor({ position }) {
     this.position = position;
     this.width = 80;
@@ -123,13 +123,13 @@ class Isolde {
   }
 }
 
-const isoldeBoss = [];
+const voltarBoss = [];
 
-isoldeBoss.forEach((row, i) => {
+voltarMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 4) {
-      doors.push(
-        new Isolde({
+      voltarBoss.push(
+        new Voltar({
           position: {
             x: j * 80 + offset.x,
             y: i * 80 + offset.y,
@@ -198,4 +198,4 @@ const foreground = new Sprite({
   image: foregroundImage,
 });
 
-export { tallGrasses, boundaries, background, foreground, doors };
+export { tallGrasses, boundaries, background, foreground, thornBoss, auroraBoss, voltarBoss };

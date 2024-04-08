@@ -1,5 +1,13 @@
 import { keys } from "./movement.js";
-import { tallGrasses, boundaries, background, foreground, doors } from "./map.js";
+import {
+  tallGrasses,
+  boundaries,
+  background,
+  foreground,
+  voltarBoss,
+  thornBoss,
+  auroraBoss,
+} from "./map.js";
 import { character, characterImage } from "./character.js";
 import { selectMyPokemon } from "./main.js";
 import { setBattleStart, battleStart, inventoryShow } from "./variables.js";
@@ -10,7 +18,15 @@ let delta;
 let interval = 1000 / 59;
 let random;
 
-let mapMovables = [background, ...boundaries, foreground, ...tallGrasses, ...doors];
+let mapMovables = [
+  background,
+  ...boundaries,
+  foreground,
+  ...tallGrasses,
+  ...thornBoss,
+  ...voltarBoss,
+  ...auroraBoss
+];
 
 export function animation() {
   window.requestAnimationFrame(animation);
@@ -62,10 +78,9 @@ export function animation() {
         character.position.y + characterImage.height >= item.position.y &&
         character.position.y <= item.position.y + item.height
       ) {
-        if (!coliding) {        
-            setBattleStart(true);
-            
-            console.log("gang");
+        if (!coliding) {
+          setBattleStart(true);
+          selectMyPokemon();
         }
       }
     }
@@ -86,9 +101,19 @@ export function animation() {
           detectTallGrass(grasstall);
         }
 
-        for (let i = 0; i < doors.length; i++) {
-          const door = doors[i];
-          detectBoss(door);
+        for (let i = 0; i < thornBoss.length; i++) {
+          const thorn = thornBoss[i];
+          detectBoss(thorn);
+        }
+
+        for (let i = 0; i < auroraBoss.length; i++) {
+          const aurora = auroraBoss[i];
+          detectBoss(aurora);
+        }
+
+        for (let i = 0; i < voltarBoss.length; i++) {
+          const voltar = voltarBoss[i];
+          detectBoss(voltar);
         }
 
         if (!coliding) {
@@ -113,11 +138,6 @@ export function animation() {
           detectTallGrass(grasstall);
         }
 
-        for (let i = 0; i < doors.length; i++) {
-          const door = doors[i];
-          detectBoss(door);
-        }
-
         if (!coliding)
           mapMovables.forEach((movable) => {
             movable.position.x += 5;
@@ -139,11 +159,6 @@ export function animation() {
           detectTallGrass(grasstall);
         }
 
-        for (let i = 0; i < doors.length; i++) {
-          const door = doors[i];
-          detectBoss(door);
-        }
-
         if (!coliding)
           mapMovables.forEach((movable) => {
             movable.position.y -= 5;
@@ -162,11 +177,6 @@ export function animation() {
         for (let i = 0; i < tallGrasses.length; i++) {
           const grasstall = tallGrasses[i];
           detectTallGrass(grasstall);
-        }
-
-        for (let i = 0; i < doors.length; i++) {
-          const door = doors[i];
-          detectBoss(door);
         }
 
         if (!coliding)

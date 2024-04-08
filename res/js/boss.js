@@ -10,19 +10,19 @@ import {
   frostbite,
 } from "./pokemons";
 
-const azrael = {
+const voltar = {
   blazeleo,
   blossomleaf,
   duskmaw,
 };
 
-const isolde = {
+const thorn = {
   aquarift,
   luminara,
   shadowfang,
 };
 
-const thaddeus = {
+const aurora = {
   galewing,
   vineflare,
   frostbite,
