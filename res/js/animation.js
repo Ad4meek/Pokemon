@@ -10,7 +10,8 @@ import {
 } from "./map.js";
 import { character, characterImage } from "./character.js";
 import { selectMyPokemon } from "./main.js";
-import { setBattleStart, battleStart, inventoryShow } from "./variables.js";
+import { setBattleStart, battleStart, bossBattles, inventoryShow, setBossBattle} from "./variables.js";
+import { selectMyBossPokemon } from "./main.js";
 
 let then = Date.now();
 let now;
@@ -25,7 +26,7 @@ let mapMovables = [
   ...tallGrasses,
   ...thornBoss,
   ...voltarBoss,
-  ...auroraBoss
+  ...auroraBoss,
 ];
 
 export function animation() {
@@ -79,8 +80,18 @@ export function animation() {
         character.position.y <= item.position.y + item.height
       ) {
         if (!coliding) {
-          setBattleStart(true);
-          selectMyPokemon();
+          if (voltarBoss.some((voltar) => voltar === item)) {
+            setBossBattle(true);
+            selectMyBossPokemon(voltarBoss)
+          }
+          if (auroraBoss.some((aurora) => aurora === item)) {
+            setBossBattle(true);
+            selectMyBossPokemon(auroraBoss)
+          }
+          if (thornBoss.some((thorn) => thorn === item)) {
+            setBossBattle(true);
+            selectMyBossPokemon(thornBoss)
+          }
         }
       }
     }
@@ -88,7 +99,7 @@ export function animation() {
     // Moving UP
 
     if (keys.w.pressed) {
-      if (!battleStart && !inventoryShow) {
+      if (!battleStart && !inventoryShow && !bossBattles) {
         characterImage.src = "./res/img/characters/characterUp.png";
         character.moving = true;
 
@@ -125,7 +136,7 @@ export function animation() {
 
       // Moving LEFT
     } else if (keys.a.pressed) {
-      if (!battleStart && !inventoryShow) {
+      if (!battleStart && !inventoryShow && !bossBattles) {
         character.moving = true;
         characterImage.src = "./res/img/characters/characterLeft.png";
 
@@ -146,7 +157,7 @@ export function animation() {
 
       // Moving DOWN
     } else if (keys.s.pressed) {
-      if (!battleStart && !inventoryShow) {
+      if (!battleStart && !inventoryShow && !bossBattles) {
         characterImage.src = "./res/img/characters/characterDown.png";
         character.moving = true;
 
@@ -166,7 +177,7 @@ export function animation() {
       }
       // Moving RIGHT
     } else if (keys.d.pressed) {
-      if (!battleStart && !inventoryShow) {
+      if (!battleStart && !inventoryShow && !bossBattles) {
         characterImage.src = "./res/img/characters/characterRight.png";
         character.moving = true;
 

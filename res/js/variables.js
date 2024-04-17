@@ -1,5 +1,6 @@
 let battleStart = false;
 let inventoryShow = false;
+let bossBattles = false;
 
 function setBattleStart(value) {
   battleStart = value;
@@ -9,4 +10,8 @@ function setInventoryShow(value) {
   inventoryShow = value;
 }
 
-export { battleStart, inventoryShow, setBattleStart, setInventoryShow };
+function setBossBattle(value) {
+  bossBattles = value;
+}
+
+export { battleStart, inventoryShow, bossBattles , setBattleStart, setInventoryShow, setBossBattle };
