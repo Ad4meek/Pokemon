@@ -83,14 +83,17 @@ export function animation() {
           if (voltarBoss.some((voltar) => voltar === item)) {
             setBossBattle(true);
             selectMyBossPokemon(voltarBoss)
+            console.log("voltarBoss");
           }
           if (auroraBoss.some((aurora) => aurora === item)) {
             setBossBattle(true);
             selectMyBossPokemon(auroraBoss)
+            console.log("auroraBoss");
           }
           if (thornBoss.some((thorn) => thorn === item)) {
             setBossBattle(true);
             selectMyBossPokemon(thornBoss)
+            console.log("thornBoss");
           }
         }
       }

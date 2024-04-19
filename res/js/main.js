@@ -804,7 +804,7 @@ function bossBattle() {
         clearInterval(imageInterval);
       }, 450);
       setTimeout(() => {
-        enemyAttack();
+        bossAttack();
       }, 2000);
     }
 
@@ -816,9 +816,9 @@ function bossBattle() {
     }
 
     if (myPokemon.hp <= 0) {
-      BattleResult(enemyPokemon.name);
+      bossBattleResult(enemyPokemon.name);
     } else if (enemyPokemon.hp <= 0) {
-      BattleResult(myPokemon.name);
+      bossBattleResult(myPokemon.name);
     }
   };
 
@@ -887,9 +887,9 @@ function bossBattle() {
     }
 
     if (myPokemon.hp <= 0) {
-      BattleResult(enemyPokemon.name);
+      bossBattleResult(enemyPokemon.name);
     } else if (enemyPokemon.hp <= 0) {
-      BattleResult(myPokemon.name);
+      bossBattleResult(myPokemon.name);
     }
   };
 }
@@ -954,9 +954,9 @@ function bossAttack() {
     }
 
     if (myPokemon.hp <= 0) {
-      BattleResult(enemyPokemon.name);
+      bossBattleResult(enemyPokemon.name);
     } else if (enemyPokemon.hp <= 0) {
-      BattleResult(myPokemon.name);
+      bossBattleResult(myPokemon.name);
     }
   }
 }
@@ -999,7 +999,7 @@ export function startBossBattle() {
     info.innerHTML = `${enemyPokemon.name}'S ROUND`;
     options.style.display = "none";
     setTimeout(() => {
-      enemyAttack();
+      bossAttack();
     }, 2000);
   }
 }
@@ -1020,7 +1020,7 @@ export function selectMyBossPokemon(boss) {
       selectInfo.innerHTML = "";
       selectInfo.style.display = "none";
       if (boss === voltarBoss) {
-        enemyPokemon = voltar.blazeleo;
+        enemyPokemon = voltar.blossomleaf;
         enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
       }
       startBossBattle();
@@ -1073,4 +1073,8 @@ export function selectMyBossPokemon(boss) {
       }, 2000);
     }
   };
+}
+
+function bossBattleResult(winner) {
+  
 }

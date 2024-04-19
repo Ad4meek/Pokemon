@@ -1,33 +1,5 @@
 // My pokemons
 
-// let pokemons = {
-//   my: {
-//     blazeleo: {
-//       name: "BLAZELEO",
-//       damage: 1,
-//       hp: 2,
-//       maxHp: 2,
-//       image: "Blazeleo.png",
-//       type: "Fire",
-//       speed: 1,
-//       level: 1,
-//     }
-//   },
-//   enemy: {
-//     blazeleo: {
-//       name: "eBLAZELEO",
-//       damage: 1,
-//       hp: 2,
-//       maxHp: 2,
-//       image: "Blazeleo.png",
-//       type: "Fire",
-//       speed: 1,
-//       level: 1,
-//       objName: "blazeleo"
-//     }
-//   }
-// }
-
 // Fire pokemons
 
 const blazeleo = {
