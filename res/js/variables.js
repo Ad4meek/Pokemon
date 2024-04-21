@@ -1,6 +1,9 @@
 let battleStart = false;
 let inventoryShow = false;
 let bossBattles = false;
+let voltarDeath = false;
+let thornDeath = false;
+let auroraDeath = false;
 
 function setBattleStart(value) {
   battleStart = value;
@@ -14,4 +17,8 @@ function setBossBattle(value) {
   bossBattles = value;
 }
 
-export { battleStart, inventoryShow, bossBattles , setBattleStart, setInventoryShow, setBossBattle };
+function setVoltarDeath(value) {
+  voltarDeath = value;
+}
+
+export { battleStart, inventoryShow, bossBattles, voltarDeath,  setBattleStart, setInventoryShow, setBossBattle, setVoltarDeath };

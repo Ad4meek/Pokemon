@@ -159,6 +159,18 @@ canvas {
   align-items: center;
 }
 
+#pokemonSwitchList {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 #inventoryButton {
   z-index: 500;
   display: none;
@@ -197,6 +209,14 @@ canvas {
 #firstPokemon,
 #secondPokemon,
 #thirdPokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#firstSwitchPokemon,
+#secondSwitchPokemon,
+#thirdSwitchPokemon {
   display: flex;
   flex-direction: column;
   align-items: center;
