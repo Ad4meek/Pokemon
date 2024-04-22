@@ -29,7 +29,7 @@ const galewing = {
 const aquarift = {
   name: "AQUARIFT",
   damage: 1,
-  hp: 10,
+  hp: 2,
   maxHp: 2,
   image: "Aquarift.png",
   type: "WATER",
@@ -125,7 +125,7 @@ const sunspark = {
 // Fire pokemons
 
 const enemyBlazeleo = {
-  name: "eBLAZELEO",
+  name: "BLAZELEO",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -136,7 +136,7 @@ const enemyBlazeleo = {
 };
 
 const enemyGalewing = {
-  name: "eGALEWING",
+  name: "GALEWING",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -149,7 +149,7 @@ const enemyGalewing = {
 // Water pokemons
 
 const enemyAquarift = {
-  name: "eAQUARIFT",
+  name: "AQUARIFT",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -160,7 +160,7 @@ const enemyAquarift = {
 };
 
 const enemyFrostbite = {
-  name: "eFROSTBITE",
+  name: "FROSTBITE",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -173,7 +173,7 @@ const enemyFrostbite = {
 // Grass Pokemons
 
 const enemyVineflare = {
-  name: "eVINEFLARE",
+  name: "VINEFLARE",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -184,7 +184,7 @@ const enemyVineflare = {
 };
 
 const enemyBlossomleaf = {
-  name: "eBLOSSOMLEAF",
+  name: "BLOSSOMLEAF",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -197,7 +197,7 @@ const enemyBlossomleaf = {
 // Dark pokemons
 
 const enemyShadowfang = {
-  name: "eSHADOWFANG",
+  name: "SHADOWFANG",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -208,7 +208,7 @@ const enemyShadowfang = {
 };
 
 const enemyDuskmaw = {
-  name: "eDUSKMAW",
+  name: "DUSKMAW",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -221,7 +221,7 @@ const enemyDuskmaw = {
 // Light pokemons
 
 const enemyLuminara = {
-  name: "eLUMINARA",
+  name: "LUMINARA",
   damage: 1,
   hp: 2,
   maxHp: 2,
@@ -232,11 +232,112 @@ const enemyLuminara = {
 };
 
 const enemySunspark = {
-  name: "eSUNSPARK",
+  name: "SUNSPARK",
   damage: 1,
   hp: 2,
   maxHp: 2,
   image: "Sunspark.png",
+  type: "LIGHT",
+  speed: 1,
+  level: 1,
+};
+
+// Boss pokemons
+
+const bossBlazeleo = {
+  name: "BLAZELEO",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Blazeleo.png",
+  type: "FIRE",
+  speed: 1,
+  level: 1,
+};
+
+const bossGalewing = {
+  name: "GALEWING",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Galewing.png",
+  type: "FIRE",
+  speed: 1,
+  level: 1,
+};
+
+const bossAquarift = {
+  name: "AQUARIFT",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Aquarift.png",
+  type: "WATER",
+  speed: 1,
+  level: 1,
+};
+
+const bossFrostbite = {
+  name: "FROSTBITE",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Frostbite.png",
+  type: "WATER",
+  speed: 1,
+  level: 1,
+};
+
+const bossVineflare = {
+  name: "VINEFLARE",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Vineflare.png",
+  type: "GRASS",
+  speed: 1,
+  level: 1,
+};
+
+const bossBlossomleaf = {
+  name: "BLOSSOMLEAF",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Blossomleaf.png",
+  type: "GRASS",
+  speed: 1,
+  level: 1,
+};
+
+const bossShadowfang = {
+  name: "SHADOWFANG",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Shadowfang.png",
+  type: "DARK",
+  speed: 1,
+  level: 1,
+};
+
+const bossDuskmaw = {
+  name: "DUSKMAW",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Duskmaw.png",
+  type: "DARK",
+  speed: 1,
+  level: 1,
+};
+
+const bossLuminara = {
+  name: "LUMINARA",
+  damage: 1,
+  hp: 5,
+  maxHp: 5,
+  image: "Luminara.png",
   type: "LIGHT",
   speed: 1,
   level: 1,
@@ -291,4 +392,13 @@ export {
   blazeleo,
   ePokemons,
   myPokemonsObjects,
+  bossLuminara,
+  bossDuskmaw,
+  bossShadowfang,
+  bossBlossomleaf,
+  bossVineflare,
+  bossFrostbite,
+  bossAquarift,
+  bossGalewing,
+  bossBlazeleo,
 };

@@ -4,8 +4,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const offset = {
-  x: -1080,
-  y: -3020,
+  x: -6080,
+  y: -920,
 };
 
 // Collisions
@@ -198,4 +198,12 @@ const foreground = new Sprite({
   image: foregroundImage,
 });
 
-export { tallGrasses, boundaries, background, foreground, thornBoss, auroraBoss, voltarBoss };
+export {
+  tallGrasses,
+  boundaries,
+  background,
+  foreground,
+  thornBoss,
+  auroraBoss,
+  voltarBoss,
+};
