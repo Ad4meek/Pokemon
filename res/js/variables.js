@@ -21,4 +21,25 @@ function setVoltarDeath(value) {
   voltarDeath = value;
 }
 
-export { battleStart, inventoryShow, bossBattles, voltarDeath,  setBattleStart, setInventoryShow, setBossBattle, setVoltarDeath };
+function setThornDeath(value) {
+  thornDeath = value;
+}
+
+function setAuroraDeath(value) {
+  auroraDeath = value;
+}
+
+export {
+  battleStart,
+  inventoryShow,
+  bossBattles,
+  voltarDeath,
+  thornDeath,
+  auroraDeath,
+  setBattleStart,
+  setInventoryShow,
+  setBossBattle,
+  setVoltarDeath,
+  setThornDeath,
+  setAuroraDeath,
+};

@@ -4,8 +4,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const offset = {
-  x: -5080,
-  y: -920,
+  x: -1080,
+  y: -3020,
 };
 
 // Collisions

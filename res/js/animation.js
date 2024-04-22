@@ -10,7 +10,16 @@ import {
 } from "./map.js";
 import { character, characterImage } from "./character.js";
 import { selectMyPokemon } from "./main.js";
-import { setBattleStart, battleStart, bossBattles, inventoryShow, setBossBattle, voltarDeath} from "./variables.js";
+import {
+  setBattleStart,
+  battleStart,
+  bossBattles,
+  inventoryShow,
+  setBossBattle,
+  voltarDeath,
+  thornDeath,
+  auroraDeath,
+} from "./variables.js";
 import { selectMyBossPokemon } from "./main.js";
 
 let then = Date.now();
@@ -83,17 +92,20 @@ export function animation() {
           if (voltarBoss.some((voltar) => voltar === item)) {
             if (!voltarDeath) {
               setBossBattle(true);
-              selectMyBossPokemon(voltarBoss)
+              selectMyBossPokemon(voltarBoss);
             }
-            
           }
           if (auroraBoss.some((aurora) => aurora === item)) {
-            setBossBattle(true);
-            selectMyBossPokemon(auroraBoss)
+            if (!auroraDeath) {
+              setBossBattle(true);
+              selectMyBossPokemon(auroraBoss);
+            }
           }
           if (thornBoss.some((thorn) => thorn === item)) {
-            setBossBattle(true);
-            selectMyBossPokemon(thornBoss)
+            if (!thornDeath) {
+              setBossBattle(true);
+              selectMyBossPokemon(thornBoss);
+            }
           }
         }
       }
