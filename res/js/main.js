@@ -204,7 +204,7 @@ FirstPokemonSelect();
 inventoryButton.onclick = () => {
   setInventoryShow(true);
   inventoryButton.style.display = "none";
-  vancas.style.display = "none";
+  vancas.style.filter = "blur(10px)";
   pokemonList.style.display = "flex";
   backInventory.style.display = "block";
   selectInfo.style.display = "block";
@@ -214,7 +214,7 @@ inventoryButton.onclick = () => {
 
 backInventory.onclick = () => {
   setInventoryShow(false);
-  vancas.style.display = "block";
+  vancas.style.filter = "blur(0)";
   pokemonList.style.display = "none";
   selectInfo.innerHTML = "";
   selectInfo.style.display = "none";
@@ -294,7 +294,8 @@ function selectEnemyPokemon() {
 export function selectMyPokemon() {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
-  vancas.style.display = "none";
+  // vancas.style.display = "none";
+  vancas.style.filter = "blur(10px)";
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Choose the pokemon you want to use for battle!";
   pokemonShow();
@@ -306,6 +307,8 @@ export function selectMyPokemon() {
       pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectInfo.style.display = "none";
+      vancas.style.display = "none";
+      vancas.style.filter = "blur(0)";
       selectEnemyPokemon();
       startBattle();
     } else {
@@ -326,6 +329,8 @@ export function selectMyPokemon() {
       pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectInfo.style.display = "none";
+      vancas.style.display = "none";
+      vancas.style.filter = "blur(0)";
       selectEnemyPokemon();
       startBattle();
     } else {
@@ -346,6 +351,8 @@ export function selectMyPokemon() {
       pokemonList.style.display = "none";
       selectInfo.innerHTML = "";
       selectInfo.style.display = "none";
+      vancas.style.display = "none";
+      vancas.style.filter = "blur(0)";
       selectEnemyPokemon();
       startBattle();
     } else {
@@ -1399,7 +1406,8 @@ export function startBossBattle() {
 export function selectMyBossPokemon(boss) {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
-  vancas.style.display = "none";
+  // vancas.style.display = "none";
+  vancas.style.filter = "blur(10px)";
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Choose the pokemon you want to use for battle!";
   pokemonShow();
@@ -1440,6 +1448,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlazeleo;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarSecondPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1450,6 +1460,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlossomleaf;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarThirdPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1459,7 +1471,9 @@ export function selectMyBossPokemon(boss) {
           selectInfo.innerHTML = "";
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossDuskmaw;
-          enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
           startBossBattle();
         }
       }
@@ -1474,6 +1488,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = thorn.bossAquarift;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (thornSecondPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1484,6 +1500,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = thorn.bossLuminara;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (thornThirdPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1494,6 +1512,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = thorn.bossShadowfang;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         }
       }
@@ -1508,6 +1528,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = aurora.bossGalewing;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (auroraSecondPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1518,6 +1540,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = aurora.bossVineflare;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (auroraThirdPokemon) {
           myPokemon = myPokemons.firstPokemon;
@@ -1528,6 +1552,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = aurora.bossFrostbite;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         }
       }
@@ -1552,6 +1578,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlazeleo;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarSecondPokemon) {
           myPokemon = myPokemons.secondPokemon;
@@ -1562,6 +1590,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlossomleaf;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarThirdPokemon) {
           myPokemon = myPokemons.secondPokemon;
@@ -1572,6 +1602,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossDuskmaw;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         }
       }
@@ -1596,6 +1628,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlazeleo;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarSecondPokemon) {
           myPokemon = myPokemons.thirdPokemon;
@@ -1606,6 +1640,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossBlossomleaf;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         } else if (voltarThirdPokemon) {
           myPokemon = myPokemons.thirdPokemon;
@@ -1616,6 +1652,8 @@ export function selectMyBossPokemon(boss) {
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossDuskmaw;
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.display = "none";
+          vancas.style.filter = "blur(0)";
           startBossBattle();
         }
       }
