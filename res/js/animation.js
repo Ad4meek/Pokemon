@@ -72,7 +72,7 @@ export function animation() {
         character.position.y <= item.position.y + item.height
       ) {
         if (!coliding) {
-          random = Math.floor(Math.random() * 100);
+          random = Math.floor(Math.random() * 380);
           if (random == 1) {
             setBattleStart(true);
             selectMyPokemon();

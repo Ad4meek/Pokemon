@@ -369,9 +369,9 @@ export function selectMyPokemon() {
 // Level UP
 
 function myLevelUp() {
-  randomDamage = Math.floor(Math.random() * 3);
-  randomMaxHp = Math.floor(Math.random() * 3);
-  randomSpeed = Math.floor(Math.random() * 3);
+  randomDamage = Math.floor(Math.random() * 3) + 1;
+  randomMaxHp = Math.floor(Math.random() * 3) + 1;
+  randomSpeed = Math.floor(Math.random() * 3) + 1;
   myPokemon.damage += randomDamage;
   myPokemon.maxHp += randomMaxHp;
   myPokemon.speed += randomSpeed;
@@ -379,24 +379,22 @@ function myLevelUp() {
 }
 
 function enemyLevelUp() {
-  ePokemons.forEach((enemy) => {
-    enemy.damage = 1;
-    enemy.maxHp = 2;
-    enemy.hp = 2;
-    enemy.speed = 1;
-    enemy.level = 1;
-  });
-  if (myPokemon.level > enemyPokemon.level) {
-    randomDamage = Math.floor(Math.random() * 3);
-    randomMaxHp = Math.floor(Math.random() * 3);
-    randomSpeed = Math.floor(Math.random() * 3);
-    ePokemons.forEach((enemy) => {
-      enemy.damage += randomDamage * (myPokemon.level - 1);
-      enemy.maxHp += randomMaxHp * (myPokemon.level - 1);
-      enemy.hp += randomMaxHp * (myPokemon.level - 1);
-      enemy.speed += randomSpeed * (myPokemon.level - 1);
-      enemy.level += myPokemon.level - 1;
-    });
+  if (myPokemon.level + 1 > enemyPokemon.level) {
+    randomDamage = Math.floor(Math.random() * 3) + 1;
+    randomMaxHp = Math.floor(Math.random() * 3) + 1;
+    randomSpeed = Math.floor(Math.random() * 3) + 1;
+    // ePokemons.forEach((enemy) => {
+    //   enemy.damage += randomDamage * (myPokemon.level - 1);
+    //   enemy.maxHp += randomMaxHp * (myPokemon.level - 1);
+    //   enemy.hp += randomMaxHp * (myPokemon.level - 1);
+    //   enemy.speed += randomSpeed * (myPokemon.level - 1);
+    //   enemy.level += myPokemon.level - 1;
+    // });
+    enemyPokemon.damage += randomDamage * (myPokemon.level - 1);
+    enemyPokemon.maxHp += randomMaxHp * (myPokemon.level - 1);
+    enemyPokemon.hp += randomMaxHp * (myPokemon.level - 1);
+    enemyPokemon.speed += randomSpeed * (myPokemon.level - 1);
+    enemyPokemon.level += myPokemon.level - 1;
   }
 }
 
@@ -1471,9 +1469,10 @@ export function selectMyBossPokemon(boss) {
           selectInfo.innerHTML = "";
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossDuskmaw;
-          
+
           vancas.style.display = "none";
-          vancas.style.filter = "blur(0)";enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
+          vancas.style.filter = "blur(0)";
+          enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
           startBossBattle();
         }
       }
