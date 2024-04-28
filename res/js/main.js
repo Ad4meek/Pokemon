@@ -114,6 +114,7 @@ let randomSpeed;
 let randomDamage;
 let randomMaxHp;
 let additionalPokemon;
+let levelDifference;
 
 let myPokemons = {
   firstPokemon,
@@ -379,22 +380,16 @@ function myLevelUp() {
 }
 
 function enemyLevelUp() {
-  if (myPokemon.level + 1 > enemyPokemon.level) {
+  if (myPokemon.level > enemyPokemon.level) {
     randomDamage = Math.floor(Math.random() * 3) + 1;
     randomMaxHp = Math.floor(Math.random() * 3) + 1;
     randomSpeed = Math.floor(Math.random() * 3) + 1;
-    // ePokemons.forEach((enemy) => {
-    //   enemy.damage += randomDamage * (myPokemon.level - 1);
-    //   enemy.maxHp += randomMaxHp * (myPokemon.level - 1);
-    //   enemy.hp += randomMaxHp * (myPokemon.level - 1);
-    //   enemy.speed += randomSpeed * (myPokemon.level - 1);
-    //   enemy.level += myPokemon.level - 1;
-    // });
-    enemyPokemon.damage += randomDamage * (myPokemon.level - 1);
-    enemyPokemon.maxHp += randomMaxHp * (myPokemon.level - 1);
-    enemyPokemon.hp += randomMaxHp * (myPokemon.level - 1);
-    enemyPokemon.speed += randomSpeed * (myPokemon.level - 1);
-    enemyPokemon.level += myPokemon.level - 1;
+    levelDifference = myPokemon.level - enemyPokemon.level;
+    enemyPokemon.damage += randomDamage * levelDifference;
+    enemyPokemon.maxHp += randomMaxHp * levelDifference;
+    enemyPokemon.hp += randomMaxHp * levelDifference;
+    enemyPokemon.speed += randomSpeed * levelDifference;
+    enemyPokemon.level += levelDifference;
   }
 }
 
@@ -637,13 +632,12 @@ function enemyAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
-          battle()
+          battle();
         }, 2000);
       }
     }
     setTimeout(() => {
       clearInterval(imageInterval);
-      
     }, 450);
     if (myPokemon.hp <= 0) {
       myPokemonHp.innerHTML = `HP: 0`;
@@ -1047,7 +1041,6 @@ function bossBattle() {
         bossBattleResult(enemyPokemon.name);
       }
     } else if (enemyPokemon.hp <= 0) {
-      console.log("bubsd");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
@@ -1060,32 +1053,27 @@ function bossBattle() {
           setVoltarDeath(true);
           bossBattleResult(myPokemon.name);
         }
-      
       } else if (fightingBoss == "thorn") {
         if (enemyPokemon == bossAquarift) {
           thornFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossLuminara) {
           thornSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossShadowfang) {
           thornThirdPokemon = false;
-        }
-        if (thornFirstPokemon || thornSecondPokemon || thornThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setThornDeath(true);
           bossBattleResult(myPokemon.name);
         }
       } else if (fightingBoss == "aurora") {
         if (enemyPokemon == bossGalewing) {
           auroraFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossVineflare) {
           auroraSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossFrostbite) {
           auroraThirdPokemon = false;
-        }
-        if (auroraFirstPokemon || auroraSecondPokemon || auroraThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setAuroraDeath(true);
           bossBattleResult(myPokemon.name);
         }
@@ -1142,7 +1130,7 @@ function bossBattle() {
         clearInterval(imageInterval);
       }, 450);
       setTimeout(() => {
-        enemyAttack();
+        bossAttack();
       }, 2000);
     }
 
@@ -1159,21 +1147,7 @@ function bossBattle() {
       } else {
         bossBattleResult(enemyPokemon.name);
       }
-    // } else if (enemyPokemon.hp <= 0) {
-    //   if (myFirstBossPokemon) {
-    //     myFirstBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else if (mySecondBossPokemon) {
-    //     mySecondBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else if (myThirdBossPokemon) {
-    //     myThirdBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else {
-    //     bossBattleResult(enemyPokemon.name);
-    //   }
     } else if (enemyPokemon.hp <= 0) {
-      console.log("asiiggig");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
@@ -1186,32 +1160,27 @@ function bossBattle() {
           setVoltarDeath(true);
           bossBattleResult(myPokemon.name);
         }
-        
       } else if (fightingBoss == "thorn") {
         if (enemyPokemon == bossAquarift) {
           thornFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossLuminara) {
           thornSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossShadowfang) {
           thornThirdPokemon = false;
-        }
-        if (thornFirstPokemon || thornSecondPokemon || thornThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setThornDeath(true);
           bossBattleResult(myPokemon.name);
         }
       } else if (fightingBoss == "aurora") {
         if (enemyPokemon == bossGalewing) {
           auroraFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossVineflare) {
           auroraSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossFrostbite) {
           auroraThirdPokemon = false;
-        }
-        if (auroraFirstPokemon || auroraSecondPokemon || auroraThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setAuroraDeath(true);
           bossBattleResult(myPokemon.name);
         }
@@ -1253,7 +1222,7 @@ function bossAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
-          bossBattle()
+          bossBattle();
         }, 2000);
       }
     } else {
@@ -1267,19 +1236,13 @@ function bossAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
-          bossBattle()
+          bossBattle();
         }, 2000);
       }
     }
     setTimeout(() => {
       clearInterval(imageInterval);
     }, 450);
-    if (myPokemon.hp <= 0) {
-      myPokemonHp.innerHTML = `HP: 0`;
-    } else {
-      myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
-      enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
-    }
 
     if (myPokemon.hp <= 0) {
       if (myFirstBossPokemon) {
@@ -1292,21 +1255,7 @@ function bossAttack() {
         myThirdBossPokemon = false;
         bossBattleResult(enemyPokemon.name);
       }
-    // } else if (enemyPokemon.hp <= 0) {
-    //   if (myFirstBossPokemon) {
-    //     myFirstBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else if (mySecondBossPokemon) {
-    //     mySecondBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else if (myThirdBossPokemon) {
-    //     myThirdBossPokemon = false;
-    //     pokemonSwitch();
-    //   } else {
-    //     bossBattleResult(enemyPokemon.name);
-    //   }
     } else if (enemyPokemon.hp <= 0) {
-      console.log("dsfgqqw");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
@@ -1322,28 +1271,24 @@ function bossAttack() {
       } else if (fightingBoss == "thorn") {
         if (enemyPokemon == bossAquarift) {
           thornFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossLuminara) {
           thornSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossShadowfang) {
           thornThirdPokemon = false;
-        }
-        if (thornFirstPokemon || thornSecondPokemon || thornThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setThornDeath(true);
           bossBattleResult(myPokemon.name);
         }
       } else if (fightingBoss == "aurora") {
         if (enemyPokemon == bossGalewing) {
           auroraFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossVineflare) {
           auroraSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossFrostbite) {
           auroraThirdPokemon = false;
-        }
-        if (auroraFirstPokemon || auroraSecondPokemon || auroraThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setAuroraDeath(true);
           bossBattleResult(myPokemon.name);
         }
@@ -1396,7 +1341,6 @@ export function startBossBattle() {
 export function selectMyBossPokemon(boss) {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
-  // vancas.style.display = "none";
   vancas.style.filter = "blur(10px)";
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Choose the pokemon you want to use for battle!";
@@ -1461,7 +1405,6 @@ export function selectMyBossPokemon(boss) {
           selectInfo.innerHTML = "";
           selectInfo.style.display = "none";
           enemyPokemon = voltar.bossDuskmaw;
-
           vancas.style.display = "none";
           vancas.style.filter = "blur(0)";
           enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
@@ -1671,7 +1614,7 @@ function bossBattleResult(winner) {
   if (winner === myPokemon.name) {
     if (voltarDeath) {
       info.style.display = "block";
-      info.innerHTML = "You defeated the boss!";
+      info.innerHTML = "YOU DEFEATED THE BOSS!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
@@ -1682,7 +1625,7 @@ function bossBattleResult(winner) {
       }, 2000);
     } else if (thornDeath) {
       info.style.display = "block";
-      info.innerHTML = "You defeated the boss!";
+      info.innerHTML = "YOU DEFEATED THE BOSS!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
@@ -1693,7 +1636,7 @@ function bossBattleResult(winner) {
       }, 2000);
     } else if (auroraDeath) {
       info.style.display = "block";
-      info.innerHTML = "You defeated the boss!";
+      info.innerHTML = "YOU DEFEATED THE BOSS!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
@@ -1706,7 +1649,7 @@ function bossBattleResult(winner) {
   } else {
     if (!voltarDeath) {
       info.style.display = "block";
-      info.innerHTML = "You lost!";
+      info.innerHTML = "YOU LOST!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
@@ -1717,7 +1660,7 @@ function bossBattleResult(winner) {
       }, 2000);
     } else if (!thornDeath) {
       info.style.display = "block";
-      info.innerHTML = "You lost!";
+      info.innerHTML = "YOU LOST!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
@@ -1728,7 +1671,7 @@ function bossBattleResult(winner) {
       }, 2000);
     } else if (!auroraDeath) {
       info.style.display = "block";
-      info.innerHTML = "You lost!";
+      info.innerHTML = "YOU LOST!";
       setTimeout(() => {
         info.innerHTML = "";
         info.style.display = "none";
