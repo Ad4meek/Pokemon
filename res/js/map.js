@@ -4,7 +4,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const offset = {
-  x: -5080,
+  x: -6080,
   y: -920,
 };
 

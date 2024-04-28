@@ -1016,6 +1016,8 @@ function bossBattle() {
         info.style.display = "block";
         info.innerHTML = `${myPokemon.name} USED TACKLE`;
         options.style.display = "none";
+        myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
+        enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
         myPokemonTurn = false;
         battleAnimation(enemyPokemonImage);
       }
@@ -1112,6 +1114,8 @@ function bossBattle() {
           info.style.display = "block";
           info.innerHTML = `${myPokemon.name} USED SPECIAL ATTACK`;
           options.style.display = "none";
+          myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
+          enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
           setTimeout(() => {
             info.style.display = "none";
             options.style.display = "block";
@@ -1123,6 +1127,8 @@ function bossBattle() {
           info.style.display = "block";
           info.innerHTML = `${myPokemon.name} MISSED SPECIAL ATTACK`;
           options.style.display = "none";
+          myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
+          enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
         }
       }
       myPokemonTurn = false;
@@ -1218,6 +1224,8 @@ function bossAttack() {
         info.style.display = "block";
         info.innerHTML = `${enemyPokemon.name} USED SPECIAL ATTACK`;
         options.style.display = "none";
+        myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
+        enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
         battleAnimation(myPokemonImage);
         setTimeout(() => {
           info.style.display = "none";
@@ -1232,6 +1240,8 @@ function bossAttack() {
         info.style.display = "block";
         info.innerHTML = `${enemyPokemon.name} USED TACKLE`;
         options.style.display = "none";
+        myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
+        enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
         battleAnimation(myPokemonImage);
         setTimeout(() => {
           info.style.display = "none";
@@ -1300,12 +1310,14 @@ function bossAttack() {
 export function startBossBattle() {
   if (myPokemon.speed >= enemyPokemon.speed) {
     myPokemonTurn = true;
+    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
     myPokemonName.innerHTML = myPokemon.name;
     myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
     myPokemonDamage.innerHTML = `DAMAGE: ${myPokemon.damage}`;
     myPokemonSpeed.innerHTML = `SPEED: ${myPokemon.speed}`;
     myPokemonType.innerHTML = `TYPE: ${myPokemon.type}`;
     myPokemonLevel.innerHTML = `LEVEL: ${myPokemon.level}`;
+    enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
     enemyPokemonName.innerHTML = enemyPokemon.name;
     enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
     enemyPokemonDamage.innerHTML = `DAMAGE: ${enemyPokemon.damage}`;
@@ -1319,11 +1331,13 @@ export function startBossBattle() {
     }, 2000);
   } else {
     myPokemonTurn = false;
+    myPokemonImage.style.backgroundImage = `url('res/img/pokemons/${myPokemon.image}')`;
     myPokemonName.innerHTML = myPokemon.name;
     myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
     myPokemonDamage.innerHTML = `DAMAGE: ${myPokemon.damage}`;
     myPokemonSpeed.innerHTML = `SPEED: ${myPokemon.speed}`;
     myPokemonLevel.innerHTML = `LEVEL: ${myPokemon.level}`;
+    enemyPokemonImage.style.backgroundImage = `url('res/img/pokemons/${enemyPokemon.image}')`;
     enemyPokemonName.innerHTML = enemyPokemon.name;
     enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
     enemyPokemonDamage.innerHTML = `DAMAGE: ${enemyPokemon.damage}`;
