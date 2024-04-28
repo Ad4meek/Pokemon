@@ -709,8 +709,8 @@ function battle() {
 
   specialAttack.onclick = () => {
     if (myPokemonTurn) {
-      let randomSpecial = Math.floor(Math.random() * 3);
-      if (randomSpecial == 1) {
+      let randomSpecial = Math.floor(Math.random() * 4);
+      if (randomSpecial >= 1) {
         if (enemyPokemon.hp >= 1 && myPokemon.hp >= 1) {
           if (myPokemon.type == "GRASS" && enemyPokemon.type == "WATER") {
             enemyPokemon.hp -= myPokemon.damage * 2;
@@ -1093,8 +1093,8 @@ function bossBattle() {
 
   specialAttack.onclick = () => {
     if (myPokemonTurn) {
-      let randomSpecial = Math.floor(Math.random() * 3);
-      if (randomSpecial == 1) {
+      let randomSpecial = Math.floor(Math.random() * 4);
+      if (randomSpecial >= 1) {
         if (enemyPokemon.hp >= 0.5 && myPokemon.hp >= 0.5) {
           if (myPokemon.type == "GRASS" && enemyPokemon.type == "WATER") {
             enemyPokemon.hp -= myPokemon.damage * 2;
