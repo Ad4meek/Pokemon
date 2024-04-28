@@ -525,6 +525,7 @@ function startBattle() {
     myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
     myPokemonDamage.innerHTML = `DAMAGE: ${myPokemon.damage}`;
     myPokemonSpeed.innerHTML = `SPEED: ${myPokemon.speed}`;
+    myPokemonType.innerHTML = `TYPE: ${myPokemon.type}`;
     myPokemonLevel.innerHTML = `LEVEL: ${myPokemon.level}`;
     enemyPokemonName.innerHTML = enemyPokemon.name;
     enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
@@ -636,11 +637,13 @@ function enemyAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
+          battle()
         }, 2000);
       }
     }
     setTimeout(() => {
       clearInterval(imageInterval);
+      
     }, 450);
     if (myPokemon.hp <= 0) {
       myPokemonHp.innerHTML = `HP: 0`;
@@ -666,6 +669,8 @@ function battle() {
     vancas.style.display = "block";
     battleground.style.display = "none";
     inventoryButton.style.display = "block";
+    myPokemon.hp = myPokemon.maxHp;
+    enemyPokemon.hp = enemyPokemon.maxHp;
     setBattleStart(false);
     setBossBattle(false);
   };
@@ -871,6 +876,8 @@ function pokemonSwitch() {
   if (secondPokemonSelected && mySecondBossPokemon) {
     pokemonList.style.display = "flex";
     battleground.style.display = "none";
+    selectInfo.style.display = "block";
+    selectInfo.innerHTML = `CHOOSE POKEMON FOR NEXT BATTLE!`;
     secondPokemon.onclick = () => {
       myPokemon = myPokemons.secondPokemon;
       if (fightingBoss == "voltar") {
@@ -926,6 +933,8 @@ function pokemonSwitch() {
   if (thirdPokemonSelected && myThirdBossPokemon) {
     pokemonList.style.display = "flex";
     battleground.style.display = "none";
+    selectInfo.style.display = "block";
+    selectInfo.innerHTML = `CHOOSE POKEMON FOR NEXT BATTLE!`;
     thirdPokemon.onclick = () => {
       myPokemon = myPokemons.thirdPokemon;
       if (fightingBoss == "voltar") {
@@ -1024,13 +1033,6 @@ function bossBattle() {
       }, 2000);
     }
 
-    if (enemyPokemon.hp <= 0) {
-      enemyPokemonHp.innerHTML = `HP: 0`;
-    } else {
-      myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
-      enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
-    }
-
     if (myPokemon.hp <= 0) {
       if (myFirstBossPokemon) {
         myFirstBossPokemon = false;
@@ -1045,20 +1047,20 @@ function bossBattle() {
         bossBattleResult(enemyPokemon.name);
       }
     } else if (enemyPokemon.hp <= 0) {
+      console.log("bubsd");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossBlossomleaf) {
           voltarSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossDuskmaw) {
           voltarThirdPokemon = false;
-        }
-        if (voltarFirstPokemon || voltarSecondPokemon || voltarThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setVoltarDeath(true);
           bossBattleResult(myPokemon.name);
         }
+      
       } else if (fightingBoss == "thorn") {
         if (enemyPokemon == bossAquarift) {
           thornFirstPokemon = false;
@@ -1144,13 +1146,6 @@ function bossBattle() {
       }, 2000);
     }
 
-    if (enemyPokemon.hp <= 0) {
-      enemyPokemonHp.innerHTML = `HP: 0`;
-    } else {
-      myPokemonHp.innerHTML = `HP: ${myPokemon.hp}`;
-      enemyPokemonHp.innerHTML = `HP: ${enemyPokemon.hp}`;
-    }
-
     if (myPokemon.hp <= 0) {
       if (myFirstBossPokemon) {
         myFirstBossPokemon = false;
@@ -1164,34 +1159,34 @@ function bossBattle() {
       } else {
         bossBattleResult(enemyPokemon.name);
       }
+    // } else if (enemyPokemon.hp <= 0) {
+    //   if (myFirstBossPokemon) {
+    //     myFirstBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else if (mySecondBossPokemon) {
+    //     mySecondBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else if (myThirdBossPokemon) {
+    //     myThirdBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else {
+    //     bossBattleResult(enemyPokemon.name);
+    //   }
     } else if (enemyPokemon.hp <= 0) {
-      if (myFirstBossPokemon) {
-        myFirstBossPokemon = false;
-        pokemonSwitch();
-      } else if (mySecondBossPokemon) {
-        mySecondBossPokemon = false;
-        pokemonSwitch();
-      } else if (myThirdBossPokemon) {
-        myThirdBossPokemon = false;
-        pokemonSwitch();
-      } else {
-        bossBattleResult(enemyPokemon.name);
-      }
-    } else if (enemyPokemon.hp <= 0) {
+      console.log("asiiggig");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossBlossomleaf) {
           voltarSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossDuskmaw) {
           voltarThirdPokemon = false;
-        }
-        if (voltarFirstPokemon || voltarSecondPokemon || voltarThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setVoltarDeath(true);
           bossBattleResult(myPokemon.name);
         }
+        
       } else if (fightingBoss == "thorn") {
         if (enemyPokemon == bossAquarift) {
           thornFirstPokemon = false;
@@ -1258,6 +1253,7 @@ function bossAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
+          bossBattle()
         }, 2000);
       }
     } else {
@@ -1271,6 +1267,7 @@ function bossAttack() {
         setTimeout(() => {
           info.style.display = "none";
           options.style.display = "block";
+          bossBattle()
         }, 2000);
       }
     }
@@ -1293,35 +1290,32 @@ function bossAttack() {
         pokemonSwitch();
       } else if (myThirdBossPokemon) {
         myThirdBossPokemon = false;
-        pokemonSwitch();
-      } else {
         bossBattleResult(enemyPokemon.name);
       }
+    // } else if (enemyPokemon.hp <= 0) {
+    //   if (myFirstBossPokemon) {
+    //     myFirstBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else if (mySecondBossPokemon) {
+    //     mySecondBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else if (myThirdBossPokemon) {
+    //     myThirdBossPokemon = false;
+    //     pokemonSwitch();
+    //   } else {
+    //     bossBattleResult(enemyPokemon.name);
+    //   }
     } else if (enemyPokemon.hp <= 0) {
-      if (myFirstBossPokemon) {
-        myFirstBossPokemon = false;
-        pokemonSwitch();
-      } else if (mySecondBossPokemon) {
-        mySecondBossPokemon = false;
-        pokemonSwitch();
-      } else if (myThirdBossPokemon) {
-        myThirdBossPokemon = false;
-        pokemonSwitch();
-      } else {
-        bossBattleResult(enemyPokemon.name);
-      }
-    } else if (enemyPokemon.hp <= 0) {
+      console.log("dsfgqqw");
       if (fightingBoss == "voltar") {
         if (enemyPokemon == bossBlazeleo) {
           voltarFirstPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossBlossomleaf) {
           voltarSecondPokemon = false;
+          pokemonSwitch();
         } else if (enemyPokemon == bossDuskmaw) {
           voltarThirdPokemon = false;
-        }
-        if (voltarFirstPokemon || voltarSecondPokemon || voltarThirdPokemon) {
-          pokemonSwitch();
-        } else {
           setVoltarDeath(true);
           bossBattleResult(myPokemon.name);
         }
@@ -1372,7 +1366,6 @@ export function startBossBattle() {
     enemyPokemonDamage.innerHTML = `DAMAGE: ${enemyPokemon.damage}`;
     enemyPokemonSpeed.innerHTML = `SPEED: ${enemyPokemon.speed}`;
     enemyPokemonType.innerHTML = `TYPE: ${enemyPokemon.type}`;
-    enemyPokemonLevel.innerHTML = `LEVEL: ${enemyPokemon.level}`;
     info.style.display = "block";
     info.innerHTML = `${myPokemon.name}'S ROUND`;
     options.style.display = "none";
@@ -1391,7 +1384,6 @@ export function startBossBattle() {
     enemyPokemonDamage.innerHTML = `DAMAGE: ${enemyPokemon.damage}`;
     enemyPokemonSpeed.innerHTML = `SPEED: ${enemyPokemon.speed}`;
     enemyPokemonType.innerHTML = `TYPE: ${enemyPokemon.type}`;
-    enemyPokemonLevel.innerHTML = `LEVEL: ${enemyPokemon.level}`;
     info.style.display = "block";
     info.innerHTML = `${enemyPokemon.name}'S ROUND`;
     options.style.display = "none";

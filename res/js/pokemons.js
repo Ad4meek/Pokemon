@@ -149,7 +149,7 @@ const enemyGalewing = {
 // Water pokemons
 
 const enemyAquarift = {
-  name: "eAQUARIFT",
+  name: "AQUARIFT",
   damage: 10,
   hp: 38,
   maxHp: 38,
