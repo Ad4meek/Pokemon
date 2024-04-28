@@ -295,7 +295,6 @@ function selectEnemyPokemon() {
 export function selectMyPokemon() {
   inventoryButton.style.display = "none";
   pokemonList.style.display = "flex";
-  // vancas.style.display = "none";
   vancas.style.filter = "blur(10px)";
   selectInfo.style.display = "block";
   selectInfo.innerHTML = "Choose the pokemon you want to use for battle!";
